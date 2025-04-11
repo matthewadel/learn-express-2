@@ -1,4 +1,3 @@
-import { IsNotEmpty, MaxLength, MinLength } from "class-validator";
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -15,15 +14,12 @@ export class Category {
   id!: number;
 
   @Column()
-  @MinLength(3, { message: "Name must be at least 3 characters long." })
-  @MaxLength(32, { message: "Name can't have more than 32 characters" })
-  @IsNotEmpty({ message: "Name Is Required" })
   name!: string;
 
   @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   createdAt!: Date;
 
-  @Column()
+  @Column({ nullable: true })
   image!: string;
 
   @UpdateDateColumn({

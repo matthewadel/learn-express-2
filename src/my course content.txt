@@ -1,0 +1,12 @@
+1- setup with nodemon, typescript, pg and typeorm
+2- create env file, validate and get env params
+3- register and login
+4- user schema
+5- global error handler
+6- send email after login
+7- verify email address
+8- الجانب النظري في ال express
+9- authentication
+10- authenticate routes
+11- authorization
+12- authorize routes
