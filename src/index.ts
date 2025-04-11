@@ -1,23 +1,18 @@
-import * as http from "http";
+import "dotenv/config";
+import express from "express";
+import morgan from "morgan";
 
-const server = http.createServer(
-  (req: http.IncomingMessage, res: http.ServerResponse) => {
-    res.write(`<html>
-  <head>
-    <title>Node.js Apps + TS</title>
-  </head>
-  <body>
-    <h1>Hello World!</h1>
-    <p>Lorem fasfasd </p>
-  </body>
-  </html>`);
+const app = express();
 
-    res.end();
-  }
-);
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
+}
 
-const PORT = 5000;
+app.get("/", (req, res) => {
+  res.send("api");
+});
+const PORT = 5001;
 
-server.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
