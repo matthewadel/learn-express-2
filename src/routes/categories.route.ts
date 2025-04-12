@@ -17,7 +17,10 @@ router
 router
   .route("/:categoryId")
   .get(categoriesController.getCategoryById)
-  .put(categoriesController.updateCategory)
+  .put(
+    validateRequest(categoriesSchema.updateCategory),
+    categoriesController.updateCategory
+  )
   .delete(categoriesController.deleteCategory);
 
 export default router;

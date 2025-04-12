@@ -1,6 +1,6 @@
 import { AppDataSource } from "../models/data-source";
 import { Category } from "../models/entities/category.entity";
-import { BadRequestError } from "../utils/errors";
+import { BadRequestError, NotFoundError } from "../utils/errors";
 
 export class CategoryService {
   private categoryRepository = AppDataSource.getRepository(Category);
@@ -27,34 +27,56 @@ export class CategoryService {
     }
   }
 
-  async getAllCategories(): Promise<Category[]> {
-    return this.categoryRepository.find();
+  async getAllCategories(
+    page: number = 1,
+    limit: number = 10
+  ): Promise<{ currentPage: number; data: Category[]; totalPages: number }> {
+    const skip = (page - 1) * limit;
+    console.log(page);
+    console.log(limit);
+    console.log(skip);
+    return {
+      totalPages: await this.categoryRepository.count(),
+      currentPage: page,
+      data: await this.categoryRepository.find({
+        skip,
+        take: limit,
+        order: { createdAt: "DESC" }
+      })
+    };
   }
 
-  async getCategoryById(id: number): Promise<Category | null> {
-    return this.categoryRepository.findOneBy({ id });
+  async getCategoryById(
+    id: number
+  ): Promise<{ success: boolean; data?: Category }> {
+    const category = await this.categoryRepository.findOneBy({ id });
+    if (!category) throw new NotFoundError("Category not found.");
+    return { success: true, data: category };
   }
 
   async updateCategory(
     id: number,
     name: string
-  ): Promise<{ success: boolean; message: string }> {
+  ): Promise<{ success: boolean; message: string; data: Category }> {
     const category = await this.categoryRepository.findOneBy({ id });
-    if (!category) {
-      return { success: false, message: "Category not found." };
-    }
+    if (!category)
+      if (!category) throw new NotFoundError("Category not found.");
+
     category.name = name;
-    await this.categoryRepository.save(category);
-    return { success: true, message: "Category updated successfully." };
+    await this.categoryRepository.update({ id }, category);
+    return {
+      success: true,
+      message: "Category updated successfully.",
+      data: category
+    };
   }
 
   async deleteCategory(
     id: number
   ): Promise<{ success: boolean; message: string }> {
     const category = await this.categoryRepository.findOneBy({ id });
-    if (!category) {
-      return { success: false, message: "Category not found." };
-    }
+
+    if (!category) throw new NotFoundError("Category not found.");
     await this.categoryRepository.remove(category);
     return { success: true, message: "Category deleted successfully." };
   }
