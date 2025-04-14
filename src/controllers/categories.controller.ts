@@ -1,44 +1,63 @@
 import { Request, Response } from "express";
 import { CategoryService } from "../services/categories.service";
 import { asyncWrapper } from "../middlewares/asyncWrapper";
+import { SendSuccessResponse } from "../utils/sendSuccessResponse";
 
 export class CategoriesController {
   private readonly categoriesService: CategoryService = new CategoryService();
 
-  getCategories = asyncWrapper(async (req: Request, res: Response) => {
-    const categories = await this.categoriesService.getAllCategories(
-      +(req.query?.page || 1),
-      +(req.query?.limit || 10)
-    );
-    res.status(200).send(categories);
+  createCategory = asyncWrapper(async (req: Request, res: Response) => {
+    const category = await this.categoriesService.createCategory(req.body.name);
+    SendSuccessResponse({
+      res,
+      data: category,
+      statusCode: 201,
+      message: "Category Created Successfully"
+    });
   });
 
-  createCategory = asyncWrapper(async (req: Request, res: Response) => {
-    const response = await this.categoriesService.createCategory(req.body.name);
-    if (response.success) res.status(201).send(response);
-    else res.status(201).send(response);
+  getCategories = asyncWrapper(async (req: Request, res: Response) => {
+    const { totalPages, totalItems, data } =
+      await this.categoriesService.getAllCategories(
+        +(req.query?.page || 1),
+        +(req.query?.limit || 10)
+      );
+    SendSuccessResponse({
+      res,
+      data,
+      currentPage: +(req.query?.page || 1),
+      totalItems,
+      totalPages
+    });
   });
 
   getCategoryById = asyncWrapper(async (req: Request, res: Response) => {
-    const response = await this.categoriesService.getCategoryById(
+    const data = await this.categoriesService.getCategoryById(
       +req.params.categoryId
     );
-    if (response.success) res.status(201).send(response);
-    else res.status(200).send(response);
+    SendSuccessResponse({
+      res,
+      data
+    });
   });
 
   updateCategory = asyncWrapper(async (req: Request, res: Response) => {
-    const response = await this.categoriesService.updateCategory(
+    const data = await this.categoriesService.updateCategory(
       +req.params.categoryId,
       req.body.name
     );
-    if (response.success) res.status(200).send(response);
+    SendSuccessResponse({
+      res,
+      data,
+      message: "Category Updated Successfully"
+    });
   });
 
   deleteCategory = asyncWrapper(async (req: Request, res: Response) => {
-    const response = await this.categoriesService.deleteCategory(
-      +req.params.categoryId
-    );
-    if (response.success) res.status(200).send(response);
+    await this.categoriesService.deleteCategory(+req.params.categoryId);
+    SendSuccessResponse({
+      res,
+      message: "Category Deleted Successfully"
+    });
   });
 }

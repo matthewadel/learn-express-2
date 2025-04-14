@@ -1,23 +1,27 @@
 import { AppDataSource } from "../models/data-source";
-import { SubCategory } from "../models/entities/sub-category.entity";
+import { SubCategory } from "../models/entities/subCategory.entity";
 import { Category } from "../models/entities/category.entity";
+import { BadRequestError, NotFoundError } from "../utils/errors";
 
 export class SubCategoriesService {
   private subCategoryRepository = AppDataSource.getRepository(SubCategory);
   private categoryRepository = AppDataSource.getRepository(Category);
 
   // Create a new sub-category
-  async createSubCategory(
-    name: string,
-    image: string,
-    parentCategoryId: number
-  ): Promise<SubCategory> {
-    const parentCategory = await this.categoryRepository.findOneBy({
+  async createSubCategory({
+    name,
+    image,
+    parentCategoryId
+  }: {
+    name: string;
+    image?: string;
+    parentCategoryId: number;
+  }): Promise<SubCategory> {
+    const parentCategory = await this._findParentCategoryBy({
       id: parentCategoryId
     });
-    if (!parentCategory) {
-      throw new Error("Parent category not found");
-    }
+    const cat = await this.subCategoryRepository.findOneBy({ name });
+    if (cat) throw new BadRequestError("This SubCategory Already Exists");
 
     const subCategory = this.subCategoryRepository.create({
       name,
@@ -25,22 +29,38 @@ export class SubCategoriesService {
       parentCategory: parentCategory
     });
 
-    return this.subCategoryRepository.save(subCategory);
+    return subCategory;
   }
 
   // Get all sub-categories
-  async getAllSubCategories(): Promise<SubCategory[]> {
-    return await this.subCategoryRepository.find({
-      relations: ["parentCategory"]
-    });
+  async getAllSubCategories(
+    page: number,
+    limit: number
+  ): Promise<{
+    data: SubCategory[];
+    totalPages: number;
+    totalItems: number;
+  }> {
+    const skip = (page - 1) * limit;
+
+    const totalItems = await this.subCategoryRepository.count();
+    const totalPages = Math.ceil(totalItems / limit);
+    return {
+      totalPages,
+      totalItems,
+      data: await this.subCategoryRepository.find({
+        relations: ["parentCategory"],
+        skip,
+        take: limit,
+        order: { createdAt: "DESC" }
+      })
+    };
   }
 
   // Get a single sub-category by ID
-  async getSubCategoryById(id: number): Promise<SubCategory | null> {
-    return await this.subCategoryRepository.findOne({
-      where: { id },
-      relations: ["parentCategory"]
-    });
+  async getSubCategoryById(id: number): Promise<SubCategory> {
+    const category = await this._findOneBy({ id });
+    return category;
   }
 
   // Update a sub-category
@@ -50,34 +70,46 @@ export class SubCategoriesService {
     image?: string,
     parentCategoryId?: number
   ): Promise<SubCategory> {
-    const subCategory = await this.subCategoryRepository.findOneBy({ id });
-    if (!subCategory) {
-      throw new Error("Sub-category not found");
-    }
+    const subCategory = await this._findOneBy({ id });
 
     if (name) subCategory.name = name;
     if (image) subCategory.image = image;
 
     if (parentCategoryId) {
-      const parentCategory = await this.categoryRepository.findOneBy({
+      const parentCategory = await this._findParentCategoryBy({
         id: parentCategoryId
       });
-      if (!parentCategory) {
-        throw new Error("Parent category not found");
-      }
       subCategory.parentCategory = parentCategory;
     }
+    await this.subCategoryRepository.update({ id }, subCategory);
 
-    return await this.subCategoryRepository.save(subCategory);
+    return subCategory;
   }
 
   // Delete a sub-category
   async deleteSubCategory(id: number): Promise<void> {
-    const subCategory = await this.subCategoryRepository.findOneBy({ id });
-    if (!subCategory) {
-      throw new Error("Sub-category not found");
-    }
+    const subCategory = await this._findOneBy({ id });
 
     await this.subCategoryRepository.remove(subCategory);
+  }
+
+  private async _findOneBy({ id, name }: { id?: number; name?: string }) {
+    const category = await this.subCategoryRepository.findOne({
+      where: { id, name },
+      relations: ["parentCategory"]
+    });
+    if (!category) throw new NotFoundError("Sub Category not found.");
+    return category;
+  }
+
+  private async _findParentCategoryBy({ id }: { id?: number }) {
+    let parentCategory: Category | null = null;
+    if (id) {
+      parentCategory = await this.categoryRepository.findOneBy({
+        id
+      });
+      if (!parentCategory) throw new NotFoundError("Parent category not found");
+    } else throw new BadRequestError("Parent category Id Not Found");
+    return parentCategory;
   }
 }

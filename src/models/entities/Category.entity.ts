@@ -7,7 +7,7 @@ import {
   UpdateDateColumn,
   OneToMany
 } from "typeorm";
-import { SubCategory } from "./sub-category.entity";
+import { SubCategory } from "./subCategory.entity";
 import { MaxLength, MinLength } from "class-validator";
 
 @Entity("categories")
