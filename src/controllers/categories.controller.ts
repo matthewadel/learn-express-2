@@ -3,6 +3,7 @@ import { CategoryService } from "../services/categories.service";
 import { asyncWrapper } from "../middlewares/asyncWrapper";
 import { SendSuccessResponse } from "../utils/sendSuccessResponse";
 import { Category } from "../models/entities/category.entity";
+import { SubCategory } from "../models/entities/subCategory.entity";
 
 export class CategoriesController {
   private readonly categoriesService: CategoryService = new CategoryService();
@@ -17,7 +18,7 @@ export class CategoriesController {
     });
   });
 
-  getCategories = asyncWrapper(async (req: Request, res: Response) => {
+  getAllCategories = asyncWrapper(async (req: Request, res: Response) => {
     const { totalPages, totalItems, data } =
       await this.categoriesService.getAllCategories(
         +(req.query?.page || 1),
@@ -42,6 +43,24 @@ export class CategoriesController {
       data
     });
   });
+
+  getSubCategoriesInsideCategory = asyncWrapper(
+    async (req: Request, res: Response) => {
+      const { totalPages, totalItems, data } =
+        await this.categoriesService.getSubCategoriesInsideCategory(
+          +(req.query?.page || 1),
+          +(req.query?.limit || 10),
+          +req.params?.categoryId
+        );
+      SendSuccessResponse<SubCategory>({
+        res,
+        data,
+        currentPage: +(req.query?.page || 1),
+        totalItems,
+        totalPages
+      });
+    }
+  );
 
   updateCategory = asyncWrapper(async (req: Request, res: Response) => {
     const data = await this.categoriesService.updateCategory(

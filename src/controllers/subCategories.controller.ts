@@ -11,7 +11,7 @@ export class SubCategoryController {
   createSubCategory = asyncWrapper(async (req: Request, res: Response) => {
     const category = await this.subCategoriesService.createSubCategory({
       name: req.body.name,
-      parentCategoryId: req.body.parentCategoryId
+      parentCategoryId: +req.body.parentCategoryId
     });
     SendSuccessResponse<SubCategory>({
       res,

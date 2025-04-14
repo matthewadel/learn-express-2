@@ -3,6 +3,7 @@ import { AppDataSource } from "../models/data-source";
 import { Category } from "../models/entities/category.entity";
 import { BadRequestError, NotFoundError } from "../utils/errors";
 import { getPaginatedResult } from "../utils/getPaginatedResult";
+import { SubCategory } from "../models/entities/subCategory.entity";
 
 export class CategoryService {
   private categoryRepository = AppDataSource.getRepository(Category);
@@ -26,6 +27,20 @@ export class CategoryService {
   }> {
     return await getPaginatedResult<Category>(Category, page, limit, {
       where: { name: Like(`%${name || ""}%`) }
+    });
+  }
+
+  async getSubCategoriesInsideCategory(
+    page: number = 1,
+    limit: number = 10,
+    categoryId?: number
+  ): Promise<{
+    data: SubCategory[];
+    totalPages: number;
+    totalItems: number;
+  }> {
+    return await getPaginatedResult<SubCategory>(SubCategory, page, limit, {
+      where: { parentCategory: { id: categoryId } }
     });
   }
 

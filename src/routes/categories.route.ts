@@ -8,7 +8,7 @@ const categoriesController = new CategoriesController();
 
 router
   .route("/")
-  .get(categoriesController.getCategories)
+  .get(categoriesController.getAllCategories)
   .post(
     validateRequestSchema(categoriesSchema.createCategory),
     categoriesController.createCategory
@@ -22,5 +22,9 @@ router
     categoriesController.updateCategory
   )
   .delete(categoriesController.deleteCategory);
+
+router
+  .route("/:categoryId/sub-categories")
+  .get(categoriesController.getSubCategoriesInsideCategory);
 
 export default router;
