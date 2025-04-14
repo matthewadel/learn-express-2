@@ -21,6 +21,8 @@ export class SubCategoriesService {
     const parentCategory = await this._findParentCategoryBy({
       id: parentCategoryId
     });
+    if (!parentCategory) throw new NotFoundError("Parent Category Not Found");
+
     const cat = await this.subCategoryRepository.findOneBy({ name });
     if (cat) throw new BadRequestError("This SubCategory Already Exists");
 
@@ -30,7 +32,7 @@ export class SubCategoriesService {
       parentCategory: parentCategory
     });
 
-    return subCategory;
+    return this.subCategoryRepository.save(subCategory);
   }
 
   // Get all sub-categories
@@ -43,7 +45,7 @@ export class SubCategoriesService {
     totalItems: number;
   }> {
     return await getPaginatedResult<SubCategory>(SubCategory, page, limit, {
-      relations: ["parentCategory"]
+      // relations: ["parentCategory"]
     });
   }
 
@@ -92,14 +94,14 @@ export class SubCategoriesService {
     return category;
   }
 
-  private async _findParentCategoryBy({ id }: { id?: number }) {
+  private async _findParentCategoryBy({ id }: { id: number }) {
     let parentCategory: Category | null = null;
-    if (id) {
-      parentCategory = await this.categoryRepository.findOneBy({
-        id
-      });
-      if (!parentCategory) throw new NotFoundError("Parent category not found");
-    } else throw new BadRequestError("Parent category Id Not Found");
+
+    parentCategory = await this.categoryRepository.findOneBy({
+      id
+    });
+    if (!parentCategory) throw new NotFoundError("Parent category not found");
+
     return parentCategory;
   }
 }

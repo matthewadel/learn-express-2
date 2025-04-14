@@ -9,9 +9,10 @@ export class SubCategoryController {
     new SubCategoriesService();
 
   createSubCategory = asyncWrapper(async (req: Request, res: Response) => {
-    const category = await this.subCategoriesService.createSubCategory(
-      req.body.name
-    );
+    const category = await this.subCategoriesService.createSubCategory({
+      name: req.body.name,
+      parentCategoryId: req.body.parentCategoryId
+    });
     SendSuccessResponse<SubCategory>({
       res,
       data: category,
@@ -37,7 +38,7 @@ export class SubCategoryController {
 
   getSubCategoryById = asyncWrapper(async (req: Request, res: Response) => {
     const data = await this.subCategoriesService.getSubCategoryById(
-      +req.params.categoryId
+      +req.params.subCategoryId
     );
     SendSuccessResponse<SubCategory>({
       res,
@@ -46,13 +47,14 @@ export class SubCategoryController {
   });
 
   updateSubCategory = asyncWrapper(async (req: Request, res: Response) => {
-    const { id } = req.params;
-    const { name, categoryId, image } = req.body;
+    const { subCategoryId } = req.params;
+    const { name, image, parentCategoryId } = req.body;
+
     const data = await this.subCategoriesService.updateSubCategory(
-      +id,
+      +subCategoryId,
       name,
-      categoryId,
-      image
+      image,
+      parentCategoryId
     );
     SendSuccessResponse<SubCategory>({
       res,
@@ -62,7 +64,9 @@ export class SubCategoryController {
   });
 
   deleteSubCategory = asyncWrapper(async (req: Request, res: Response) => {
-    await this.subCategoriesService.deleteSubCategory(+req.params.categoryId);
+    await this.subCategoriesService.deleteSubCategory(
+      +req.params.subCategoryId
+    );
     SendSuccessResponse<SubCategory>({
       res,
       message: "Category Deleted Successfully"
