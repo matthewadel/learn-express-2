@@ -1,18 +1,18 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
-  Unique,
   CreateDateColumn,
-  UpdateDateColumn,
-  OneToMany
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  Unique,
+  UpdateDateColumn
 } from "typeorm";
-import { SubCategory } from "./sub-category.entity";
+import { Category } from "./category.entity";
 import { MaxLength, MinLength } from "class-validator";
 
-@Entity("categories")
+@Entity("sub-category")
 @Unique(["name"])
-export class Category {
+export class SubCategory {
   @PrimaryGeneratedColumn()
   id!: number;
 
@@ -24,6 +24,11 @@ export class Category {
   @Column({ nullable: true })
   image!: string;
 
+  @ManyToOne(() => Category, (category) => category.subCategories, {
+    onDelete: "CASCADE"
+  })
+  parentCategory!: Category;
+
   @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   createdAt!: Date;
 
@@ -33,7 +38,4 @@ export class Category {
     onUpdate: "CURRENT_TIMESTAMP(6)"
   })
   updatedAt?: Date;
-
-  @OneToMany(() => SubCategory, (subCategory) => subCategory.parentCategory)
-  subCategories!: SubCategory[];
 }

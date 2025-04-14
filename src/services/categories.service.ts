@@ -8,23 +8,16 @@ export class CategoryService {
   async createCategory(
     name: string
   ): Promise<{ success: boolean; message: string; data?: Category }> {
-    try {
-      if (await this._findOneBy(name))
-        throw new BadRequestError("This Category Already Exists");
+    if (await this._findOneBy(name))
+      throw new BadRequestError("This Category Already Exists");
 
-      const category = this.categoryRepository.create({ name });
-      await this.categoryRepository.save(category);
-      return {
-        success: true,
-        message: "Category created successfully.",
-        data: category
-      };
-    } catch (error) {
-      console.log(error);
-      throw new BadRequestError(
-        error instanceof Error ? error.message : "An unknown error occurred"
-      );
-    }
+    const category = this.categoryRepository.create({ name });
+    await this.categoryRepository.save(category);
+    return {
+      success: true,
+      message: "Category created successfully.",
+      data: category
+    };
   }
 
   async getAllCategories(

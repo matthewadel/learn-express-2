@@ -3,7 +3,7 @@ import { AnyZodObject, ZodError, ZodIssue } from "zod";
 import { BadRequestError } from "../utils/errors";
 
 // ** arg => schema
-export function validateRequest(schema: AnyZodObject) {
+export function validateRequestSchema(schema: AnyZodObject) {
   // ** returns a middleware
   return async (
     req: Request,
