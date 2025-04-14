@@ -25,7 +25,8 @@ export class SubCategoryController {
     const { totalPages, totalItems, data } =
       await this.subCategoriesService.getAllSubCategories(
         +(req.query?.page || 1),
-        +(req.query?.limit || 10)
+        +(req.query?.limit || 10),
+        req.query?.name as string
       );
     SendSuccessResponse<SubCategory>({
       res,
@@ -36,8 +37,8 @@ export class SubCategoryController {
     });
   });
 
-  getSubCategoryById = asyncWrapper(async (req: Request, res: Response) => {
-    const data = await this.subCategoriesService.getSubCategoryById(
+  getSubCategoryBy = asyncWrapper(async (req: Request, res: Response) => {
+    const data = await this.subCategoriesService.getSubCategoryBy(
       +req.params.subCategoryId
     );
     SendSuccessResponse<SubCategory>({

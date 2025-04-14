@@ -16,7 +16,7 @@ router
 
 router
   .route("/:subCategoryId")
-  .get(subcategoriesController.getSubCategoryById)
+  .get(subcategoriesController.getSubCategoryBy)
   .put(
     validateRequestSchema(subCategoriesSchema.updateSubCategory),
     subcategoriesController.updateSubCategory

@@ -21,7 +21,8 @@ export class CategoriesController {
     const { totalPages, totalItems, data } =
       await this.categoriesService.getAllCategories(
         +(req.query?.page || 1),
-        +(req.query?.limit || 10)
+        +(req.query?.limit || 10),
+        req.query?.name as string
       );
     SendSuccessResponse<Category>({
       res,

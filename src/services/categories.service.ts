@@ -1,3 +1,4 @@
+import { Like } from "typeorm";
 import { AppDataSource } from "../models/data-source";
 import { Category } from "../models/entities/category.entity";
 import { BadRequestError, NotFoundError } from "../utils/errors";
@@ -16,13 +17,16 @@ export class CategoryService {
 
   async getAllCategories(
     page: number = 1,
-    limit: number = 10
+    limit: number = 10,
+    name?: string
   ): Promise<{
     data: Category[];
     totalPages: number;
     totalItems: number;
   }> {
-    return await getPaginatedResult<Category>(Category, page, limit);
+    return await getPaginatedResult<Category>(Category, page, limit, {
+      where: { name: Like(`%${name || ""}%`) }
+    });
   }
 
   async getCategoryById(id: number): Promise<Category> {
