@@ -2,6 +2,7 @@ import { SubCategoriesService } from "../services/subCategories.service";
 import { asyncWrapper } from "../middlewares/asyncWrapper";
 import { Request, Response } from "express";
 import { SendSuccessResponse } from "../utils/sendSuccessResponse";
+import { SubCategory } from "../models/entities/subCategory.entity";
 
 export class SubCategoryController {
   private readonly subCategoriesService: SubCategoriesService =
@@ -11,7 +12,7 @@ export class SubCategoryController {
     const category = await this.subCategoriesService.createSubCategory(
       req.body.name
     );
-    SendSuccessResponse({
+    SendSuccessResponse<SubCategory>({
       res,
       data: category,
       statusCode: 201,
@@ -25,7 +26,7 @@ export class SubCategoryController {
         +(req.query?.page || 1),
         +(req.query?.limit || 10)
       );
-    SendSuccessResponse({
+    SendSuccessResponse<SubCategory>({
       res,
       data,
       currentPage: +(req.query?.page || 1),
@@ -38,7 +39,7 @@ export class SubCategoryController {
     const data = await this.subCategoriesService.getSubCategoryById(
       +req.params.categoryId
     );
-    SendSuccessResponse({
+    SendSuccessResponse<SubCategory>({
       res,
       data
     });
@@ -53,7 +54,7 @@ export class SubCategoryController {
       categoryId,
       image
     );
-    SendSuccessResponse({
+    SendSuccessResponse<SubCategory>({
       res,
       data,
       message: "Category Updated Successfully"
@@ -62,7 +63,7 @@ export class SubCategoryController {
 
   deleteSubCategory = asyncWrapper(async (req: Request, res: Response) => {
     await this.subCategoriesService.deleteSubCategory(+req.params.categoryId);
-    SendSuccessResponse({
+    SendSuccessResponse<SubCategory>({
       res,
       message: "Category Deleted Successfully"
     });

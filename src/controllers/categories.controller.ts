@@ -2,13 +2,14 @@ import { Request, Response } from "express";
 import { CategoryService } from "../services/categories.service";
 import { asyncWrapper } from "../middlewares/asyncWrapper";
 import { SendSuccessResponse } from "../utils/sendSuccessResponse";
+import { Category } from "../models/entities/category.entity";
 
 export class CategoriesController {
   private readonly categoriesService: CategoryService = new CategoryService();
 
   createCategory = asyncWrapper(async (req: Request, res: Response) => {
     const category = await this.categoriesService.createCategory(req.body.name);
-    SendSuccessResponse({
+    SendSuccessResponse<Category>({
       res,
       data: category,
       statusCode: 201,
@@ -22,7 +23,7 @@ export class CategoriesController {
         +(req.query?.page || 1),
         +(req.query?.limit || 10)
       );
-    SendSuccessResponse({
+    SendSuccessResponse<Category>({
       res,
       data,
       currentPage: +(req.query?.page || 1),
@@ -35,7 +36,7 @@ export class CategoriesController {
     const data = await this.categoriesService.getCategoryById(
       +req.params.categoryId
     );
-    SendSuccessResponse({
+    SendSuccessResponse<Category>({
       res,
       data
     });
@@ -46,7 +47,7 @@ export class CategoriesController {
       +req.params.categoryId,
       req.body.name
     );
-    SendSuccessResponse({
+    SendSuccessResponse<Category>({
       res,
       data,
       message: "Category Updated Successfully"
@@ -55,7 +56,7 @@ export class CategoriesController {
 
   deleteCategory = asyncWrapper(async (req: Request, res: Response) => {
     await this.categoriesService.deleteCategory(+req.params.categoryId);
-    SendSuccessResponse({
+    SendSuccessResponse<Category>({
       res,
       message: "Category Deleted Successfully"
     });

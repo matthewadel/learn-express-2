@@ -2,6 +2,7 @@ import { AppDataSource } from "../models/data-source";
 import { SubCategory } from "../models/entities/subCategory.entity";
 import { Category } from "../models/entities/category.entity";
 import { BadRequestError, NotFoundError } from "../utils/errors";
+import { getPaginatedResult } from "../utils/getPaginatedResult";
 
 export class SubCategoriesService {
   private subCategoryRepository = AppDataSource.getRepository(SubCategory);
@@ -41,20 +42,9 @@ export class SubCategoriesService {
     totalPages: number;
     totalItems: number;
   }> {
-    const skip = (page - 1) * limit;
-
-    const totalItems = await this.subCategoryRepository.count();
-    const totalPages = Math.ceil(totalItems / limit);
-    return {
-      totalPages,
-      totalItems,
-      data: await this.subCategoryRepository.find({
-        relations: ["parentCategory"],
-        skip,
-        take: limit,
-        order: { createdAt: "DESC" }
-      })
-    };
+    return await getPaginatedResult<SubCategory>(SubCategory, page, limit, {
+      relations: ["parentCategory"]
+    });
   }
 
   // Get a single sub-category by ID

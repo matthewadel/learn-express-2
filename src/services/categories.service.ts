@@ -1,6 +1,7 @@
 import { AppDataSource } from "../models/data-source";
 import { Category } from "../models/entities/category.entity";
 import { BadRequestError, NotFoundError } from "../utils/errors";
+import { getPaginatedResult } from "../utils/getPaginatedResult";
 
 export class CategoryService {
   private categoryRepository = AppDataSource.getRepository(Category);
@@ -21,19 +22,7 @@ export class CategoryService {
     totalPages: number;
     totalItems: number;
   }> {
-    const skip = (page - 1) * limit;
-
-    const totalItems = await this.categoryRepository.count();
-    const totalPages = Math.ceil(totalItems / limit);
-    return {
-      totalPages,
-      totalItems,
-      data: await this.categoryRepository.find({
-        skip,
-        take: limit,
-        order: { createdAt: "DESC" }
-      })
-    };
+    return await getPaginatedResult<Category>(Category, page, limit);
   }
 
   async getCategoryById(id: number): Promise<Category> {
