@@ -11,7 +11,7 @@ export async function getPaginatedResult<T>(
   const [data, totalItems] = await repo.findAndCount({
     skip: (page - 1) * limit,
     take: limit,
-    order: { createdAt: "DESC" },
+    order: { created_at: "DESC" },
     ...options
   });
 

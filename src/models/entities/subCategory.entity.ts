@@ -5,12 +5,14 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
   Unique,
-  UpdateDateColumn
+  UpdateDateColumn,
+  ManyToMany
 } from "typeorm";
 import { Category } from "./category.entity";
 import { MaxLength, MinLength } from "class-validator";
+import { Product } from "./product.entity";
 
-@Entity("sub-category")
+@Entity("sub-categories")
 @Unique(["name"])
 export class SubCategory {
   @PrimaryGeneratedColumn()
@@ -27,15 +29,18 @@ export class SubCategory {
   @ManyToOne(() => Category, (category) => category.subCategories, {
     onDelete: "CASCADE"
   })
-  parentCategory!: Category;
+  parent_category!: Category;
+
+  @ManyToMany(() => Product, (product) => product.subCategories)
+  products!: Product[];
 
   @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
-  createdAt!: Date;
+  created_at!: Date;
 
   @UpdateDateColumn({
     type: "timestamp",
     default: () => "CURRENT_TIMESTAMP(6)",
     onUpdate: "CURRENT_TIMESTAMP(6)"
   })
-  updatedAt?: Date;
+  updated_at?: Date;
 }

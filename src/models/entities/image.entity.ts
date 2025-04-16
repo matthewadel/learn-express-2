@@ -1,28 +1,25 @@
-import { MinLength, MaxLength } from "class-validator";
+import { IsNotEmpty } from "class-validator";
 import {
-  Entity,
-  Unique,
-  PrimaryGeneratedColumn,
   Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  ManyToOne,
   CreateDateColumn,
-  UpdateDateColumn,
-  OneToMany
+  UpdateDateColumn
 } from "typeorm";
 import { Product } from "./product.entity";
 
-@Entity("brands")
-@Unique(["name"])
-export class Brand {
+@Entity("images")
+export class Image {
   @PrimaryGeneratedColumn()
   id!: number;
 
   @Column()
-  @MinLength(3)
-  @MaxLength(32)
-  name!: string;
+  @IsNotEmpty()
+  url!: string;
 
-  @Column({ nullable: true })
-  image!: string;
+  @ManyToOne(() => Product, (product) => product.images)
+  product!: Product;
 
   @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   created_at!: Date;
@@ -33,9 +30,4 @@ export class Brand {
     onUpdate: "CURRENT_TIMESTAMP(6)"
   })
   updated_at?: Date;
-
-  @OneToMany(() => Product, (product) => product.brand, {
-    cascade: true
-  })
-  products!: Product[];
 }

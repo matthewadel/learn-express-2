@@ -31,7 +31,7 @@ export class SubCategoriesService {
     const subCategory = this.subCategoryRepository.create({
       name,
       image,
-      parentCategory: parentCategory
+      parent_category: parentCategory
     });
 
     return this.subCategoryRepository.save(subCategory);
@@ -57,7 +57,7 @@ export class SubCategoriesService {
   async getSubCategoryBy(id: number): Promise<SubCategory> {
     const category = await findOneBy<SubCategory>(SubCategory, {
       id,
-      options: { relations: ["parentCategory"] }
+      options: { relations: ["parent_category"] }
     });
     return category;
   }
@@ -80,7 +80,7 @@ export class SubCategoriesService {
       const parentCategory = await this._findParentCategoryBy({
         id: parentCategoryId
       });
-      subCategory.parentCategory = parentCategory;
+      subCategory.parent_category = parentCategory;
     }
     await this.subCategoryRepository.update({ id }, subCategory);
 

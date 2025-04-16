@@ -9,6 +9,7 @@ import {
 } from "typeorm";
 import { SubCategory } from "./subCategory.entity";
 import { MaxLength, MinLength } from "class-validator";
+import { Product } from "./product.entity";
 
 @Entity("categories")
 @Unique(["name"])
@@ -25,15 +26,18 @@ export class Category {
   image!: string;
 
   @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
-  createdAt!: Date;
+  created_at!: Date;
 
   @UpdateDateColumn({
     type: "timestamp",
     default: () => "CURRENT_TIMESTAMP(6)",
     onUpdate: "CURRENT_TIMESTAMP(6)"
   })
-  updatedAt?: Date;
+  updated_at?: Date;
 
-  @OneToMany(() => SubCategory, (subCategory) => subCategory.parentCategory)
+  @OneToMany(() => SubCategory, (subCategory) => subCategory.parent_category)
   subCategories!: SubCategory[];
+
+  @OneToMany(() => Product, (product) => product.category)
+  products!: Product[];
 }

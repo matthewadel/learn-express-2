@@ -41,7 +41,7 @@ export class CategoryService {
     totalItems: number;
   }> {
     return await getPaginatedResult<SubCategory>(SubCategory, page, limit, {
-      where: { parentCategory: { id: categoryId } }
+      where: { parent_category: { id: categoryId } }
     });
   }
 
