@@ -3,7 +3,8 @@ import { SubCategory } from "../models/entities/subCategory.entity";
 import { Category } from "../models/entities/category.entity";
 import { BadRequestError, NotFoundError } from "../utils/errors";
 import { getPaginatedResult } from "../utils/getPaginatedResult";
-import { FindOneOptions, Like } from "typeorm";
+import { Like } from "typeorm";
+import { findOneBy } from "../utils/findOneBy";
 
 export class SubCategoriesService {
   private subCategoryRepository = AppDataSource.getRepository(SubCategory);
@@ -54,7 +55,7 @@ export class SubCategoriesService {
 
   // Get a single sub-category by ID
   async getSubCategoryBy(id: number): Promise<SubCategory> {
-    const category = await this._findOneBy({
+    const category = await findOneBy<SubCategory>(SubCategory, {
       id,
       options: { relations: ["parentCategory"] }
     });
@@ -68,7 +69,9 @@ export class SubCategoriesService {
     image?: string,
     parentCategoryId?: number
   ): Promise<SubCategory> {
-    const subCategory = await this._findOneBy({ id });
+    const subCategory = await findOneBy<SubCategory>(SubCategory, {
+      id
+    });
 
     if (name) subCategory.name = name;
     if (image) subCategory.image = image;
@@ -86,26 +89,11 @@ export class SubCategoriesService {
 
   // Delete a sub-category
   async deleteSubCategory(id: number): Promise<void> {
-    const subCategory = await this._findOneBy({ id });
+    const subCategory = await findOneBy<SubCategory>(SubCategory, {
+      id
+    });
 
     await this.subCategoryRepository.remove(subCategory);
-  }
-
-  private async _findOneBy({
-    id,
-    name,
-    options
-  }: {
-    id?: number;
-    name?: string;
-    options?: FindOneOptions<SubCategory>;
-  }) {
-    const category = await this.subCategoryRepository.findOne({
-      where: { id, name },
-      ...options
-    });
-    if (!category) throw new NotFoundError("Sub Category not found.");
-    return category;
   }
 
   private async _findParentCategoryBy({ id }: { id: number }) {

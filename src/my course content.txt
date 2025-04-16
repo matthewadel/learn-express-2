@@ -10,3 +10,15 @@
 10- authenticate routes
 11- authorization
 12- authorize routes
+13- different authentication methods (at the end of lecture 6-1 )
+14- ssl pinning
+15- implement rate limitting and account lockout (limit number of sign ins per account)
+16- multi languate expressjs
+
+
+
+
+interview questions
+prisma
+what is the output from the github link
+nestjs

@@ -1,7 +1,7 @@
 import { z } from "zod";
 
-export const categoriesSchema = {
-  createCategory: z.object({
+export const brandsSchema = {
+  createBrand: z.object({
     body: z.object({
       name: z
         .string({ required_error: "Name is required" })
@@ -10,7 +10,7 @@ export const categoriesSchema = {
       image: z.string().url({ message: "Image must be a valid URL" }).optional()
     })
   }),
-  updateCategory: z.object({
+  updateBrand: z.object({
     body: z.object({
       name: z
         .string()
