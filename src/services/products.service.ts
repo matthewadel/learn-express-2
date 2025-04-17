@@ -10,6 +10,7 @@ import { z } from "zod";
 import { productsSchema } from "../schemas/products.schema";
 import { getPaginatedResult } from "../utils/getPaginatedResult";
 import { Like } from "typeorm";
+import { BadRequestError } from "../utils/errors";
 
 // Extract the type of body from productsSchema.createProduct
 type CreateProductBody = z.infer<typeof productsSchema.createProduct>;
@@ -32,7 +33,8 @@ export class ProductsService {
 
     if (body.subCategories)
       newProduct.subCategories = await this._getSubCategories(
-        body.subCategories
+        body.subCategories,
+        body.category
       );
 
     return this.productsRepository.save(newProduct);
@@ -78,7 +80,10 @@ export class ProductsService {
 
     if (body.images) product.images = await this._getImages(body.images);
     if (body.subCategories)
-      product.subCategories = await this._getSubCategories(body.subCategories);
+      product.subCategories = await this._getSubCategories(
+        body.subCategories,
+        product.category.id
+      );
 
     await this.productsRepository.update({ id }, product);
     return product;
@@ -120,12 +125,22 @@ export class ProductsService {
     );
   }
 
-  private async _getSubCategories(subCategories: number[]) {
+  private async _getSubCategories(
+    subCategories: number[],
+    parentCategoryId: number
+  ) {
     return await Promise.all(
       subCategories.map(async (subCategory: number) => {
-        return await findOneBy<SubCategory>(SubCategory, {
-          id: subCategory
+        const subCat = await findOneBy<SubCategory>(SubCategory, {
+          id: subCategory,
+          options: { relations: ["parent_category"] }
         });
+
+        if (subCat.parent_category.id !== parentCategoryId)
+          throw new BadRequestError(
+            "SubCategory does not belong to parent category"
+          );
+        return subCat;
       })
     );
   }

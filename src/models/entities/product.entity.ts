@@ -47,16 +47,16 @@ export class Product {
   @IsPositive()
   number_of_times_sold!: number;
 
-  @Column()
-  @IsNotEmpty()
+  @Column("float")
   @IsPositive()
+  @IsNotEmpty()
   price!: number;
 
-  @Column({ nullable: true })
+  @Column("float", { nullable: true })
   @IsPositive()
   price_after_discount!: number;
 
-  @Column({ nullable: true })
+  @Column("float", { nullable: true })
   @Min(1)
   @Max(5)
   ratings_average!: number;
@@ -84,7 +84,7 @@ export class Product {
   colors!: Color[];
 
   // one to many
-  @OneToMany(() => Image, (image) => image.product)
+  @OneToMany(() => Image, (image) => image.product, { cascade: true })
   images!: Image[];
 
   // mandatory

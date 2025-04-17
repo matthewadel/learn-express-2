@@ -18,7 +18,9 @@ export class Image {
   @IsNotEmpty()
   url!: string;
 
-  @ManyToOne(() => Product, (product) => product.images)
+  @ManyToOne(() => Product, (product) => product.images, {
+    onDelete: "CASCADE"
+  })
   product!: Product;
 
   @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
