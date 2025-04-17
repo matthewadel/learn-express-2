@@ -1,9 +1,16 @@
-import { IsNotEmpty, Max, MaxLength, Min, MinLength } from "class-validator";
+import {
+  IsNotEmpty,
+  IsPositive,
+  Max,
+  MaxLength,
+  Min,
+  MinLength
+} from "class-validator";
 import { Brand } from "./brand.entity";
 import { SubCategory } from "./subCategory.entity";
 import { Category } from "./category.entity";
 import { Color } from "./color.entity";
-import { Image } from "./Image.entity";
+import { Image } from "./image.entity";
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -21,29 +28,32 @@ export class Product {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({ unique: true })
+  @Column()
   @MinLength(3)
   @MaxLength(100)
   @IsNotEmpty()
   title!: string;
 
-  @Column()
+  @Column({ nullable: true })
   @MinLength(20)
   description!: string;
 
   @Column()
-  @MinLength(20)
+  @IsPositive()
   @IsNotEmpty()
   quantity!: number;
 
   @Column({ default: 0 })
+  @IsPositive()
   number_of_times_sold!: number;
 
   @Column()
   @IsNotEmpty()
+  @IsPositive()
   price!: number;
 
   @Column({ nullable: true })
+  @IsPositive()
   price_after_discount!: number;
 
   @Column({ nullable: true })
@@ -52,6 +62,7 @@ export class Product {
   ratings_average!: number;
 
   @Column({ default: 0 })
+  @IsPositive()
   number_of_reviewers!: number;
 
   @Column({ nullable: true })
