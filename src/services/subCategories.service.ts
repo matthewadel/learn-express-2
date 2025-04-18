@@ -48,7 +48,7 @@ export class SubCategoriesService {
     totalItems: number;
   }> {
     return await getPaginatedResult<SubCategory>(SubCategory, page, limit, {
-      // relations: ["parentCategory"]
+      relations: ["parent_category"],
       where: { name: Like(`%${name || ""}%`) }
     });
   }

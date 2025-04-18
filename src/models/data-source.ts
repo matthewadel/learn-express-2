@@ -17,10 +17,11 @@ export const AppDataSource = new DataSource({
   subscribers: []
 });
 
-export function initializeDB() {
-  AppDataSource.initialize()
-    .then(() => {
-      console.log("Database connected ✅");
-    })
-    .catch((error) => console.log(error));
+export async function initializeDB() {
+  try {
+    await AppDataSource.initialize();
+    console.log("Database connected ✅");
+  } catch (error) {
+    console.log("initializint DB errors", error);
+  }
 }
