@@ -66,7 +66,10 @@ export class ProductsService {
 
   async updateProduct(id: number, body: UpdateProductBody["body"]) {
     const product = await findOneBy<Product>(Product, {
-      id: id
+      id: id,
+      options: {
+        relations: ["brand", "category", "subCategories", "colors", "images"]
+      }
     });
 
     if (body.title) product.title = body.title;
@@ -83,18 +86,32 @@ export class ProductsService {
     if (body.image_cover) product.image_cover = body.image_cover;
 
     if (body.brand) product.brand = await this._getBrand(body.brand);
-    if (body.colors) product.colors = await this._getColors(body.colors);
     if (body.category)
       product.category = await this._getCategory(body.category);
 
-    if (body.images) product.images = await this._getImages(body.images);
+    if (body.colors) product.colors = await this._getColors(body.colors);
+
     if (body.subCategories)
       product.subCategories = await this._getSubCategories(
         body.subCategories,
         product.category.id
       );
 
-    await this.productsRepository.update({ id }, product);
+    if (body.images)
+      product.images = [
+        ...(product.images || []),
+        ...(await this._getImages(body.images))
+      ];
+
+    if (body.deletedImagesIds)
+      for (id of body.deletedImagesIds) {
+        product.images = (product.images || []).filter(
+          (image) => image.id !== id
+        );
+        await this.imagesService.deleteImage(id);
+      }
+
+    await this.productsRepository.save(product);
     return product;
   }
 

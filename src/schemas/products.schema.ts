@@ -80,7 +80,7 @@ const updateProductSchema = z.object({
   body: z
     .object({
       ...createProductSchema.shape.body.shape,
-      deletedImagesIds: z.array(z.string()).optional()
+      deletedImagesIds: z.array(z.number()).optional()
     })
     .partial()
 });
