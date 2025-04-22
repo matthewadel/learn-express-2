@@ -17,6 +17,7 @@
     "@eslint/js": "^9.21.0",
     "@types/express": "^5.0.1",
     "@types/morgan": "^1.9.9",
+    "@types/multer": "^1.4.12",
     "@types/node": "^22.13.5",
     "@typescript-eslint/eslint-plugin": "^8.25.0",
     "@typescript-eslint/parser": "^8.25.0",
@@ -36,9 +37,11 @@
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "morgan": "^1.10.0",
+    "multer": "1.4.5-lts.2",
     "pg": "^8.14.1",
     "reflect-metadata": "^0.2.2",
     "typeorm": "^0.3.22",
+    "uuid": "^11.1.0",
     "zod": "^3.24.2"
   }
 }

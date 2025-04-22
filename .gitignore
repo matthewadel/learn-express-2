@@ -1,6 +1,7 @@
 # Build output
 dist
 build
+uploads
 
 # Dependencies
 node_modules

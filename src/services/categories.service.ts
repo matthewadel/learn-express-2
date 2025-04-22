@@ -1,3 +1,4 @@
+import { Request } from "express";
 import { AppDataSource } from "../models/data-source";
 import { Category } from "../models/entities/category.entity";
 import { SubCategory } from "../models/entities/subCategory.entity";
@@ -7,6 +8,8 @@ import {
   getPaginatedResultsWithFilter,
   paginationInput
 } from "../utils/getPaginatedResultsWithFilter";
+import multer from "multer";
+import { v4 } from "uuid";
 
 export class CategoryService {
   private categoryRepository = AppDataSource.getRepository(Category);
@@ -62,3 +65,28 @@ export class CategoryService {
     await this.categoryRepository.remove(category);
   }
 }
+
+// disk storage solution
+const multerStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/categories");
+  },
+  filename: (req, file, cb) => {
+    const ext = file.mimetype.split("/")[1];
+    const filename = `category-${v4()}-${Date.now()}.${ext}`;
+    console.log(filename);
+    cb(null, filename);
+  }
+});
+
+const multerFilter = (
+  req: Request,
+  file: Express.Multer.File,
+  cb: Function
+): void => {
+  if (file.mimetype.startsWith("image")) {
+    cb(null, true);
+  } else cb(new BadRequestError("only images are allowed"), false);
+};
+const upload = multer({ storage: multerStorage, fileFilter: multerFilter });
+export const uploadCategoryImage = upload.single("image");

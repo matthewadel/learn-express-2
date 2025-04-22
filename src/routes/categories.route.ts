@@ -2,6 +2,7 @@ import { Router } from "express";
 import { CategoriesController } from "../controllers/categories.controller";
 import { categoriesSchema } from "../schemas/categories.schema";
 import { validateRequestSchema } from "../middlewares/validateRequestSchema";
+import { uploadCategoryImage } from "../services";
 
 const router = Router();
 const categoriesController = new CategoriesController();
@@ -13,7 +14,8 @@ router
     categoriesController.getAllCategories
   )
   .post(
-    validateRequestSchema(categoriesSchema.createCategory),
+    // validateRequestSchema(categoriesSchema.createCategory),
+    uploadCategoryImage, // Ensure the image is uploaded before validation
     categoriesController.createCategory
   );
 
