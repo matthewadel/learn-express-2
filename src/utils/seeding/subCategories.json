@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "name": "category_1_subCategory_1",
+    "parentCategoryId": 1
+  },
+  {
+    "id": 2,
+    "name": "category_1_subCategory_2",
+    "parentCategoryId": 1
+  },
+  {
+    "id": 3,
+    "name": "category_2_subCategory_1",
+    "parentCategoryId": 2
+  },
+  {
+    "id": 4,
+    "name": "category_2_subCategory_2",
+    "parentCategoryId": 2
+  },
+  {
+    "id": 5,
+    "name": "category_3_subCategory_1",
+    "parentCategoryId": 3
+  },
+  {
+    "id": 6,
+    "name": "category_3_subCategory_2",
+    "parentCategoryId": 3
+  },
+  {
+    "id": 7,
+    "name": "category_4_subCategory_1",
+    "parentCategoryId": 4
+  },
+  {
+    "id": 8,
+    "name": "category_4_subCategory_2",
+    "parentCategoryId": 4
+  },
+  {
+    "id": 9,
+    "name": "category_5_subCategory_1",
+    "parentCategoryId": 5
+  },
+  {
+    "id": 10,
+    "name": "category_5_subCategory_2",
+    "parentCategoryId": 5
+  }
+]

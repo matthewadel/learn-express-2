@@ -77,7 +77,12 @@ const createProductSchema = z.object({
 });
 
 const updateProductSchema = z.object({
-  body: createProductSchema.shape.body.deepPartial()
+  body: z
+    .object({
+      ...createProductSchema.shape.body.shape,
+      deletedImagesIds: z.array(z.string()).optional()
+    })
+    .partial()
 });
 
 const getAllProducts = getALlItemsValidationWithPagination(

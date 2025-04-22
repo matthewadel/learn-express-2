@@ -15,7 +15,7 @@
     "brand": 2,
     "category": 2,
     "subCategories": [
-      4
+      3
     ],
     "number_of_times_sold": 543,
     "price_after_discount": 45.13,
@@ -37,7 +37,7 @@
     "brand": 3,
     "category": 3,
     "subCategories": [
-      6
+      5
     ],
     "number_of_times_sold": 279,
     "price_after_discount": 67.3,
@@ -57,7 +57,7 @@
     ],
     "price": 100.0,
     "brand": 4,
-    "category": 6,
+    "category": 4,
     "subCategories": [
       8
     ],
@@ -81,7 +81,7 @@
     ],
     "price": 60.0,
     "brand": 2,
-    "category": 3,
+    "category": 4,
     "subCategories": [
       7
     ],
@@ -103,7 +103,7 @@
     "brand": 3,
     "category": 2,
     "subCategories": [
-      5
+      4
     ],
     "number_of_times_sold": 841,
     "price_after_discount": 40.82,
@@ -124,7 +124,7 @@
     ],
     "price": 30.0,
     "brand": 4,
-    "category": 6,
+    "category": 5,
     "subCategories": [
       9
     ],
@@ -146,7 +146,7 @@
     "brand": 2,
     "category": 2,
     "subCategories": [
-      4
+      3
     ],
     "number_of_times_sold": 764,
     "price_after_discount": 17.11,
@@ -169,7 +169,7 @@
     "brand": 3,
     "category": 3,
     "subCategories": [
-      6
+      5
     ],
     "number_of_times_sold": 964,
     "price_after_discount": 73.32,
@@ -189,7 +189,7 @@
     ],
     "price": 90.0,
     "brand": 4,
-    "category": 6,
+    "category": 4,
     "subCategories": [
       8
     ],
@@ -212,7 +212,7 @@
     "brand": 2,
     "category": 2,
     "subCategories": [
-      5
+      4
     ],
     "number_of_times_sold": 142,
     "price_after_discount": 17.85,
@@ -235,7 +235,7 @@
     "brand": 3,
     "category": 3,
     "subCategories": [
-      7
+      6
     ],
     "number_of_times_sold": 730,
     "price_after_discount": 51.57,
@@ -255,7 +255,7 @@
     ],
     "price": 35.0,
     "brand": 4,
-    "category": 6,
+    "category": 5,
     "subCategories": [
       9
     ],
@@ -277,7 +277,7 @@
     "brand": 2,
     "category": 2,
     "subCategories": [
-      4
+      3
     ],
     "number_of_times_sold": 381,
     "price_after_discount": 29.04,
@@ -299,7 +299,7 @@
     "brand": 3,
     "category": 3,
     "subCategories": [
-      6
+      5
     ],
     "number_of_times_sold": 862,
     "price_after_discount": 60.41,
@@ -319,7 +319,7 @@
     ],
     "price": 95.0,
     "brand": 4,
-    "category": 6,
+    "category": 4,
     "subCategories": [
       8
     ],
@@ -340,7 +340,7 @@
     ],
     "price": 22.0,
     "brand": 2,
-    "category": 2,
+    "category": 3,
     "subCategories": [
       5
     ],
@@ -365,7 +365,7 @@
     "brand": 3,
     "category": 3,
     "subCategories": [
-      7
+      6
     ],
     "number_of_times_sold": 745,
     "price_after_discount": 57.45,
@@ -385,7 +385,7 @@
     ],
     "price": 65.0,
     "brand": 4,
-    "category": 6,
+    "category": 5,
     "subCategories": [
       9
     ],
@@ -408,7 +408,7 @@
     "brand": 2,
     "category": 2,
     "subCategories": [
-      4
+      3
     ],
     "number_of_times_sold": 757,
     "price_after_discount": 16.05,
@@ -431,7 +431,7 @@
     "brand": 3,
     "category": 3,
     "subCategories": [
-      6
+      5
     ],
     "number_of_times_sold": 743,
     "price_after_discount": 38.55,
@@ -451,7 +451,7 @@
     ],
     "price": 45.0,
     "brand": 4,
-    "category": 6,
+    "category": 4,
     "subCategories": [
       8
     ],
@@ -473,7 +473,7 @@
     "brand": 2,
     "category": 2,
     "subCategories": [
-      5
+      4
     ],
     "number_of_times_sold": 206,
     "price_after_discount": 27.57,
@@ -495,7 +495,7 @@
     "brand": 3,
     "category": 3,
     "subCategories": [
-      7
+      6
     ],
     "number_of_times_sold": 394,
     "price_after_discount": 51.12,
@@ -515,9 +515,9 @@
     ],
     "price": 85.0,
     "brand": 4,
-    "category": 6,
+    "category": 4,
     "subCategories": [
-      9
+      8
     ],
     "number_of_times_sold": 158,
     "price_after_discount": 80.18,
@@ -538,7 +538,7 @@
     "brand": 2,
     "category": 2,
     "subCategories": [
-      4
+      3
     ],
     "number_of_times_sold": 982,
     "price_after_discount": 17.58,
@@ -581,7 +581,7 @@
     ],
     "price": 90.0,
     "brand": 4,
-    "category": 6,
+    "category": 4,
     "subCategories": [
       8
     ],
@@ -604,7 +604,7 @@
     "brand": 2,
     "category": 2,
     "subCategories": [
-      5
+      4
     ],
     "number_of_times_sold": 640,
     "price_after_discount": 19.38,
@@ -627,7 +627,7 @@
     "brand": 3,
     "category": 3,
     "subCategories": [
-      7
+      6
     ],
     "number_of_times_sold": 67,
     "price_after_discount": 42.75,
@@ -647,7 +647,7 @@
     ],
     "price": 35.0,
     "brand": 4,
-    "category": 6,
+    "category": 5,
     "subCategories": [
       9
     ],

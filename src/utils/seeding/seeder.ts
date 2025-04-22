@@ -1,28 +1,131 @@
 import fs from "fs";
 import "dotenv/config";
+import { CategoryService } from "./../../services/categories.service";
 import { initializeDB } from "../../models/data-source";
-import { Product } from "../../models/entities/product.entity";
 import { AppDataSource } from "../../models/data-source";
+import { ProductsService } from "../../services/products.service";
+import { BrandsService, SubCategoriesService } from "../../services";
+import { ColorsService } from "../../services/colors.service";
+
+const seedBrands = async () => {
+  try {
+    const brands = JSON.parse(
+      fs.readFileSync(__dirname + "/brands.json", "utf-8")
+    );
+
+    const brandsService = new BrandsService();
+    for (const brand of brands) {
+      try {
+        await brandsService.createBrand(brand);
+      } catch (error) {
+        console.log("brand", brand);
+        throw new Error((error as Error).message);
+      }
+    }
+
+    console.log("Brands have been seeded successfully ✅");
+    return; // Exit the function instead of using process.exit()
+  } catch (error) {
+    console.error("Error seeding brands:", error);
+    throw error; // Throw the error instead of using process.exit()
+  }
+};
+
+const seedCategories = async () => {
+  try {
+    const categories = JSON.parse(
+      fs.readFileSync(__dirname + "/categories.json", "utf-8")
+    );
+
+    const categoryService = new CategoryService();
+
+    for (const category of categories) {
+      try {
+        await categoryService.createCategory(category);
+      } catch (error) {
+        console.log("category", category);
+        throw new Error((error as Error).message);
+      }
+    }
+
+    console.log("Categories have been seeded successfully ✅");
+    return; // Exit the function instead of using process.exit()
+  } catch (error) {
+    console.error("Error seeding categories:", error);
+    throw error; // Throw the error instead of using process.exit()
+  }
+};
+
+const seedSubCategories = async () => {
+  try {
+    const subCategories = JSON.parse(
+      fs.readFileSync(__dirname + "/subcategories.json", "utf-8")
+    );
+
+    const subCategoriesService = new SubCategoriesService();
+
+    for (const subCategory of subCategories) {
+      try {
+        await subCategoriesService.createSubCategory({
+          ...subCategory
+        });
+      } catch (error) {
+        console.log("subCategory", subCategory);
+        throw new Error((error as Error).message);
+      }
+    }
+
+    console.log("SubCategories have been seeded successfully ✅");
+    return; // Exit the function instead of using process.exit()
+  } catch (error) {
+    console.error("Error seeding Subcategory:", error);
+    throw error; // Throw the error instead of using process.exit()
+  }
+};
+
+const seedColors = async () => {
+  try {
+    const colors = JSON.parse(
+      fs.readFileSync(__dirname + "/colors.json", "utf-8")
+    );
+
+    const colorsService = new ColorsService();
+
+    for (const color of colors) {
+      try {
+        await colorsService.createColor(color);
+      } catch (error) {
+        console.log("color", color);
+        throw new Error((error as Error).message);
+      }
+    }
+
+    console.log("colors have been seeded successfully ✅");
+    return; // Exit the function instead of using process.exit()
+  } catch (error) {
+    console.error("Error seeding colors:", error);
+    throw error; // Throw the error instead of using process.exit()
+  }
+};
 
 const seedProducts = async () => {
   try {
-    await initializeDB();
-
     const products = JSON.parse(
       fs.readFileSync(__dirname + "/products.json", "utf-8")
     );
 
-    const productRepository = AppDataSource.getRepository(Product);
+    // const productRepository = AppDataSource.getRepository(Product);
+    const productsService = new ProductsService();
     for (const product of products) {
       try {
-        await productRepository.save(product);
+        await productsService.createProduct(product);
       } catch (error) {
         console.log("product", product);
-        throw new Error("error inserting product");
+        throw new Error((error as Error).message);
       }
     }
 
-    console.log("Products have been seeded successfully!");
+    console.log("Products have been seeded successfully ✅");
     return; // Exit the function instead of using process.exit()
   } catch (error) {
     console.error("Error seeding products:", error);
@@ -30,33 +133,46 @@ const seedProducts = async () => {
   }
 };
 
+const seedData = async () => {
+  await seedBrands();
+  await seedCategories();
+  await seedSubCategories();
+  await seedColors();
+  await seedProducts();
+  process.exit();
+};
+
 const deleteData = async () => {
   try {
-    await initializeDB();
-    const productRepository = AppDataSource.getRepository(Product);
-    await productRepository.delete({});
+    const queryRunner = AppDataSource.createQueryRunner();
+
+    await queryRunner.query(`DROP TABLE IF EXISTS brands CASCADE`);
+    console.log("Brands table has been deleted successfully!");
+    await queryRunner.query(`DROP TABLE IF EXISTS categories CASCADE`);
+    console.log("Categories have been deleted successfully!");
+    await queryRunner.query(`DROP TABLE IF EXISTS "sub-categories" CASCADE`);
+    console.log("SubCategories have been deleted successfully!");
+    await queryRunner.query(`DROP TABLE IF EXISTS images CASCADE`);
+    console.log("Images have been deleted successfully!");
+    await queryRunner.query(`DROP TABLE IF EXISTS products_colors CASCADE`);
+    console.log("products_colors have been deleted successfully!");
+    await queryRunner.query(
+      `DROP TABLE IF EXISTS products_sub_categories CASCADE`
+    );
+    console.log("products_sub_categories have been deleted successfully!");
+    await queryRunner.query(`DROP TABLE IF EXISTS colors CASCADE`);
+    console.log("Colors have been deleted successfully!");
+    await queryRunner.query(`DROP TABLE IF EXISTS products CASCADE`);
     console.log("Products have been deleted successfully!");
-    return; // Exit the function instead of using process.exit()
-  } catch (error) {
-    console.error("Error deleting products:", error);
-    throw error; // Throw the error instead of using process.exit()
+    process.exit();
+  } catch (e) {
+    console.log(e);
+    throw e;
   }
 };
 
 //  npx ts-node src/utils/seeding/seeder.ts -i
-if (process.argv[2] === "-i") {
-  seedProducts();
-} else if (process.argv[2] === "-d") {
-  deleteData();
-}
-
-// can you please create seeding data note that:
-
-// images (optional): accepts array of strings
-// colors (mandatory): accepts array of integers and must be one of these colors: [1,4,5]
-// brand (mandatory): accepts number and must be one of these brands [2,3,4]
-// category (mandatory): accepts number and must be one of these brands [2,3,6]
-// subCategories (optional): accepts array of numbers and note that subcategory must belong to category and the data inside the db is as follow
-// category with id 2 has sub categories with ids of [4,5]
-// category with id 3 has sub categories with ids of [6,7]
-// category with id 6 has sub categories with ids of [8,9]
+initializeDB().then(() => {
+  if (process.argv[2] === "-i") seedData();
+  else if (process.argv[2] === "-d") deleteData();
+});

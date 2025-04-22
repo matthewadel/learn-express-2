@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "category_1"
+  },
+  {
+    "id": 2,
+    "name": "category_2"
+  },
+  {
+    "id": 3,
+    "name": "category_3"
+  },
+  {
+    "id": 4,
+    "name": "category_4"
+  },
+  {
+    "id": 5,
+    "name": "category_5"
+  },
+  {
+    "id": 6,
+    "name": "category_6"
+  },
+  {
+    "id": 7,
+    "name": "category_7"
+  },
+  {
+    "id": 8,
+    "name": "category_8"
+  },
+  {
+    "id": 9,
+    "name": "category_9"
+  },
+  {
+    "id": 10,
+    "name": "category_10"
+  }
+]
