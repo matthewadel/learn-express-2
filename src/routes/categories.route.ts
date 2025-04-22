@@ -8,7 +8,10 @@ const categoriesController = new CategoriesController();
 
 router
   .route("/")
-  .get(categoriesController.getAllCategories)
+  .get(
+    validateRequestSchema(categoriesSchema.getAllCategories),
+    categoriesController.getAllCategories
+  )
   .post(
     validateRequestSchema(categoriesSchema.createCategory),
     categoriesController.createCategory

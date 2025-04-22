@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { getALlItemsValidationWithPagination } from "../utils/getAllItemsValidationWithPagination";
 
 const createColor = z.object({
   body: z.object({
@@ -8,6 +9,12 @@ const createColor = z.object({
       .max(32, { message: "Name must be at most 32 characters long" })
   })
 });
+
+const getAllColors = getALlItemsValidationWithPagination(
+  createColor.shape.body.shape
+);
+
 export const colorsSchema = {
-  createColor
+  createColor,
+  getAllColors
 };

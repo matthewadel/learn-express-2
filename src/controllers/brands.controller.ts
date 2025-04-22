@@ -3,6 +3,7 @@ import { asyncWrapper } from "../middlewares/asyncWrapper";
 import { SendSuccessResponse } from "../utils/sendSuccessResponse";
 import { BrandsService } from "../services";
 import { Brand } from "../models/entities/brand.entity";
+import { paginationInput } from "../utils/getPaginatedResultsWithFilter";
 
 export class BrandsController {
   private readonly brandsService: BrandsService = new BrandsService();
@@ -18,18 +19,13 @@ export class BrandsController {
   });
 
   getAllBrands = asyncWrapper(async (req: Request, res: Response) => {
-    const { totalPages, totalItems, data } =
-      await this.brandsService.getAllBrands(
-        +(req.query?.page || 1),
-        +(req.query?.limit || 10),
-        req.query?.name as string
-      );
+    const response = await this.brandsService.getAllBrands(
+      req.query as unknown as paginationInput<Brand>
+    );
     SendSuccessResponse<Brand>({
       res,
-      data,
       currentPage: +(req.query?.page || 1),
-      totalItems,
-      totalPages
+      ...response
     });
   });
 

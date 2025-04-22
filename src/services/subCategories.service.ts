@@ -2,9 +2,11 @@ import { AppDataSource } from "../models/data-source";
 import { SubCategory } from "../models/entities/subCategory.entity";
 import { Category } from "../models/entities/category.entity";
 import { BadRequestError, NotFoundError } from "../utils/errors";
-import { getPaginatedResult } from "../utils/getPaginatedResult";
-import { Like } from "typeorm";
 import { findOneBy } from "../utils/findOneBy";
+import {
+  getPaginatedResultsWithFilter,
+  paginationInput
+} from "../utils/getPaginatedResultsWithFilter";
 
 export class SubCategoriesService {
   private subCategoryRepository = AppDataSource.getRepository(SubCategory);
@@ -38,19 +40,15 @@ export class SubCategoriesService {
   }
 
   // Get all sub-categories
-  async getAllSubCategories(
-    page: number,
-    limit: number,
-    name?: string
-  ): Promise<{
-    data: SubCategory[];
-    totalPages: number;
-    totalItems: number;
-  }> {
-    return await getPaginatedResult<SubCategory>(SubCategory, page, limit, {
-      relations: ["parent_category"],
-      where: { name: Like(`%${name || ""}%`) }
-    });
+  async getAllSubCategories(requestParams: paginationInput<SubCategory>) {
+    return await getPaginatedResultsWithFilter<SubCategory>(
+      SubCategory,
+      requestParams,
+      ["name"],
+      {
+        relations: ["parent_category"]
+      }
+    );
   }
 
   // Get a single sub-category by ID

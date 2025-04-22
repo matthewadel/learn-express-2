@@ -8,7 +8,10 @@ const productsController = new ProductsController();
 
 router
   .route("/")
-  .get(productsController.getAllProducts)
+  .get(
+    validateRequestSchema(productsSchema.getAllProducts),
+    productsController.getAllProducts
+  )
   .post(
     validateRequestSchema(productsSchema.createProduct),
     productsController.createProduct

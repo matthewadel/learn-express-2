@@ -8,7 +8,10 @@ const brandsController = new BrandsController();
 
 router
   .route("/")
-  .get(brandsController.getAllBrands)
+  .get(
+    validateRequestSchema(brandsSchema.getAllBrands),
+    brandsController.getAllBrands
+  )
   .post(
     validateRequestSchema(brandsSchema.createBrand),
     brandsController.createBrand

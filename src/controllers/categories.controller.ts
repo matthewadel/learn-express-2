@@ -3,6 +3,7 @@ import { CategoryService } from "../services/categories.service";
 import { asyncWrapper } from "../middlewares/asyncWrapper";
 import { SendSuccessResponse } from "../utils/sendSuccessResponse";
 import { Category } from "../models/entities/category.entity";
+import { paginationInput } from "../utils/getPaginatedResultsWithFilter";
 import { SubCategory } from "../models/entities/subCategory.entity";
 
 export class CategoriesController {
@@ -19,18 +20,13 @@ export class CategoriesController {
   });
 
   getAllCategories = asyncWrapper(async (req: Request, res: Response) => {
-    const { totalPages, totalItems, data } =
-      await this.categoriesService.getAllCategories(
-        +(req.query?.page || 1),
-        +(req.query?.limit || 10),
-        req.query?.name as string
-      );
+    const response = await this.categoriesService.getAllCategories(
+      req.query as unknown as paginationInput<Category>
+    );
     SendSuccessResponse<Category>({
       res,
-      data,
       currentPage: +(req.query?.page || 1),
-      totalItems,
-      totalPages
+      ...response
     });
   });
 
@@ -46,18 +42,15 @@ export class CategoriesController {
 
   getSubCategoriesInsideCategory = asyncWrapper(
     async (req: Request, res: Response) => {
-      const { totalPages, totalItems, data } =
+      const response =
         await this.categoriesService.getSubCategoriesInsideCategory(
-          +(req.query?.page || 1),
-          +(req.query?.limit || 10),
-          +req.params?.categoryId
+          +req.params?.categoryId,
+          req.query as unknown as paginationInput<SubCategory>
         );
       SendSuccessResponse<SubCategory>({
         res,
-        data,
         currentPage: +(req.query?.page || 1),
-        totalItems,
-        totalPages
+        ...response
       });
     }
   );

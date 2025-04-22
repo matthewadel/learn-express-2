@@ -1,9 +1,11 @@
-import { Like } from "typeorm";
 import { AppDataSource } from "../models/data-source";
 import { Color } from "../models/entities/color.entity";
-import { getPaginatedResult } from "../utils/getPaginatedResult";
 import { findOneBy } from "../utils/findOneBy";
 import { BadRequestError } from "../utils/errors";
+import {
+  getPaginatedResultsWithFilter,
+  paginationInput
+} from "../utils/getPaginatedResultsWithFilter";
 
 export class ColorsService {
   private colorsRepository = AppDataSource.getRepository(Color);
@@ -16,10 +18,10 @@ export class ColorsService {
     return this.colorsRepository.save(newColor);
   }
 
-  async getAllColors(page: number, limit: number, name?: string) {
-    return await getPaginatedResult<Color>(Color, page, limit, {
-      where: { name: Like(`%${name || ""}%`) }
-    });
+  async getAllColors(requestParams: paginationInput<Color>) {
+    return await getPaginatedResultsWithFilter<Color>(Color, requestParams, [
+      "name"
+    ]);
   }
 
   async getColorById(id: number) {

@@ -14,18 +14,20 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
-app.use("/api", rootRouter);
-app.all("/*splat", (req: Request, res: Response, next: NextFunction) => {
-  next({ success: false, message: "Route not found" });
-});
+initializeDB().then(() => {
+  app.use("/api", rootRouter);
+  app.all("/*splat", (req: Request, res: Response, next: NextFunction) => {
+    next({ success: false, message: "Route not found" });
+  });
 
-// handle express errors
-app.use(globalErrorHandler);
+  // handle express errors
+  app.use(globalErrorHandler);
 
-// handle not express errors like db connection errors
-process.on("unhandledRejection", (error: Error) => {
-  console.log("unhandled error happened", error);
-  process.exit();
+  // handle not express errors like db connection errors
+  process.on("unhandledRejection", (error: Error) => {
+    console.log("unhandled error happened", error);
+    process.exit();
+  });
 });
 
 /**
@@ -33,8 +35,6 @@ process.on("unhandledRejection", (error: Error) => {
  * morgan must be before routes to ensure that logs are created
  * routes must be before error handler
  */
-
-initializeDB();
 
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 5001;
 

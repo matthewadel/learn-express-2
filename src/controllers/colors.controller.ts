@@ -3,6 +3,7 @@ import { asyncWrapper } from "../middlewares/asyncWrapper";
 import { ColorsService } from "../services/colors.service";
 import { SendSuccessResponse } from "../utils/sendSuccessResponse";
 import { Color } from "../models/entities/color.entity";
+import { paginationInput } from "../utils/getPaginatedResultsWithFilter";
 
 export class ColorsController {
   private readonly colorsService: ColorsService = new ColorsService();
@@ -26,13 +27,11 @@ export class ColorsController {
 
   getAllColors = asyncWrapper(async (req: Request, res: Response) => {
     const response = await this.colorsService.getAllColors(
-      +(req.query?.page ?? 1),
-      +(req.query?.limit ?? 10),
-      req.query.name as string
+      req.query as unknown as paginationInput<Color>
     );
     SendSuccessResponse<Color>({
       res,
-      currentPage: +(req.query?.page ?? 1),
+      currentPage: +(req.query?.page || 1),
       ...response
     });
   });

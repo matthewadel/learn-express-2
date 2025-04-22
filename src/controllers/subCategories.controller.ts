@@ -3,6 +3,7 @@ import { asyncWrapper } from "../middlewares/asyncWrapper";
 import { Request, Response } from "express";
 import { SendSuccessResponse } from "../utils/sendSuccessResponse";
 import { SubCategory } from "../models/entities/subCategory.entity";
+import { paginationInput } from "../utils/getPaginatedResultsWithFilter";
 
 export class SubCategoryController {
   private readonly subCategoriesService: SubCategoriesService =
@@ -22,18 +23,13 @@ export class SubCategoryController {
   });
 
   getAllSubCategories = asyncWrapper(async (req: Request, res: Response) => {
-    const { totalPages, totalItems, data } =
-      await this.subCategoriesService.getAllSubCategories(
-        +(req.query?.page || 1),
-        +(req.query?.limit || 10),
-        req.query?.name as string
-      );
+    const response = await this.subCategoriesService.getAllSubCategories(
+      req.query as unknown as paginationInput<SubCategory>
+    );
     SendSuccessResponse<SubCategory>({
       res,
-      data,
       currentPage: +(req.query?.page || 1),
-      totalItems,
-      totalPages
+      ...response
     });
   });
 

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { getALlItemsValidationWithPagination } from "../utils/getAllItemsValidationWithPagination";
 
 const createBrand = z.object({
   body: z.object({
@@ -13,7 +14,12 @@ const updateBrand = z.object({
   body: createBrand.shape.body.deepPartial()
 });
 
+const getAllBrands = getALlItemsValidationWithPagination(
+  createBrand.shape.body.shape
+);
+
 export const brandsSchema = {
   createBrand,
-  updateBrand
+  updateBrand,
+  getAllBrands
 };

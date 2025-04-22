@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { getALlItemsValidationWithPagination } from "../utils/getAllItemsValidationWithPagination";
 
 const createSubCategory = z.object({
   body: z.object({
@@ -19,4 +20,12 @@ const updateSubCategory = z.object({
   body: createSubCategory.shape.body.deepPartial()
 });
 
-export const subCategoriesSchema = { createSubCategory, updateSubCategory };
+const getAllSubCategories = getALlItemsValidationWithPagination(
+  createSubCategory.shape.body.shape
+);
+
+export const subCategoriesSchema = {
+  createSubCategory,
+  updateSubCategory,
+  getAllSubCategories
+};

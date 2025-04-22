@@ -1,9 +1,11 @@
-import { Like } from "typeorm";
 import { AppDataSource } from "../models/data-source";
 import { BadRequestError } from "../utils/errors";
-import { getPaginatedResult } from "../utils/getPaginatedResult";
 import { Brand } from "../models/entities/brand.entity";
 import { findOneBy } from "../utils/findOneBy";
+import {
+  getPaginatedResultsWithFilter,
+  paginationInput
+} from "../utils/getPaginatedResultsWithFilter";
 
 export class BrandsService {
   private BrandsRepository = AppDataSource.getRepository(Brand);
@@ -16,18 +18,10 @@ export class BrandsService {
     return await this.BrandsRepository.save(newBrand);
   }
 
-  async getAllBrands(
-    page: number = 1,
-    limit: number = 10,
-    name?: string
-  ): Promise<{
-    data: Brand[];
-    totalPages: number;
-    totalItems: number;
-  }> {
-    return await getPaginatedResult<Brand>(Brand, page, limit, {
-      where: { name: Like(`%${name || ""}%`) }
-    });
+  async getAllBrands(requestParams: paginationInput<Brand>) {
+    return await getPaginatedResultsWithFilter<Brand>(Brand, requestParams, [
+      "name"
+    ]);
   }
 
   async getBrandById(id: number): Promise<Brand> {

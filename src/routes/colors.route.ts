@@ -8,7 +8,10 @@ const colorsController = new ColorsController();
 
 router
   .route("/")
-  .get(colorsController.getAllColors)
+  .get(
+    validateRequestSchema(colorsSchema.getAllColors),
+    colorsController.getAllColors
+  )
   .post(
     validateRequestSchema(colorsSchema.createColor),
     colorsController.createColor

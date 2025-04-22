@@ -3,6 +3,7 @@ import { asyncWrapper } from "../middlewares/asyncWrapper";
 import { Product } from "../models/entities/product.entity";
 import { ProductsService } from "../services/products.service";
 import { SendSuccessResponse } from "../utils/sendSuccessResponse";
+import { paginationInput } from "../utils/getPaginatedResultsWithFilter";
 
 export class ProductsController {
   private readonly productsService: ProductsService = new ProductsService();
@@ -50,9 +51,7 @@ export class ProductsController {
 
   getAllProducts = asyncWrapper(async (req: Request, res: Response) => {
     const response = await this.productsService.getAllProducts(
-      +(req.query?.page || 1),
-      +(req.query?.limit || 10),
-      req.query?.name as string
+      req.query as unknown as paginationInput<Product>
     );
     SendSuccessResponse<Product>({
       res,

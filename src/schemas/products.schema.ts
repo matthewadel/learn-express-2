@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { getALlItemsValidationWithPagination } from "../utils/getAllItemsValidationWithPagination";
 
 const createProductSchema = z.object({
   body: z.object({
@@ -79,22 +80,12 @@ const updateProductSchema = z.object({
   body: createProductSchema.shape.body.deepPartial()
 });
 
+const getAllProducts = getALlItemsValidationWithPagination(
+  createProductSchema.shape.body.shape
+);
+
 export const productsSchema = {
   createProduct: createProductSchema,
-  updateProduct: updateProductSchema
+  updateProduct: updateProductSchema,
+  getAllProducts
 };
-
-// title
-// description
-// quantity
-// number_of_times_sold
-// price
-// price_after_discount
-// ratings_average
-// number_of_reviewers
-// image_cover
-// colors
-// images
-// brand
-// category
-// subCategories

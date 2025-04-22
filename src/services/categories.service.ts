@@ -1,10 +1,12 @@
-import { Like } from "typeorm";
 import { AppDataSource } from "../models/data-source";
 import { Category } from "../models/entities/category.entity";
-import { BadRequestError } from "../utils/errors";
-import { getPaginatedResult } from "../utils/getPaginatedResult";
 import { SubCategory } from "../models/entities/subCategory.entity";
+import { BadRequestError } from "../utils/errors";
 import { findOneBy } from "../utils/findOneBy";
+import {
+  getPaginatedResultsWithFilter,
+  paginationInput
+} from "../utils/getPaginatedResultsWithFilter";
 
 export class CategoryService {
   private categoryRepository = AppDataSource.getRepository(Category);
@@ -17,32 +19,24 @@ export class CategoryService {
     return await this.categoryRepository.save(category);
   }
 
-  async getAllCategories(
-    page: number = 1,
-    limit: number = 10,
-    name?: string
-  ): Promise<{
-    data: Category[];
-    totalPages: number;
-    totalItems: number;
-  }> {
-    return await getPaginatedResult<Category>(Category, page, limit, {
-      where: { name: Like(`%${name || ""}%`) }
-    });
+  async getAllCategories(requestParams: paginationInput<Category>) {
+    return await getPaginatedResultsWithFilter<Category>(
+      Category,
+      requestParams,
+      ["name"]
+    );
   }
 
   async getSubCategoriesInsideCategory(
-    page: number = 1,
-    limit: number = 10,
-    categoryId?: number
-  ): Promise<{
-    data: SubCategory[];
-    totalPages: number;
-    totalItems: number;
-  }> {
-    return await getPaginatedResult<SubCategory>(SubCategory, page, limit, {
-      where: { parent_category: { id: categoryId } }
-    });
+    categoryId: number,
+    requestParams: paginationInput<SubCategory>
+  ) {
+    return await getPaginatedResultsWithFilter<SubCategory>(
+      SubCategory,
+      requestParams,
+      ["name"],
+      { where: [{ parent_category: { id: categoryId } }] }
+    );
   }
 
   async getCategoryById(id: number): Promise<Category> {
