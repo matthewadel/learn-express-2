@@ -2,7 +2,10 @@ import { Router } from "express";
 import { CategoriesController } from "../controllers/categories.controller";
 import { categoriesSchema } from "../schemas/categories.schema";
 import { validateRequestSchema } from "../middlewares/validateRequestSchema";
-import { compressImage, uploadCategoryImage } from "../services";
+import {
+  compressImage,
+  uploadSingleImage
+} from "../middlewares/uploadSingleImage";
 
 const router = Router();
 const categoriesController = new CategoriesController();
@@ -14,8 +17,8 @@ router
     categoriesController.getAllCategories
   )
   .post(
-    uploadCategoryImage,
-    compressImage,
+    uploadSingleImage("image"),
+    compressImage("category", "categories"),
     validateRequestSchema(categoriesSchema.createCategory),
     categoriesController.createCategory
   );
@@ -24,8 +27,8 @@ router
   .route("/:categoryId")
   .get(categoriesController.getCategoryById)
   .put(
-    uploadCategoryImage,
-    compressImage,
+    uploadSingleImage("image"),
+    compressImage("category", "categories"),
     validateRequestSchema(categoriesSchema.updateCategory),
     categoriesController.updateCategory
   )

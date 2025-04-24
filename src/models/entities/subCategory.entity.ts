@@ -23,9 +23,6 @@ export class SubCategory {
   @MaxLength(32)
   name!: string;
 
-  @Column({ nullable: true })
-  image!: string;
-
   @ManyToOne(() => Category, (category) => category.subCategories, {
     onDelete: "CASCADE"
   })

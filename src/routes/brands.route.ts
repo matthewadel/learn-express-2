@@ -2,6 +2,10 @@ import { Router } from "express";
 import { validateRequestSchema } from "../middlewares/validateRequestSchema";
 import { brandsSchema } from "../schemas";
 import { BrandsController } from "../controllers";
+import {
+  compressImage,
+  uploadSingleImage
+} from "../middlewares/uploadSingleImage";
 
 const router = Router();
 const brandsController = new BrandsController();
@@ -13,6 +17,8 @@ router
     brandsController.getAllBrands
   )
   .post(
+    uploadSingleImage("image"),
+    compressImage("brand", "brands"),
     validateRequestSchema(brandsSchema.createBrand),
     brandsController.createBrand
   );
@@ -21,6 +27,8 @@ router
   .route("/:brandId")
   .get(brandsController.getBrandById)
   .put(
+    uploadSingleImage("image"),
+    compressImage("brand", "brands"),
     validateRequestSchema(brandsSchema.updateBrand),
     brandsController.updateBrand
   )

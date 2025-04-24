@@ -5,11 +5,14 @@ import {
   Unique,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany
+  OneToMany,
+  InsertEvent
 } from "typeorm";
 import { SubCategory } from "./subCategory.entity";
 import { MaxLength, MinLength } from "class-validator";
 import { Product } from "./product.entity";
+import { EventSubscriber, EntitySubscriberInterface } from "typeorm";
+import { returnImageUrlInResoinse } from "../../middlewares/uploadSingleImage";
 
 @Entity("categories")
 @Unique(["name"])
@@ -40,4 +43,24 @@ export class Category {
 
   @OneToMany(() => Product, (product) => product.category)
   products!: Product[];
+}
+
+@EventSubscriber()
+export class CategoryGenericSubscriber
+  implements EntitySubscriberInterface<Category>
+{
+  async afterLoad(entity: Category) {
+    returnImageUrlInResoinse<Category>({
+      entity,
+      fieldName: "image",
+      folderName: "categories"
+    });
+  }
+  async afterInsert(event: InsertEvent<Category>) {
+    returnImageUrlInResoinse<Category>({
+      entity: event.entity,
+      fieldName: "image",
+      folderName: "categories"
+    });
+  }
 }

@@ -6,9 +6,13 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany
+  OneToMany,
+  EventSubscriber,
+  InsertEvent,
+  EntitySubscriberInterface
 } from "typeorm";
 import { Product } from "./product.entity";
+import { returnImageUrlInResoinse } from "../../middlewares/uploadSingleImage";
 
 @Entity("brands")
 @Unique(["name"])
@@ -38,4 +42,24 @@ export class Brand {
     cascade: true
   })
   products!: Product[];
+}
+
+@EventSubscriber()
+export class BrandGenericSubscriber
+  implements EntitySubscriberInterface<Brand>
+{
+  async afterLoad(entity: Brand) {
+    returnImageUrlInResoinse<Brand>({
+      entity,
+      fieldName: "image",
+      folderName: "brands"
+    });
+  }
+  async afterInsert(event: InsertEvent<Brand>) {
+    returnImageUrlInResoinse<Brand>({
+      entity: event.entity,
+      fieldName: "image",
+      folderName: "brands"
+    });
+  }
 }

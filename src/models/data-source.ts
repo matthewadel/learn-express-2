@@ -2,6 +2,8 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { entities } from "./entities";
+import { CategoryGenericSubscriber } from "./entities/category.entity";
+import { BrandGenericSubscriber } from "./entities/brand.entity";
 
 export const AppDataSource = new DataSource({
   type: process.env.DB_TYPE as "postgres",
@@ -14,7 +16,7 @@ export const AppDataSource = new DataSource({
   logging: false,
   entities: entities,
   migrations: [],
-  subscribers: []
+  subscribers: [CategoryGenericSubscriber, BrandGenericSubscriber]
 });
 
 export async function initializeDB() {
