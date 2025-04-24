@@ -1,4 +1,4 @@
-import { Request } from "express";
+import { NextFunction, Request, Response } from "express";
 import { AppDataSource } from "../models/data-source";
 import { Category } from "../models/entities/category.entity";
 import { SubCategory } from "../models/entities/subCategory.entity";
@@ -10,6 +10,8 @@ import {
 } from "../utils/getPaginatedResultsWithFilter";
 import multer from "multer";
 import { v4 } from "uuid";
+import sharp from "sharp";
+import { asyncWrapper } from "../middlewares/asyncWrapper";
 
 export class CategoryService {
   private categoryRepository = AppDataSource.getRepository(Category);
@@ -67,17 +69,20 @@ export class CategoryService {
 }
 
 // disk storage solution
-const multerStorage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/categories");
-  },
-  filename: (req, file, cb) => {
-    const ext = file.mimetype.split("/")[1];
-    const filename = `category-${v4()}-${Date.now()}.${ext}`;
-    console.log(filename);
-    cb(null, filename);
-  }
-});
+// const multerStorage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, "uploads/categories");
+//   },
+//   filename: (req, file, cb) => {
+//     const ext = file.mimetype.split("/")[1];
+//     const filename = `category-${v4()}-${Date.now()}.${ext}`;
+//     console.log(filename);
+//     cb(null, filename);
+//   }
+// });
+
+// memory storage solution
+const multerStorage = multer.memoryStorage();
 
 const multerFilter = (
   req: Request,
@@ -89,4 +94,16 @@ const multerFilter = (
   } else cb(new BadRequestError("only images are allowed"), false);
 };
 const upload = multer({ storage: multerStorage, fileFilter: multerFilter });
+
 export const uploadCategoryImage = upload.single("image");
+export const compressImage = asyncWrapper(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const filename = `category-${v4()}-${Date.now()}.png`;
+    await sharp(req.file?.buffer)
+      .resize(300, 300)
+      .toFormat("png")
+      .png({ quality: 80 })
+      .toFile(`uploads/categories/${filename}`);
+    next();
+  }
+);
