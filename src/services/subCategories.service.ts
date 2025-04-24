@@ -7,6 +7,15 @@ import {
   getPaginatedResultsWithFilter,
   paginationInput
 } from "../utils/getPaginatedResultsWithFilter";
+import { subCategoriesSchema } from "../schemas";
+import { z } from "zod";
+
+type CreateSubCategoryBody = z.infer<
+  typeof subCategoriesSchema.createSubCategory
+>;
+type UpdateSubCategoryBody = z.infer<
+  typeof subCategoriesSchema.updateSubCategory
+>;
 
 export class SubCategoriesService {
   private subCategoryRepository = AppDataSource.getRepository(SubCategory);
@@ -14,25 +23,18 @@ export class SubCategoriesService {
 
   // Create a new sub-category
   async createSubCategory({
-    name,
-    image,
-    parentCategoryId
-  }: {
-    name: string;
-    image?: string;
-    parentCategoryId: number;
-  }): Promise<SubCategory> {
+    ...body
+  }: CreateSubCategoryBody["body"]): Promise<SubCategory> {
     const parentCategory = await this._findParentCategoryBy({
-      id: parentCategoryId
+      id: body.parentCategoryId
     });
     if (!parentCategory) throw new NotFoundError("Parent Category Not Found");
 
-    const cat = await this.subCategoryRepository.findOneBy({ name });
+    const cat = await this.subCategoryRepository.findOneBy({ name: body.name });
     if (cat) throw new BadRequestError("This SubCategory Already Exists");
 
     const subCategory = this.subCategoryRepository.create({
-      name,
-      image,
+      ...body,
       parent_category: parentCategory
     });
 
@@ -63,24 +65,20 @@ export class SubCategoriesService {
   // Update a sub-category
   async updateSubCategory(
     id: number,
-    name?: string,
-    image?: string,
-    parentCategoryId?: number
+    body: UpdateSubCategoryBody["body"]
   ): Promise<SubCategory> {
     const subCategory = await findOneBy<SubCategory>(SubCategory, {
       id
     });
 
-    if (name) subCategory.name = name;
-    if (image) subCategory.image = image;
-
-    if (parentCategoryId) {
+    if (body.parentCategoryId) {
       const parentCategory = await this._findParentCategoryBy({
-        id: parentCategoryId
+        id: body.parentCategoryId
       });
       subCategory.parent_category = parentCategory;
+      delete body.parentCategoryId;
     }
-    await this.subCategoryRepository.update({ id }, subCategory);
+    await this.subCategoryRepository.save({ ...subCategory, ...body });
 
     return subCategory;
   }

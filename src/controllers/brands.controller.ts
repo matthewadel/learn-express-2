@@ -9,7 +9,7 @@ export class BrandsController {
   private readonly brandsService: BrandsService = new BrandsService();
 
   createBrand = asyncWrapper(async (req: Request, res: Response) => {
-    const brand = await this.brandsService.createBrand(req.body.name);
+    const brand = await this.brandsService.createBrand(req.body);
     SendSuccessResponse<Brand>({
       res,
       data: brand,
@@ -40,7 +40,7 @@ export class BrandsController {
   updateBrand = asyncWrapper(async (req: Request, res: Response) => {
     const data = await this.brandsService.updateBrand(
       +req.params.brandId,
-      req.body.name
+      req.body
     );
     SendSuccessResponse<Brand>({
       res,

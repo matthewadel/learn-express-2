@@ -10,7 +10,7 @@ export class CategoriesController {
   private readonly categoriesService: CategoryService = new CategoryService();
 
   createCategory = asyncWrapper(async (req: Request, res: Response) => {
-    const category = await this.categoriesService.createCategory(req.body.name);
+    const category = await this.categoriesService.createCategory(req.body);
     SendSuccessResponse<Category>({
       res,
       data: category,
@@ -58,7 +58,7 @@ export class CategoriesController {
   updateCategory = asyncWrapper(async (req: Request, res: Response) => {
     const data = await this.categoriesService.updateCategory(
       +req.params.categoryId,
-      req.body.name
+      req.body
     );
     SendSuccessResponse<Category>({
       res,

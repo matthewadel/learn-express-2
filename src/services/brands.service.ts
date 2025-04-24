@@ -6,16 +6,19 @@ import {
   getPaginatedResultsWithFilter,
   paginationInput
 } from "../utils/getPaginatedResultsWithFilter";
+import { brandsSchema } from "../schemas";
+import { z } from "zod";
 
+type CreateBrandBody = z.infer<typeof brandsSchema.createBrand>;
+type UpdateBrandBody = z.infer<typeof brandsSchema.updateBrand>;
 export class BrandsService {
   private BrandsRepository = AppDataSource.getRepository(Brand);
 
-  async createBrand(name: string): Promise<Brand> {
-    const brand = await this.BrandsRepository.findOneBy({ name });
+  async createBrand(body: CreateBrandBody["body"]): Promise<Brand> {
+    const brand = await this.BrandsRepository.findOneBy({ name: body.name });
     if (brand) throw new BadRequestError("This Brand Already Exists");
 
-    const newBrand = this.BrandsRepository.create({ name });
-    return await this.BrandsRepository.save(newBrand);
+    return await this.BrandsRepository.save(body);
   }
 
   async getAllBrands(requestParams: paginationInput<Brand>) {
@@ -28,12 +31,10 @@ export class BrandsService {
     return await findOneBy<Brand>(Brand, { id });
   }
 
-  async updateBrand(id: number, name?: string, image?: string): Promise<Brand> {
+  async updateBrand(id: number, body: UpdateBrandBody["body"]): Promise<Brand> {
     const brand = await findOneBy<Brand>(Brand, { id });
 
-    if (name) brand.name = name;
-    if (image) brand.image = image;
-    await this.BrandsRepository.update({ id }, brand);
+    await this.BrandsRepository.save({ ...brand, ...body });
     return brand;
   }
 

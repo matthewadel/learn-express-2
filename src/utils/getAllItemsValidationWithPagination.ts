@@ -7,16 +7,30 @@ export const getALlItemsValidationWithPagination = (schema: any) => {
     query: z
       .object({
         page: z
-          .number({
-            invalid_type_error: "page must be a number"
+          .string()
+          .transform((val) => {
+            const parsed = parseInt(val, 10);
+            if (isNaN(parsed)) {
+              throw new Error("page must be a number");
+            }
+            if (parsed < 1) {
+              throw new Error("page must be a positive number");
+            }
+            return parsed;
           })
-          .positive({ message: "page must be a positive number" })
           .optional(),
         limit: z
-          .number({
-            invalid_type_error: "limit must be a number"
+          .string()
+          .transform((val) => {
+            const parsed = parseInt(val, 10);
+            if (isNaN(parsed)) {
+              throw new Error("limit must be a number");
+            }
+            if (parsed < 1) {
+              throw new Error("limit must be a positive number");
+            }
+            return parsed;
           })
-          .positive({ message: "limit must be a positive number" })
           .optional(),
         search_text: z.string().optional(),
         sort_by: z

@@ -12,15 +12,20 @@ import multer from "multer";
 import { v4 } from "uuid";
 import sharp from "sharp";
 import { asyncWrapper } from "../middlewares/asyncWrapper";
+import { categoriesSchema } from "../schemas";
+import { z } from "zod";
+
+type CreateCategotyBody = z.infer<typeof categoriesSchema.createCategory>;
+type UpdateCategoryBody = z.infer<typeof categoriesSchema.updateCategory>;
 
 export class CategoryService {
   private categoryRepository = AppDataSource.getRepository(Category);
 
-  async createCategory(name: string): Promise<Category> {
-    const cat = await this.categoryRepository.findOneBy({ name });
+  async createCategory(body: CreateCategotyBody["body"]): Promise<Category> {
+    const cat = await this.categoryRepository.findOneBy({ name: body.name });
     if (cat) throw new BadRequestError("This Category Already Exists");
 
-    const category = this.categoryRepository.create({ name });
+    const category = this.categoryRepository.create(body);
     return await this.categoryRepository.save(category);
   }
 
@@ -50,14 +55,11 @@ export class CategoryService {
 
   async updateCategory(
     id: number,
-    name?: string,
-    image?: string
+    body: UpdateCategoryBody["body"]
   ): Promise<Category> {
-    const category = await findOneBy<Category>(Category, { id });
+    const category = await findOneBy<Category>(Category, { id: id });
 
-    if (name) category.name = name;
-    if (image) category.image = image;
-    await this.categoryRepository.update({ id }, category);
+    await this.categoryRepository.save({ ...category, ...body });
     return category;
   }
 
@@ -99,11 +101,15 @@ export const uploadCategoryImage = upload.single("image");
 export const compressImage = asyncWrapper(
   async (req: Request, res: Response, next: NextFunction) => {
     const filename = `category-${v4()}-${Date.now()}.png`;
-    await sharp(req.file?.buffer)
-      .resize(300, 300)
-      .toFormat("png")
-      .png({ quality: 80 })
-      .toFile(`uploads/categories/${filename}`);
+    if (req.file?.buffer) {
+      await sharp(req.file?.buffer)
+        .resize(300, 300)
+        .toFormat("png")
+        .png({ quality: 80 })
+        .toFile(`uploads/categories/${filename}`);
+
+      req.body.image = filename;
+    }
     next();
   }
 );

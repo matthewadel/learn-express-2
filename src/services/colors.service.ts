@@ -6,15 +6,19 @@ import {
   getPaginatedResultsWithFilter,
   paginationInput
 } from "../utils/getPaginatedResultsWithFilter";
+import { z } from "zod";
+import { colorsSchema } from "../schemas/colors.schema";
+
+type CreateColorBody = z.infer<typeof colorsSchema.createColor>;
 
 export class ColorsService {
   private colorsRepository = AppDataSource.getRepository(Color);
 
-  async createColor(name: string) {
-    const color = await this.colorsRepository.findOneBy({ name });
+  async createColor(body: CreateColorBody["body"]) {
+    const color = await this.colorsRepository.findOneBy({ name: body.name });
     if (color) throw new BadRequestError("This Color Already Exists");
 
-    const newColor = this.colorsRepository.create({ name });
+    const newColor = this.colorsRepository.create(body);
     return this.colorsRepository.save(newColor);
   }
 

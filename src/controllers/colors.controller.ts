@@ -9,7 +9,7 @@ export class ColorsController {
   private readonly colorsService: ColorsService = new ColorsService();
 
   createColor = asyncWrapper(async (req: Request, res: Response) => {
-    const data = await this.colorsService.createColor(req.body.name);
+    const data = await this.colorsService.createColor(req.body);
     SendSuccessResponse<Color>({
       res,
       data,

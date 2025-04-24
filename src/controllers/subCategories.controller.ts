@@ -10,10 +10,9 @@ export class SubCategoryController {
     new SubCategoriesService();
 
   createSubCategory = asyncWrapper(async (req: Request, res: Response) => {
-    const category = await this.subCategoriesService.createSubCategory({
-      name: req.body.name,
-      parentCategoryId: +req.body.parentCategoryId
-    });
+    const category = await this.subCategoriesService.createSubCategory(
+      req.body
+    );
     SendSuccessResponse<SubCategory>({
       res,
       data: category,
@@ -45,13 +44,10 @@ export class SubCategoryController {
 
   updateSubCategory = asyncWrapper(async (req: Request, res: Response) => {
     const { subCategoryId } = req.params;
-    const { name, image, parentCategoryId } = req.body;
 
     const data = await this.subCategoriesService.updateSubCategory(
       +subCategoryId,
-      name,
-      image,
-      parentCategoryId
+      req.body
     );
     SendSuccessResponse<SubCategory>({
       res,
