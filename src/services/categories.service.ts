@@ -59,8 +59,7 @@ export class CategoryService {
   ): Promise<Category> {
     const category = await findOneBy<Category>(Category, { id: id });
 
-    await this.categoryRepository.save({ ...category, ...body });
-    return category;
+    return await this.categoryRepository.save({ ...category, ...body });
   }
 
   async deleteCategory(id: number): Promise<void> {
@@ -106,7 +105,7 @@ export const compressImage = asyncWrapper(
         .resize(300, 300)
         .toFormat("png")
         .png({ quality: 80 })
-        .toFile(`uploads/categories/${filename}`);
+        .toFile(`src/uploads/categories/${filename}`);
 
       req.body.image = filename;
     }

@@ -13,7 +13,7 @@ const createSubCategory = z.object({
         invalid_type_error: "Parent Category ID must be a number"
       })
       .positive({ message: "Parent Category ID must be a positive number" }),
-    image: z.string().url({ message: "Image must be a valid URL" }).optional()
+    image: z.string().optional()
   })
 });
 const updateSubCategory = z.object({

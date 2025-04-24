@@ -4,11 +4,13 @@ import morgan from "morgan";
 import { initializeDB } from "./models/data-source";
 import rootRouter from "./routes";
 import { globalErrorHandler } from "./middlewares/globalErrorHandler";
+import path from "path";
 
 // this block must be in the same order
 const app = express();
 
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "uploads")));
 
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));

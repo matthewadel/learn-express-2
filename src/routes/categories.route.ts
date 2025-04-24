@@ -14,9 +14,9 @@ router
     categoriesController.getAllCategories
   )
   .post(
-    // validateRequestSchema(categoriesSchema.createCategory),
     uploadCategoryImage,
     compressImage,
+    validateRequestSchema(categoriesSchema.createCategory),
     categoriesController.createCategory
   );
 
@@ -24,9 +24,9 @@ router
   .route("/:categoryId")
   .get(categoriesController.getCategoryById)
   .put(
-    // validateRequestSchema(categoriesSchema.updateCategory),
     uploadCategoryImage,
     compressImage,
+    validateRequestSchema(categoriesSchema.updateCategory),
     categoriesController.updateCategory
   )
   .delete(categoriesController.deleteCategory);

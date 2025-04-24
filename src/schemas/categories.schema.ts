@@ -7,7 +7,7 @@ const createCategory = z.object({
       .string({ required_error: "Name is required" })
       .min(3, { message: "Name must be at least 3 characters long" })
       .max(32, { message: "Name must be at most 32 characters long" }),
-    image: z.string().url({ message: "Image must be a valid URL" }).optional()
+    image: z.string().optional()
   })
 });
 const updateCategory = z.object({
