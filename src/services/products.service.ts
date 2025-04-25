@@ -25,11 +25,12 @@ export class ProductsService {
   async createProduct(body: CreateProductBody["body"]): Promise<Product> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const newProduct: any = { ...body };
-
+    console.log(body);
     newProduct.brand = await this._getBrand(body.brand);
 
     newProduct.category = await this._getCategory(body.category);
 
+    if (body.image_cover) newProduct.image_cover = body.image_cover[0];
     if (body.images) newProduct.images = await this._getImages(body.images);
 
     if (body.colors) newProduct.colors = await this._getColors(body.colors);
@@ -72,19 +73,6 @@ export class ProductsService {
       }
     });
 
-    // if (body.title) product.title = body.title;
-    // if (body.description) product.description = body.description;
-    // if (body.quantity) product.quantity = body.quantity;
-    // if (body.number_of_times_sold)
-    //   product.number_of_times_sold = body.number_of_times_sold;
-    // if (body.price) product.price = body.price;
-    // if (body.price_after_discount)
-    //   product.price_after_discount = body.price_after_discount;
-    // if (body.ratings_average) product.ratings_average = body.ratings_average;
-    // if (body.number_of_reviewers)
-    //   product.number_of_reviewers = body.number_of_reviewers;
-    // if (body.image_cover) product.image_cover = body.image_cover;
-
     if (body.brand) {
       product.brand = await this._getBrand(body.brand);
       delete body.brand;
@@ -126,6 +114,7 @@ export class ProductsService {
 
     await this.productsRepository.save({
       ...product,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ...(body as any)
     });
     return product;

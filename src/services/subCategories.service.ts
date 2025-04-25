@@ -33,12 +33,10 @@ export class SubCategoriesService {
     const cat = await this.subCategoryRepository.findOneBy({ name: body.name });
     if (cat) throw new BadRequestError("This SubCategory Already Exists");
 
-    const subCategory = this.subCategoryRepository.create({
+    return this.subCategoryRepository.save({
       ...body,
       parent_category: parentCategory
     });
-
-    return this.subCategoryRepository.save(subCategory);
   }
 
   // Get all sub-categories

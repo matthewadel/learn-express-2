@@ -20,8 +20,7 @@ export class CategoryService {
     const cat = await this.categoryRepository.findOneBy({ name: body.name });
     if (cat) throw new BadRequestError("This Category Already Exists");
 
-    const category = this.categoryRepository.create(body);
-    return await this.categoryRepository.save(category);
+    return await this.categoryRepository.save(body);
   }
 
   async getAllCategories(requestParams: paginationInput<Category>) {

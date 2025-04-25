@@ -6,8 +6,7 @@ export class ImagesService {
   private imageRepository = AppDataSource.getRepository(Image);
 
   async createImage(url: string) {
-    const newImage = this.imageRepository.create({ url });
-    return this.imageRepository.save(newImage);
+    return this.imageRepository.save({ url });
   }
 
   async deleteImage(id: number) {

@@ -22,6 +22,11 @@ import {
   OneToMany,
   JoinTable
 } from "typeorm";
+import {
+  EntitySubscriberInterface,
+  EventSubscriber,
+  InsertEvent
+} from "typeorm";
 
 @Entity("products")
 export class Product {
@@ -104,4 +109,42 @@ export class Product {
   @ManyToMany(() => SubCategory, (subCategory) => subCategory.products)
   @JoinTable({ name: "products_sub_categories" })
   subCategories!: SubCategory[];
+}
+
+@EventSubscriber()
+export class ProductSubscriber implements EntitySubscriberInterface<Product> {
+  listenTo() {
+    return Product;
+  }
+
+  afterLoad(entity: Product) {
+    if (entity.image_cover) {
+      entity.image_cover = `${process.env.BASE_URL}/productCovers/${entity.image_cover}`;
+    }
+
+    if (entity.images && Array.isArray(entity.images)) {
+      entity.images = entity.images.map((image) => {
+        return {
+          ...image,
+          url: `${process.env.BASE_URL}/products/${image.url}`
+        };
+      });
+    }
+  }
+
+  afterInsert(event: InsertEvent<Product>) {
+    const entity = event.entity;
+    if (entity.image_cover) {
+      entity.image_cover = `${process.env.BASE_URL}/productCovers/${entity.image_cover}`;
+    }
+
+    if (entity.images && Array.isArray(entity.images)) {
+      entity.images = entity.images.map((image) => {
+        return {
+          ...image,
+          url: `${process.env.BASE_URL}/products/${image.url}`
+        };
+      });
+    }
+  }
 }

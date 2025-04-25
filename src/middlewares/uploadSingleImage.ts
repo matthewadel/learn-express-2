@@ -5,7 +5,7 @@ import sharp from "sharp";
 import { asyncWrapper } from "../middlewares/asyncWrapper";
 import { BadRequestError } from "../utils/errors";
 
-export const uploadSingleImage = (fieldName: string) => {
+export const multerOptions = () => {
   // disk storage solution
   // const multerStorage = multer.diskStorage({
   //   destination: (req, file, cb) => {
@@ -25,20 +25,24 @@ export const uploadSingleImage = (fieldName: string) => {
   const multerFilter = (
     req: Request,
     file: Express.Multer.File,
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     cb: Function
   ): void => {
     if (file.mimetype.startsWith("image")) {
       cb(null, true);
     } else cb(new BadRequestError("only images are allowed"), false);
   };
-  const upload = multer({ storage: multerStorage, fileFilter: multerFilter });
+  return multer({ storage: multerStorage, fileFilter: multerFilter });
+};
 
+export const uploadSingleImage = (fieldName: string) => {
+  const upload = multerOptions();
   return upload.single(fieldName);
 };
 
-export const compressImage = (fileSuffix: string, folderName: string) =>
+export const compressSingleImage = (fieldName: string, folderName: string) =>
   asyncWrapper(async (req: Request, res: Response, next: NextFunction) => {
-    const filename = `${fileSuffix}-${v4()}-${Date.now()}.png`;
+    const filename = `${fieldName}-${v4()}-${Date.now()}.png`;
     if (req.file?.buffer) {
       await sharp(req.file?.buffer)
         .resize(300, 300)
@@ -46,7 +50,7 @@ export const compressImage = (fileSuffix: string, folderName: string) =>
         .png({ quality: 80 })
         .toFile(`src/uploads/${folderName}/${filename}`);
 
-      req.body.image = filename;
+      req.body[fieldName] = filename;
     }
     next();
   });

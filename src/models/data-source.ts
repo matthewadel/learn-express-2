@@ -4,6 +4,7 @@ import { DataSource } from "typeorm";
 import { entities } from "./entities";
 import { CategoryGenericSubscriber } from "./entities/category.entity";
 import { BrandGenericSubscriber } from "./entities/brand.entity";
+import { ProductSubscriber } from "./entities/product.entity";
 
 export const AppDataSource = new DataSource({
   type: process.env.DB_TYPE as "postgres",
@@ -16,7 +17,11 @@ export const AppDataSource = new DataSource({
   logging: false,
   entities: entities,
   migrations: [],
-  subscribers: [CategoryGenericSubscriber, BrandGenericSubscriber]
+  subscribers: [
+    CategoryGenericSubscriber,
+    BrandGenericSubscriber,
+    ProductSubscriber
+  ]
 });
 
 export async function initializeDB() {

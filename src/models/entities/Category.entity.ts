@@ -45,10 +45,12 @@ export class Category {
   products!: Product[];
 }
 
+//it is somethinng like mongoose middle schema.post('init',()=>{}) in get and schema.post('init',()=>{}) in create
 @EventSubscriber()
 export class CategoryGenericSubscriber
   implements EntitySubscriberInterface<Category>
 {
+  // works in get and update
   async afterLoad(entity: Category) {
     returnImageUrlInResoinse<Category>({
       entity,
@@ -56,6 +58,8 @@ export class CategoryGenericSubscriber
       folderName: "categories"
     });
   }
+
+  // works after insert
   async afterInsert(event: InsertEvent<Category>) {
     returnImageUrlInResoinse<Category>({
       entity: event.entity,

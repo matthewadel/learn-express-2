@@ -11,11 +11,22 @@ export function validateRequestSchema(schema: AnyZodObject) {
     next: NextFunction
   ): Promise<void> => {
     try {
-      await schema.parseAsync({
+      console.log({
         body: req.body,
         query: req.query,
         params: req.params
       });
+      const parsedData = await schema.parseAsync({
+        body: req.body,
+        query: req.query,
+        params: req.params
+      });
+
+      // Update the request object properties without reassigning
+      if (parsedData.body) Object.assign(req.body, parsedData.body);
+      if (parsedData.query) Object.assign(req.query, parsedData.query);
+      if (parsedData.params) Object.assign(req.params, parsedData.params);
+
       next();
     } catch (error) {
       if (error instanceof ZodError) {

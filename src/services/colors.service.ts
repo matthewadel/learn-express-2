@@ -18,8 +18,7 @@ export class ColorsService {
     const color = await this.colorsRepository.findOneBy({ name: body.name });
     if (color) throw new BadRequestError("This Color Already Exists");
 
-    const newColor = this.colorsRepository.create(body);
-    return this.colorsRepository.save(newColor);
+    return this.colorsRepository.save(body);
   }
 
   async getAllColors(requestParams: paginationInput<Color>) {

@@ -9,8 +9,7 @@ export class ProductsController {
   private readonly productsService: ProductsService = new ProductsService();
 
   createProduct = asyncWrapper(async (req: Request, res: Response) => {
-    const productParams = req.body;
-    const data = await this.productsService.createProduct(productParams);
+    const data = await this.productsService.createProduct(req.body);
     SendSuccessResponse<Product>({
       res,
       data,

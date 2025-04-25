@@ -3,7 +3,7 @@ import { CategoriesController } from "../controllers/categories.controller";
 import { categoriesSchema } from "../schemas/categories.schema";
 import { validateRequestSchema } from "../middlewares/validateRequestSchema";
 import {
-  compressImage,
+  compressSingleImage,
   uploadSingleImage
 } from "../middlewares/uploadSingleImage";
 
@@ -18,7 +18,7 @@ router
   )
   .post(
     uploadSingleImage("image"),
-    compressImage("category", "categories"),
+    compressSingleImage("category", "categories"),
     validateRequestSchema(categoriesSchema.createCategory),
     categoriesController.createCategory
   );
@@ -28,7 +28,7 @@ router
   .get(categoriesController.getCategoryById)
   .put(
     uploadSingleImage("image"),
-    compressImage("category", "categories"),
+    compressSingleImage("category", "categories"),
     validateRequestSchema(categoriesSchema.updateCategory),
     categoriesController.updateCategory
   )

@@ -3,7 +3,7 @@ import { validateRequestSchema } from "../middlewares/validateRequestSchema";
 import { brandsSchema } from "../schemas";
 import { BrandsController } from "../controllers";
 import {
-  compressImage,
+  compressSingleImage,
   uploadSingleImage
 } from "../middlewares/uploadSingleImage";
 
@@ -18,7 +18,7 @@ router
   )
   .post(
     uploadSingleImage("image"),
-    compressImage("brand", "brands"),
+    compressSingleImage("brand", "brands"),
     validateRequestSchema(brandsSchema.createBrand),
     brandsController.createBrand
   );
@@ -28,7 +28,7 @@ router
   .get(brandsController.getBrandById)
   .put(
     uploadSingleImage("image"),
-    compressImage("brand", "brands"),
+    compressSingleImage("brand", "brands"),
     validateRequestSchema(brandsSchema.updateBrand),
     brandsController.updateBrand
   )
