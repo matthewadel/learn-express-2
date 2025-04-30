@@ -47,16 +47,22 @@ export class UsersService {
     return await findOneBy<User>(User, { email });
   }
 
-  async updateUser(id: number, body: UpdateUserBody["body"]): Promise<User> {
+  async updateUser(
+    id: number,
+    body: UpdateUserBody["body"] & { password?: string }
+  ): Promise<User> {
     const user = await findOneBy<User>(User, { id });
 
-    const password = body.password
-      ? await this._hashPassword(body.password)
-      : user.password;
+    // const password = body.password
+    //   ? await this._hashPassword(body.password)
+    //   : user.password;
+
+    if (body.password)
+      throw new BadRequestError("You can't update the password here");
     const updatedUser = this.UsersRepository.create({
       ...user,
       ...body,
-      password,
+      // password,
       role: body.role as UserRoles // Ensure role is cast to UserRoles
     });
 
@@ -80,7 +86,8 @@ export class UsersService {
     const hashedPassword = await this._hashPassword(body.newPassword);
     return await this.UsersRepository.save({
       ...user,
-      password: hashedPassword
+      password: hashedPassword,
+      passwordChangedAt: new Date()
     });
   }
 

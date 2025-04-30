@@ -23,3 +23,10 @@ interview questions
 prisma
 what is the output from the github link
 nestjs
+
+
+
+
+app problems
+1- exclude password from response globally like nestjs
+2- sanitizing user inputs

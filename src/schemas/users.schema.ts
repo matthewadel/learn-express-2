@@ -33,7 +33,10 @@ const createUser = z.object({
 });
 
 const updateUser = z.object({
-  body: createUser.shape.body.innerType().deepPartial()
+  body: createUser.shape.body
+    .innerType()
+    .omit({ password: true, confirmPassword: true })
+    .deepPartial()
 });
 
 const updateUserPassword = z.object({

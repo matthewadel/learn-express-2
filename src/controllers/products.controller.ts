@@ -13,6 +13,7 @@ export class ProductsController {
     SendSuccessResponse<Product>({
       res,
       data,
+      statusCode: 201,
       message: "Product Created Successfully"
     });
   });

@@ -45,6 +45,7 @@ export class UsersController {
     SendSuccessResponse<User>({
       res,
       data,
+      statusCode: 201,
       message: "User Updated Successfully"
     });
   });

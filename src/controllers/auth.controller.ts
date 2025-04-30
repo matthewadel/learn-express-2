@@ -4,12 +4,12 @@ import { SendSuccessResponse } from "../utils/sendSuccessResponse";
 import { asyncWrapper } from "../middlewares/asyncWrapper";
 import { User } from "../models/entities/user.entity";
 
-const authService = new AuthService();
-
 export class AuthController {
   // Signup route handler
+  authService = new AuthService();
+
   register = asyncWrapper(async (req: Request, res: Response) => {
-    const user = await authService.register(req.body);
+    const user = await this.authService.register(req.body);
     SendSuccessResponse<User>({
       res,
       data: user,
@@ -19,7 +19,7 @@ export class AuthController {
 
   // login route handler
   login = asyncWrapper(async (req: Request, res: Response) => {
-    const user = await authService.login(req.body);
+    const user = await this.authService.login(req.body);
     SendSuccessResponse<User>({
       res,
       data: user,

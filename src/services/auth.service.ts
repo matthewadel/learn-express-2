@@ -45,7 +45,7 @@ export class AuthService {
       { userId: user.id, role: user.role },
       process.env.JWT_SECRET as string,
       {
-        expiresIn: parseInt(process.env.JWT_EXPIRES_IN as string, 10)
+        expiresIn: process.env.JWT_EXPIRES_IN as any
       }
     );
   }

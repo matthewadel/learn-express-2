@@ -6,6 +6,7 @@ import {
   compressSingleImage,
   uploadSingleImage
 } from "../middlewares/uploadSingleImage";
+import { verifyToken } from "../middlewares/verifyToken";
 
 const router = Router();
 const categoriesController = new CategoriesController();
@@ -17,6 +18,7 @@ router
     categoriesController.getAllCategories
   )
   .post(
+    verifyToken,
     uploadSingleImage("image"),
     compressSingleImage("category", "categories"),
     validateRequestSchema(categoriesSchema.createCategory),

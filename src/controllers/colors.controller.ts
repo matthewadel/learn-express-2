@@ -13,6 +13,7 @@ export class ColorsController {
     SendSuccessResponse<Color>({
       res,
       data,
+      statusCode: 201,
       message: "Color Created Successfully"
     });
   });
