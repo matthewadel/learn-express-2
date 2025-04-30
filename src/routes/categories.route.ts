@@ -32,12 +32,18 @@ router
   .route("/:categoryId")
   .get(categoriesController.getCategoryById)
   .put(
+    verifyToken,
+    allowedTo([UserRoles.ADMIN]),
     uploadSingleImage("image"),
     compressSingleImage("category", "categories"),
     validateRequestSchema(categoriesSchema.updateCategory),
     categoriesController.updateCategory
   )
-  .delete(categoriesController.deleteCategory);
+  .delete(
+    verifyToken,
+    allowedTo([UserRoles.ADMIN]),
+    categoriesController.deleteCategory
+  );
 
 router
   .route("/:categoryId/sub-categories")

@@ -6,6 +6,9 @@ import {
   compressSingleImage,
   uploadSingleImage
 } from "../middlewares/uploadSingleImage";
+import { allowedTo } from "../middlewares/allowedTo";
+import { verifyToken } from "../middlewares/verifyToken";
+import { UserRoles } from "../models/entities/user.entity";
 
 const router = Router();
 const usersController = new UsersController();
@@ -13,10 +16,14 @@ const usersController = new UsersController();
 router
   .route("/")
   .get(
+    verifyToken,
+    allowedTo([UserRoles.ADMIN]),
     validateRequestSchema(usersSchema.getAllUsers),
     usersController.getAllUsers
   )
   .post(
+    verifyToken,
+    allowedTo([UserRoles.ADMIN]),
     uploadSingleImage("profileImage"),
     compressSingleImage("profileImage", "profileImages"),
     validateRequestSchema(usersSchema.createUser),
@@ -25,14 +32,20 @@ router
 
 router
   .route("/:userId")
-  .get(usersController.getUserById)
+  .get(verifyToken, allowedTo([UserRoles.ADMIN]), usersController.getUserById)
   .put(
+    verifyToken,
+    allowedTo([UserRoles.ADMIN]),
     uploadSingleImage("profileImage"),
     compressSingleImage("profileImage", "profileImages"),
     validateRequestSchema(usersSchema.updateUser),
     usersController.updateUser
   )
-  .delete(usersController.deleteUser);
+  .delete(
+    verifyToken,
+    allowedTo([UserRoles.ADMIN]),
+    usersController.deleteUser
+  );
 
 router.put(
   "/:userId/updatePassword",
