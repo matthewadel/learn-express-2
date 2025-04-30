@@ -28,3 +28,14 @@ export class NotFoundError extends HttpError {
     super(404, "NotFoundError", message, errors);
   }
 }
+
+export class NotAuthenticatedError extends HttpError {
+  constructor(message = "Not Authenticated", errors?: unknown) {
+    super(
+      401,
+      "Not Authenticated, Email Or Password Is Wrong",
+      message,
+      errors
+    );
+  }
+}

@@ -7,15 +7,17 @@ export async function findOneBy<T>(
   {
     id,
     name,
+    email,
     options
   }: {
     id?: number;
     name?: string;
+    email?: string;
     options?: FindOneOptions<ObjectLiteral>;
   }
 ) {
   const repo = AppDataSource.getRepository(entity);
-  const item = await repo.findOne({ where: { id, name }, ...options });
+  const item = await repo.findOne({ where: { id, name, email }, ...options });
   if (!item) throw new NotFoundError(`${entity} not found`);
   return item as T;
 }

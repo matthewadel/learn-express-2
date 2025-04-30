@@ -5,6 +5,7 @@ import brandsRouter from "./brands.route";
 import productsRouter from "./product.route";
 import colorsRouter from "./colors.route";
 import UsersRouter from "./users.route";
+import AuthRouter from "./auth.route";
 
 const router = Router();
 
@@ -14,5 +15,6 @@ router.use("/brand", brandsRouter);
 router.use("/product", productsRouter);
 router.use("/color", colorsRouter);
 router.use("/user", UsersRouter);
+router.use("/auth", AuthRouter);
 
 export default router;
