@@ -4,7 +4,8 @@ import { Color } from "./color.entity";
 import { Image } from "./image.entity";
 import { Product } from "./product.entity";
 import { SubCategory } from "./subCategory.entity";
+import { User } from "./user.entity";
 
-const entities = [Category, SubCategory, Brand, Image, Product, Color];
+const entities = [User, Category, SubCategory, Brand, Image, Product, Color];
 
 export { entities };

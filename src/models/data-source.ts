@@ -5,6 +5,7 @@ import { entities } from "./entities";
 import { CategoryGenericSubscriber } from "./entities/category.entity";
 import { BrandGenericSubscriber } from "./entities/brand.entity";
 import { ProductSubscriber } from "./entities/product.entity";
+import { UserGenericSubscriber } from "./entities/user.entity";
 
 export const AppDataSource = new DataSource({
   type: process.env.DB_TYPE as "postgres",
@@ -20,7 +21,8 @@ export const AppDataSource = new DataSource({
   subscribers: [
     CategoryGenericSubscriber,
     BrandGenericSubscriber,
-    ProductSubscriber
+    ProductSubscriber,
+    UserGenericSubscriber
   ]
 });
 
