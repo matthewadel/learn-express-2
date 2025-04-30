@@ -31,11 +31,12 @@ export class NotFoundError extends HttpError {
 
 export class NotAuthenticatedError extends HttpError {
   constructor(message = "Not Authenticated", errors?: unknown) {
-    super(
-      401,
-      "Not Authenticated, Email Or Password Is Wrong",
-      message,
-      errors
-    );
+    super(401, "Not Authenticated", message, errors);
+  }
+}
+
+export class NotAuthorizedError extends HttpError {
+  constructor(message = "Not Authenticated", errors?: unknown) {
+    super(403, "Not Authorized", message, errors);
   }
 }

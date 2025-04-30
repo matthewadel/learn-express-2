@@ -7,6 +7,8 @@ import {
   uploadSingleImage
 } from "../middlewares/uploadSingleImage";
 import { verifyToken } from "../middlewares/verifyToken";
+import { allowedTo } from "../middlewares/allowedTo";
+import { UserRoles } from "../models/entities/user.entity";
 
 const router = Router();
 const categoriesController = new CategoriesController();
@@ -19,6 +21,7 @@ router
   )
   .post(
     verifyToken,
+    allowedTo([UserRoles.ADMIN]),
     uploadSingleImage("image"),
     compressSingleImage("category", "categories"),
     validateRequestSchema(categoriesSchema.createCategory),
