@@ -3,6 +3,10 @@ import { AuthService } from "../services/auth.service";
 import { SendSuccessResponse } from "../utils/sendSuccessResponse";
 import { asyncWrapper } from "../middlewares/asyncWrapper";
 import { User } from "../models/entities/user.entity";
+import { authSchema } from "../schemas/auth.schema";
+import { z } from "zod";
+
+type verifyEmailParams = z.infer<typeof authSchema.verifyEmail>;
 
 export class AuthController {
   // Signup route handler
@@ -28,26 +32,28 @@ export class AuthController {
   });
 
   forgetPassword = asyncWrapper(async (req: Request, res: Response) => {
-    await this.authService.forgetPassword(req.body);
-    SendSuccessResponse<User>({
+    const data = await this.authService.forgetPassword(req.body);
+    SendSuccessResponse<{ verificationUrl?: string }>({
       res,
+      data,
       message: "Code Sent Successfully, Please Check Your Email"
     });
   });
-  verifyResetCode = asyncWrapper(async (req: Request, res: Response) => {
-    const response = await this.authService.verifyResetCode(req.body);
+
+  verifyEmail = asyncWrapper(async (req: Request, res: Response) => {
+    await this.authService.verifyEmail(req.query as verifyEmailParams["query"]);
     SendSuccessResponse<User>({
       res,
-      // data: response,
-      message: "User Registered Successfully"
+      message: "Code Is Verified Successfully"
     });
   });
+
   resetPassword = asyncWrapper(async (req: Request, res: Response) => {
-    const response = await this.authService.resetPassword(req.body);
+    const data = await this.authService.resetPassword(req.body);
     SendSuccessResponse<User>({
       res,
-      // data: response,
-      message: "User Registered Successfully"
+      data,
+      message: "password reset successfully"
     });
   });
 }

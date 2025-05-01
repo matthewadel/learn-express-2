@@ -23,16 +23,16 @@ const forgetPassword = z.object({
       .email({ message: "Invalid email address" })
   })
 });
-const verifyResetCode = z.object({
-  body: z.object({
+
+const verifyEmail = z.object({
+  query: z.object({
+    token: z.string({ required_error: "Token is required" }),
     email: z
       .string({ required_error: "Email is required" })
-      .email({ message: "Invalid email address" }),
-    resetCode: z
-      .string({ required_error: "Reset code is required" })
-      .min(6, { message: "Reset code must be at least 6 characters long" })
+      .email({ message: "Invalid email address" })
   })
 });
+
 const resetPassword = z.object({
   body: z
     .object({
@@ -60,6 +60,6 @@ export const authSchema = {
   register,
   login,
   forgetPassword,
-  verifyResetCode,
+  verifyEmail,
   resetPassword
 };

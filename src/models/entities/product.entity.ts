@@ -27,6 +27,7 @@ import {
   EventSubscriber,
   InsertEvent
 } from "typeorm";
+import { getEnv } from "../../utils/validateEnv";
 
 @Entity("products")
 export class Product {
@@ -119,14 +120,14 @@ export class ProductSubscriber implements EntitySubscriberInterface<Product> {
 
   afterLoad(entity: Product) {
     if (entity.image_cover) {
-      entity.image_cover = `${process.env.BASE_URL}/productCovers/${entity.image_cover}`;
+      entity.image_cover = `${getEnv().BASE_URL}/productCovers/${entity.image_cover}`;
     }
 
     if (entity.images && Array.isArray(entity.images)) {
       entity.images = entity.images.map((image) => {
         return {
           ...image,
-          url: `${process.env.BASE_URL}/products/${image.url}`
+          url: `${getEnv().BASE_URL}/products/${image.url}`
         };
       });
     }
@@ -135,14 +136,14 @@ export class ProductSubscriber implements EntitySubscriberInterface<Product> {
   afterInsert(event: InsertEvent<Product>) {
     const entity = event.entity;
     if (entity.image_cover) {
-      entity.image_cover = `${process.env.BASE_URL}/productCovers/${entity.image_cover}`;
+      entity.image_cover = `${getEnv().BASE_URL}/productCovers/${entity.image_cover}`;
     }
 
     if (entity.images && Array.isArray(entity.images)) {
       entity.images = entity.images.map((image) => {
         return {
           ...image,
-          url: `${process.env.BASE_URL}/products/${image.url}`
+          url: `${getEnv().BASE_URL}/products/${image.url}`
         };
       });
     }

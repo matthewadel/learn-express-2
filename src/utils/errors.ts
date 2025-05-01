@@ -23,6 +23,12 @@ export class BadRequestError extends HttpError {
   }
 }
 
+export class ServerError extends HttpError {
+  constructor(message = "Server Error", errors?: unknown) {
+    super(500, "Server Error", message, errors);
+  }
+}
+
 export class NotFoundError extends HttpError {
   constructor(message = "Not Found", errors?: unknown) {
     super(404, "NotFoundError", message, errors);

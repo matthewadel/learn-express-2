@@ -10,6 +10,7 @@ import bcrypt from "bcryptjs";
 
 import { z } from "zod";
 import { usersSchema } from "../schemas/users.schema";
+import { hashString } from "../utils/hashString";
 
 type CreateUserBody = z.infer<typeof usersSchema.createUser>;
 type UpdateUserBody = z.infer<typeof usersSchema.updateUser>;
@@ -22,7 +23,7 @@ export class UsersService {
     const user = await this.UsersRepository.findOneBy({ email: body.email });
     if (user) throw new BadRequestError("This User Already Exists");
 
-    const password = await this.hashPassword(body.password);
+    const password = await hashString(body.password);
     const userEntity = this.UsersRepository.create({
       ...body,
       password,
@@ -54,7 +55,7 @@ export class UsersService {
     const user = await findOneBy<User>(User, { id });
 
     // const password = body.password
-    //   ? await this.hashPassword(body.password)
+    //   ? await hashString(body.password)
     //   : user.password;
 
     if (body.password)
@@ -83,7 +84,7 @@ export class UsersService {
       throw new BadRequestError((err as Error).message);
     }
 
-    const hashedPassword = await this.hashPassword(body.newPassword);
+    const hashedPassword = await hashString(body.newPassword);
     return await this.UsersRepository.save({
       ...user,
       password: hashedPassword,
@@ -95,9 +96,5 @@ export class UsersService {
     const user = await findOneBy<User>(User, { id });
 
     await this.UsersRepository.remove(user);
-  }
-
-  async hashPassword(password: string): Promise<string> {
-    return bcrypt.hash(password, 10);
   }
 }

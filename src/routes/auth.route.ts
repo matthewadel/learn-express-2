@@ -30,10 +30,10 @@ router.post(
   authController.forgetPassword
 );
 
-router.post(
-  "/verifyResetCode",
-  validateRequestSchema(authSchema.verifyResetCode),
-  authController.verifyResetCode
+router.get(
+  "/verify-email",
+  validateRequestSchema(authSchema.verifyEmail),
+  authController.verifyEmail
 );
 
 router.post(

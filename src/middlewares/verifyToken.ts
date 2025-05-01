@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import { UsersService } from "../services/users.service";
 import "express";
 import { User } from "../models/entities/user.entity";
+import { getEnv } from "../utils/validateEnv";
 
 const usersService = new UsersService();
 
@@ -39,7 +40,7 @@ export const verifyToken = async (
 
   // 2- check for token validation and expiration
   try {
-    const result = jwt.verify(token, process.env.JWT_SECRET as string);
+    const result = jwt.verify(token, getEnv().JWT_SECRET as string);
     if (typeof result === "string") {
       throw new NotAuthenticatedError("Invalid token format");
     }

@@ -4,6 +4,7 @@ import { v4 } from "uuid";
 import sharp from "sharp";
 import { asyncWrapper } from "../middlewares/asyncWrapper";
 import { BadRequestError } from "../utils/errors";
+import { getEnv } from "../utils/validateEnv";
 
 export const multerOptions = () => {
   // disk storage solution
@@ -64,8 +65,8 @@ export function returnImageUrlInResoinse<T>({
   fieldName: keyof T;
   folderName: string;
 }) {
-  if (entity?.[fieldName] && process.env.BASE_URL) {
+  if (entity?.[fieldName] && getEnv().BASE_URL) {
     entity[fieldName] =
-      `${process.env.BASE_URL}/${folderName}/${entity[fieldName]}` as NonNullable<T>[keyof T];
+      `${getEnv().BASE_URL}/${folderName}/${entity[fieldName]}` as NonNullable<T>[keyof T];
   }
 }

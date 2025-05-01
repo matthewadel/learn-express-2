@@ -5,6 +5,7 @@ import { initializeDB } from "./models/data-source";
 import rootRouter from "./routes";
 import { globalErrorHandler } from "./middlewares/globalErrorHandler";
 import path from "path";
+import { getEnv } from "./utils/validateEnv";
 
 // this block must be in the same order
 const app = express();
@@ -12,7 +13,7 @@ const app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "uploads")));
 
-if (process.env.NODE_ENV === "development") {
+if (getEnv().NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
@@ -38,7 +39,7 @@ initializeDB().then(() => {
  * routes must be before error handler
  */
 
-const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 5001;
+const PORT = getEnv().PORT ?? 5001;
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

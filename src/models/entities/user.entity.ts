@@ -41,8 +41,11 @@ export class User {
   @Column({ nullable: true })
   passwordResetCode!: string;
 
+  @Column({ nullable: true })
+  resetPasswordVerified!: boolean;
+
   @Column({ type: "timestamp", nullable: true })
-  passwordResetExpires!: Date;
+  passwordResetExpires!: Date | null;
 
   @Column()
   password!: string;
