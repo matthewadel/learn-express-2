@@ -5,12 +5,18 @@ import { authSchema } from "../schemas/auth.schema";
 import { User } from "../models/entities/user.entity";
 import { NotAuthenticatedError } from "../utils/errors";
 import bcrypt from "bcryptjs";
+import { AppDataSource } from "../models/data-source";
 
 type registerBody = z.infer<typeof authSchema.register>;
 type loginBody = z.infer<typeof authSchema.login>;
+type forgetPasswordBody = z.infer<typeof authSchema.forgetPassword>;
+type verifyResetCodeBody = z.infer<typeof authSchema.verifyResetCode>;
+type resetPasswordBody = z.infer<typeof authSchema.resetPassword>;
 
 export class AuthService {
   private userService = new UsersService();
+  private UsersRepository = AppDataSource.getRepository(User);
+
   async register(body: registerBody["body"]) {
     const user = await this.userService.createUser({
       ...body
@@ -39,6 +45,21 @@ export class AuthService {
       token
     };
   }
+
+  async forgetPassword(body: forgetPasswordBody["body"]) {
+    const user = await this.userService.getUserByEmail(body.email);
+    // generate 6 random digits
+    const resetCode = Math.floor(100000 + Math.random() * 900000).toString();
+    const hashedCode = await this.userService.hashPassword(resetCode);
+
+    user.passwordResetCode = hashedCode;
+    user.passwordResetExpires = new Date(Date.now() + 10 * 60 * 1000);
+    await this.UsersRepository.save(user);
+  }
+
+  async verifyResetCode(body: verifyResetCodeBody["body"]) {}
+
+  async resetPassword(body: resetPasswordBody["body"]) {}
 
   private async _generateToken(user: User) {
     return jwt.sign(

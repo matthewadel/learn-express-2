@@ -22,7 +22,7 @@ export class UsersService {
     const user = await this.UsersRepository.findOneBy({ email: body.email });
     if (user) throw new BadRequestError("This User Already Exists");
 
-    const password = await this._hashPassword(body.password);
+    const password = await this.hashPassword(body.password);
     const userEntity = this.UsersRepository.create({
       ...body,
       password,
@@ -54,7 +54,7 @@ export class UsersService {
     const user = await findOneBy<User>(User, { id });
 
     // const password = body.password
-    //   ? await this._hashPassword(body.password)
+    //   ? await this.hashPassword(body.password)
     //   : user.password;
 
     if (body.password)
@@ -83,7 +83,7 @@ export class UsersService {
       throw new BadRequestError((err as Error).message);
     }
 
-    const hashedPassword = await this._hashPassword(body.newPassword);
+    const hashedPassword = await this.hashPassword(body.newPassword);
     return await this.UsersRepository.save({
       ...user,
       password: hashedPassword,
@@ -97,7 +97,7 @@ export class UsersService {
     await this.UsersRepository.remove(user);
   }
 
-  private _hashPassword(password: string): Promise<string> {
+  async hashPassword(password: string): Promise<string> {
     return bcrypt.hash(password, 10);
   }
 }

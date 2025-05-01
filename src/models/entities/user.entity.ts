@@ -38,6 +38,12 @@ export class User {
   @Column({ nullable: true })
   profileImage!: string;
 
+  @Column({ nullable: true })
+  passwordResetCode!: string;
+
+  @Column({ type: "timestamp", nullable: true })
+  passwordResetExpires!: Date;
+
   @Column()
   password!: string;
 
