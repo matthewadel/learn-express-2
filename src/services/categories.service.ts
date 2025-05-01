@@ -1,6 +1,6 @@
 import { AppDataSource } from "../models/data-source";
 import { Category } from "../models/entities/category.entity";
-import { SubCategory } from "../models/entities/subCategory.entity";
+// import { SubCategory } from "../models/entities/subCategory.entity";
 import { BadRequestError } from "../utils/errors";
 import { findOneBy } from "../utils/findOneBy";
 import {
@@ -31,17 +31,17 @@ export class CategoryService {
     );
   }
 
-  async getSubCategoriesInsideCategory(
-    categoryId: number,
-    requestParams: paginationInput<SubCategory>
-  ) {
-    return await getPaginatedResultsWithFilter<SubCategory>(
-      SubCategory,
-      requestParams,
-      ["name"],
-      { where: [{ parent_category: { id: categoryId } }] }
-    );
-  }
+  // async getSubCategoriesInsideCategory(
+  //   categoryId: number,
+  //   requestParams: paginationInput<SubCategory>
+  // ) {
+  //   return await getPaginatedResultsWithFilter<SubCategory>(
+  //     SubCategory,
+  //     requestParams,
+  //     ["name"],
+  //     { where: [{ parent_category: { id: categoryId } }] }
+  //   );
+  // }
 
   async getCategoryById(id: number): Promise<Category> {
     return await findOneBy<Category>(Category, { id });

@@ -50,8 +50,8 @@ export class SubCategoriesService {
       ["name"],
       {
         where: parentCategoryId
-          ? [{ parent_category: { id: parentCategoryId } }]
-          : [],
+          ? { parent_category: { id: parentCategoryId } }
+          : {},
         relations: ["parent_category"]
       }
     );
