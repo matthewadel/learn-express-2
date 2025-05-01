@@ -35,7 +35,7 @@ export const verifyToken = async (
   // 1- check if token is provided or not
   if (!req.headers["authorization"] || !token)
     throw new NotAuthenticatedError(
-      "Authorization Header Is Required To Access This Route"
+      "Authorization Header Is Required To perform this action"
     );
 
   // 2- check for token validation and expiration

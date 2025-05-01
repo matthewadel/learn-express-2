@@ -8,10 +8,12 @@ import {
   PrimaryGeneratedColumn,
   Unique,
   UpdateDateColumn,
-  UpdateEvent
+  UpdateEvent,
+  OneToMany
 } from "typeorm";
 import { MaxLength, MinLength } from "class-validator";
 import { returnImageUrlInResoinse } from "../../middlewares/uploadSingleImage";
+import { Review } from "./review.entity";
 
 export enum UserRoles {
   ADMIN = "admin",
@@ -65,6 +67,9 @@ export class User {
     onUpdate: "CURRENT_TIMESTAMP(6)"
   })
   updated_at?: Date;
+
+  @OneToMany(() => Review, (review) => review.user, { cascade: true })
+  reviews!: Review[];
 }
 
 @EventSubscriber()

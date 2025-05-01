@@ -48,7 +48,14 @@ export class ProductsService {
     const product = await findOneBy<Product>(Product, {
       id: id,
       options: {
-        relations: ["brand", "category", "subCategories", "colors", "images"]
+        relations: [
+          "brand",
+          "category",
+          "subCategories",
+          "colors",
+          "images",
+          "reviews"
+        ]
       }
     });
     return product;
@@ -60,7 +67,14 @@ export class ProductsService {
       requestParamsrequestParams,
       ["title", "description"],
       {
-        relations: ["brand", "category", "subCategories", "colors", "images"]
+        relations: [
+          "brand",
+          "category",
+          "subCategories",
+          "colors",
+          "images",
+          "reviews"
+        ]
       }
     );
   }

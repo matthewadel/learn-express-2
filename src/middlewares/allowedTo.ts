@@ -8,7 +8,7 @@ export const allowedTo = (roles: UserRoles[]) => {
     async (req: Request, res: Response, next: NextFunction) => {
       if (!roles.find((role) => role === req.user?.role))
         throw new NotAuthorizedError(
-          "You are not authorized to access this route"
+          "You are not authorized to perform this action"
         );
       next();
     }

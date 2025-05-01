@@ -11,6 +11,7 @@ import { SubCategory } from "./subCategory.entity";
 import { Category } from "./category.entity";
 import { Color } from "./color.entity";
 import { Image } from "./image.entity";
+import { Review } from "./review.entity";
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -110,6 +111,9 @@ export class Product {
   @ManyToMany(() => SubCategory, (subCategory) => subCategory.products)
   @JoinTable({ name: "products_sub_categories" })
   subCategories!: SubCategory[];
+
+  @OneToMany(() => Review, (review) => review.product, { cascade: true })
+  reviews!: Review[];
 }
 
 @EventSubscriber()

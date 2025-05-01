@@ -6,7 +6,7 @@ import { allowedTo } from "../middlewares/allowedTo";
 import { verifyToken } from "../middlewares/verifyToken";
 import { UserRoles } from "../models/entities/user.entity";
 
-const router = Router();
+const router = Router({ mergeParams: true });
 const subcategoriesController = new SubCategoryController();
 
 router

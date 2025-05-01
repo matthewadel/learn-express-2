@@ -40,12 +40,18 @@ export class SubCategoriesService {
   }
 
   // Get all sub-categories
-  async getAllSubCategories(requestParams: paginationInput<SubCategory>) {
+  async getAllSubCategories(
+    requestParams: paginationInput<SubCategory>,
+    parentCategoryId?: number
+  ) {
     return await getPaginatedResultsWithFilter<SubCategory>(
       SubCategory,
       requestParams,
       ["name"],
       {
+        where: parentCategoryId
+          ? [{ parent_category: { id: parentCategoryId } }]
+          : [],
         relations: ["parent_category"]
       }
     );

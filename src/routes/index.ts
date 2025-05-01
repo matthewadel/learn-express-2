@@ -6,6 +6,7 @@ import productsRouter from "./product.route";
 import colorsRouter from "./colors.route";
 import UsersRouter from "./users.route";
 import AuthRouter from "./auth.route";
+import ReviewRouter from "./review.route";
 
 const router = Router();
 
@@ -16,5 +17,6 @@ router.use("/product", productsRouter);
 router.use("/color", colorsRouter);
 router.use("/user", UsersRouter);
 router.use("/auth", AuthRouter);
+router.use("/review", ReviewRouter);
 
 export default router;

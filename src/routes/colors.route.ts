@@ -2,6 +2,9 @@ import { Router } from "express";
 import { validateRequestSchema } from "../middlewares/validateRequestSchema";
 import { ColorsController } from "../controllers/colors.controller";
 import { colorsSchema } from "../schemas/colors.schema";
+import { verifyToken } from "../middlewares/verifyToken";
+import { allowedTo } from "../middlewares/allowedTo";
+import { UserRoles } from "../models/entities/user.entity";
 
 const router = Router();
 const colorsController = new ColorsController();
@@ -13,6 +16,8 @@ router
     colorsController.getAllColors
   )
   .post(
+    verifyToken,
+    allowedTo([UserRoles.ADMIN]),
     validateRequestSchema(colorsSchema.createColor),
     colorsController.createColor
   );
@@ -20,6 +25,10 @@ router
 router
   .route("/:colorId")
   .get(colorsController.getColorById)
-  .delete(colorsController.deleteColor);
+  .delete(
+    verifyToken,
+    allowedTo([UserRoles.ADMIN]),
+    colorsController.deleteColor
+  );
 
 export default router;

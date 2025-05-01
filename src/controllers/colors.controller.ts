@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { asyncWrapper } from "../middlewares/asyncWrapper";
 import { ColorsService } from "../services/colors.service";
-import { SendSuccessResponse } from "../utils/sendSuccessResponse";
+import { sendSuccessResponse } from "../utils/sendSuccessResponse";
 import { Color } from "../models/entities/color.entity";
 import { paginationInput } from "../utils/getPaginatedResultsWithFilter";
 
@@ -10,7 +10,7 @@ export class ColorsController {
 
   createColor = asyncWrapper(async (req: Request, res: Response) => {
     const data = await this.colorsService.createColor(req.body);
-    SendSuccessResponse<Color>({
+    sendSuccessResponse<Color>({
       res,
       data,
       statusCode: 201,
@@ -20,7 +20,7 @@ export class ColorsController {
 
   deleteColor = asyncWrapper(async (req: Request, res: Response) => {
     await this.colorsService.deleteColor(+req.params.colorId);
-    SendSuccessResponse<Color>({
+    sendSuccessResponse<Color>({
       res,
       message: "Color Created Successfully"
     });
@@ -30,7 +30,7 @@ export class ColorsController {
     const response = await this.colorsService.getAllColors(
       req.query as unknown as paginationInput<Color>
     );
-    SendSuccessResponse<Color>({
+    sendSuccessResponse<Color>({
       res,
       currentPage: +(req.query?.page || 1),
       ...response
@@ -39,7 +39,7 @@ export class ColorsController {
 
   getColorById = asyncWrapper(async (req: Request, res: Response) => {
     const data = await this.colorsService.getColorById(+req.params.colorId);
-    SendSuccessResponse<Color>({
+    sendSuccessResponse<Color>({
       res,
       data
     });

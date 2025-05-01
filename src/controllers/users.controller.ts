@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { asyncWrapper } from "../middlewares/asyncWrapper";
-import { SendSuccessResponse } from "../utils/sendSuccessResponse";
+import { sendSuccessResponse } from "../utils/sendSuccessResponse";
 import { UsersService } from "../services/users.service";
 import { User } from "../models/entities/user.entity";
 import { paginationInput } from "../utils/getPaginatedResultsWithFilter";
@@ -10,7 +10,7 @@ export class UsersController {
 
   createUser = asyncWrapper(async (req: Request, res: Response) => {
     const user = await this.usersService.createUser(req.body);
-    SendSuccessResponse<User>({
+    sendSuccessResponse<User>({
       res,
       data: user,
       statusCode: 201,
@@ -22,7 +22,7 @@ export class UsersController {
     const response = await this.usersService.getAllUsers(
       req.query as unknown as paginationInput<User>
     );
-    SendSuccessResponse<User>({
+    sendSuccessResponse<User>({
       res,
       currentPage: +(req.query?.page || 1),
       ...response
@@ -31,7 +31,7 @@ export class UsersController {
 
   getUserById = asyncWrapper(async (req: Request, res: Response) => {
     const data = await this.usersService.getUserById(+req.params.userId);
-    SendSuccessResponse<User>({
+    sendSuccessResponse<User>({
       res,
       data
     });
@@ -42,7 +42,7 @@ export class UsersController {
       +req.params.userId,
       req.body
     );
-    SendSuccessResponse<User>({
+    sendSuccessResponse<User>({
       res,
       data,
       statusCode: 201,
@@ -52,7 +52,7 @@ export class UsersController {
 
   deleteUser = asyncWrapper(async (req: Request, res: Response) => {
     await this.usersService.deleteUser(+req.params.userId);
-    SendSuccessResponse<User>({
+    sendSuccessResponse<User>({
       res,
       message: "User Deleted Successfully"
     });

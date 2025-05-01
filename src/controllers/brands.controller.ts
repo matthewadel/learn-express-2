@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { asyncWrapper } from "../middlewares/asyncWrapper";
-import { SendSuccessResponse } from "../utils/sendSuccessResponse";
+import { sendSuccessResponse } from "../utils/sendSuccessResponse";
 import { BrandsService } from "../services";
 import { Brand } from "../models/entities/brand.entity";
 import { paginationInput } from "../utils/getPaginatedResultsWithFilter";
@@ -10,7 +10,7 @@ export class BrandsController {
 
   createBrand = asyncWrapper(async (req: Request, res: Response) => {
     const brand = await this.brandsService.createBrand(req.body);
-    SendSuccessResponse<Brand>({
+    sendSuccessResponse<Brand>({
       res,
       data: brand,
       statusCode: 201,
@@ -22,7 +22,7 @@ export class BrandsController {
     const response = await this.brandsService.getAllBrands(
       req.query as unknown as paginationInput<Brand>
     );
-    SendSuccessResponse<Brand>({
+    sendSuccessResponse<Brand>({
       res,
       currentPage: +(req.query?.page || 1),
       ...response
@@ -31,7 +31,7 @@ export class BrandsController {
 
   getBrandById = asyncWrapper(async (req: Request, res: Response) => {
     const data = await this.brandsService.getBrandById(+req.params.brandId);
-    SendSuccessResponse<Brand>({
+    sendSuccessResponse<Brand>({
       res,
       data
     });
@@ -42,7 +42,7 @@ export class BrandsController {
       +req.params.brandId,
       req.body
     );
-    SendSuccessResponse<Brand>({
+    sendSuccessResponse<Brand>({
       res,
       data,
       message: "Brand Updated Successfully"
@@ -51,7 +51,7 @@ export class BrandsController {
 
   deleteBrand = asyncWrapper(async (req: Request, res: Response) => {
     await this.brandsService.deleteBrand(+req.params.brandId);
-    SendSuccessResponse<Brand>({
+    sendSuccessResponse<Brand>({
       res,
       message: "Brand Deleted Successfully"
     });

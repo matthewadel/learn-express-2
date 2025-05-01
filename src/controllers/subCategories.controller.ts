@@ -1,7 +1,7 @@
 import { SubCategoriesService } from "../services/subCategories.service";
 import { asyncWrapper } from "../middlewares/asyncWrapper";
 import { Request, Response } from "express";
-import { SendSuccessResponse } from "../utils/sendSuccessResponse";
+import { sendSuccessResponse } from "../utils/sendSuccessResponse";
 import { SubCategory } from "../models/entities/subCategory.entity";
 import { paginationInput } from "../utils/getPaginatedResultsWithFilter";
 
@@ -13,7 +13,7 @@ export class SubCategoryController {
     const category = await this.subCategoriesService.createSubCategory(
       req.body
     );
-    SendSuccessResponse<SubCategory>({
+    sendSuccessResponse<SubCategory>({
       res,
       data: category,
       statusCode: 201,
@@ -23,9 +23,10 @@ export class SubCategoryController {
 
   getAllSubCategories = asyncWrapper(async (req: Request, res: Response) => {
     const response = await this.subCategoriesService.getAllSubCategories(
-      req.query as unknown as paginationInput<SubCategory>
+      req.query as unknown as paginationInput<SubCategory>,
+      +req.params.categoryId
     );
-    SendSuccessResponse<SubCategory>({
+    sendSuccessResponse<SubCategory>({
       res,
       currentPage: +(req.query?.page || 1),
       ...response
@@ -36,7 +37,7 @@ export class SubCategoryController {
     const data = await this.subCategoriesService.getSubCategoryBy(
       +req.params.subCategoryId
     );
-    SendSuccessResponse<SubCategory>({
+    sendSuccessResponse<SubCategory>({
       res,
       data
     });
@@ -49,7 +50,7 @@ export class SubCategoryController {
       +subCategoryId,
       req.body
     );
-    SendSuccessResponse<SubCategory>({
+    sendSuccessResponse<SubCategory>({
       res,
       data,
       message: "Category Updated Successfully"
@@ -60,7 +61,7 @@ export class SubCategoryController {
     await this.subCategoriesService.deleteSubCategory(
       +req.params.subCategoryId
     );
-    SendSuccessResponse<SubCategory>({
+    sendSuccessResponse<SubCategory>({
       res,
       message: "Category Deleted Successfully"
     });

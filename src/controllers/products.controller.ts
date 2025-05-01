@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { asyncWrapper } from "../middlewares/asyncWrapper";
 import { Product } from "../models/entities/product.entity";
 import { ProductsService } from "../services/products.service";
-import { SendSuccessResponse } from "../utils/sendSuccessResponse";
+import { sendSuccessResponse } from "../utils/sendSuccessResponse";
 import { paginationInput } from "../utils/getPaginatedResultsWithFilter";
 
 export class ProductsController {
@@ -10,7 +10,7 @@ export class ProductsController {
 
   createProduct = asyncWrapper(async (req: Request, res: Response) => {
     const data = await this.productsService.createProduct(req.body);
-    SendSuccessResponse<Product>({
+    sendSuccessResponse<Product>({
       res,
       data,
       statusCode: 201,
@@ -22,7 +22,7 @@ export class ProductsController {
     const data = await this.productsService.getProductById(
       +req.params?.productId
     );
-    SendSuccessResponse<Product>({
+    sendSuccessResponse<Product>({
       res,
       data
     });
@@ -34,7 +34,7 @@ export class ProductsController {
       +req.params.productId,
       productParams
     );
-    SendSuccessResponse<Product>({
+    sendSuccessResponse<Product>({
       res,
       data,
       message: "Product Updated Successfully"
@@ -43,7 +43,7 @@ export class ProductsController {
 
   deleteProduct = asyncWrapper(async (req: Request, res: Response) => {
     await this.productsService.deleteProduct(+req.params.productId);
-    SendSuccessResponse<Product>({
+    sendSuccessResponse<Product>({
       res,
       message: "Product Deleted Successfully"
     });
@@ -53,7 +53,7 @@ export class ProductsController {
     const response = await this.productsService.getAllProducts(
       req.query as unknown as paginationInput<Product>
     );
-    SendSuccessResponse<Product>({
+    sendSuccessResponse<Product>({
       res,
       currentPage: +(req.query?.page || 1),
       ...response

@@ -13,17 +13,15 @@ import { UserRoles } from "../models/entities/user.entity";
 const router = Router();
 const usersController = new UsersController();
 
+router.use(verifyToken, allowedTo([UserRoles.ADMIN]));
+
 router
   .route("/")
   .get(
-    verifyToken,
-    allowedTo([UserRoles.ADMIN]),
     validateRequestSchema(usersSchema.getAllUsers),
     usersController.getAllUsers
   )
   .post(
-    verifyToken,
-    allowedTo([UserRoles.ADMIN]),
     uploadSingleImage("profileImage"),
     compressSingleImage("profileImage", "profileImages"),
     validateRequestSchema(usersSchema.createUser),
@@ -32,19 +30,13 @@ router
 
 router
   .route("/:userId")
-  .get(verifyToken, allowedTo([UserRoles.ADMIN]), usersController.getUserById)
+  .get(usersController.getUserById)
   .put(
-    verifyToken,
-    allowedTo([UserRoles.ADMIN]),
     uploadSingleImage("profileImage"),
     compressSingleImage("profileImage", "profileImages"),
     validateRequestSchema(usersSchema.updateUser),
     usersController.updateUser
   )
-  .delete(
-    verifyToken,
-    allowedTo([UserRoles.ADMIN]),
-    usersController.deleteUser
-  );
+  .delete(usersController.deleteUser);
 
 export default router;

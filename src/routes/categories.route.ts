@@ -9,6 +9,7 @@ import {
 import { verifyToken } from "../middlewares/verifyToken";
 import { allowedTo } from "../middlewares/allowedTo";
 import { UserRoles } from "../models/entities/user.entity";
+import subCategoriesRouter from "./subCategories.route";
 
 const router = Router();
 const categoriesController = new CategoriesController();
@@ -45,8 +46,9 @@ router
     categoriesController.deleteCategory
   );
 
-router
-  .route("/:categoryId/sub-categories")
-  .get(categoriesController.getSubCategoriesInsideCategory);
+router.use("/:categoryId/sub-categories", subCategoriesRouter);
+// router
+//   .route("/:categoryId/sub-categories")
+//   .get(categoriesController.getSubCategoriesInsideCategory);
 
 export default router;

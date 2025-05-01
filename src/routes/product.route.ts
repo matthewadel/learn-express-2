@@ -9,6 +9,7 @@ import {
 import { allowedTo } from "../middlewares/allowedTo";
 import { verifyToken } from "../middlewares/verifyToken";
 import { UserRoles } from "../models/entities/user.entity";
+import ReviewRouter from "./review.route";
 
 const router = Router();
 const productsController = new ProductsController();
@@ -56,5 +57,7 @@ router
     allowedTo([UserRoles.ADMIN]),
     productsController.deleteProduct
   );
+
+router.use("/:productId/reviews", ReviewRouter);
 
 export default router;

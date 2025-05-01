@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { AuthService } from "../services/auth.service";
-import { SendSuccessResponse } from "../utils/sendSuccessResponse";
+import { sendSuccessResponse } from "../utils/sendSuccessResponse";
 import { asyncWrapper } from "../middlewares/asyncWrapper";
 import { User } from "../models/entities/user.entity";
 import { authSchema } from "../schemas/auth.schema";
@@ -16,7 +16,7 @@ export class AuthController {
 
   register = asyncWrapper(async (req: Request, res: Response) => {
     const user = await this.authService.register(req.body);
-    SendSuccessResponse<User>({
+    sendSuccessResponse<User>({
       res,
       data: user,
       message: "User Registered Successfully"
@@ -26,7 +26,7 @@ export class AuthController {
   // login route handler
   login = asyncWrapper(async (req: Request, res: Response) => {
     const user = await this.authService.login(req.body);
-    SendSuccessResponse<User>({
+    sendSuccessResponse<User>({
       res,
       data: user,
       message: "User Logged Successfully"
@@ -35,7 +35,7 @@ export class AuthController {
 
   forgetPassword = asyncWrapper(async (req: Request, res: Response) => {
     const data = await this.authService.forgetPassword(req.body);
-    SendSuccessResponse<{ verificationUrl?: string }>({
+    sendSuccessResponse<{ verificationUrl?: string }>({
       res,
       data,
       message: "Code Sent Successfully, Please Check Your Email"
@@ -44,7 +44,7 @@ export class AuthController {
 
   verifyEmail = asyncWrapper(async (req: Request, res: Response) => {
     await this.authService.verifyEmail(req.query as verifyEmailParams["query"]);
-    SendSuccessResponse<User>({
+    sendSuccessResponse<User>({
       res,
       message: "Code Is Verified Successfully"
     });
@@ -52,7 +52,7 @@ export class AuthController {
 
   resetPassword = asyncWrapper(async (req: Request, res: Response) => {
     const data = await this.authService.resetPassword(req.body);
-    SendSuccessResponse<User>({
+    sendSuccessResponse<User>({
       res,
       data,
       message: "password reset successfully"
@@ -62,7 +62,7 @@ export class AuthController {
   getUserProfile = asyncWrapper(async (req: Request, res: Response) => {
     if (req.user?.id) {
       const data = await this.usersService.getUserById(+req.user?.id);
-      SendSuccessResponse<User>({
+      sendSuccessResponse<User>({
         res,
         data
       });
@@ -75,7 +75,7 @@ export class AuthController {
         +req.user?.id,
         req.body
       );
-      SendSuccessResponse<User>({
+      sendSuccessResponse<User>({
         res,
         data,
         message: "Password Updated Successfully"

@@ -1,5 +1,5 @@
 import { Response } from "express";
-export function SendSuccessResponse<T>({
+export function sendSuccessResponse<T>({
   res,
   statusCode,
   data = null,
