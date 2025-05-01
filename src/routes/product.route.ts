@@ -13,6 +13,7 @@ import ReviewRouter from "./review.route";
 
 const router = Router();
 const productsController = new ProductsController();
+router.use("/:productId/review", ReviewRouter);
 
 router
   .route("/")
@@ -57,7 +58,5 @@ router
     allowedTo([UserRoles.ADMIN]),
     productsController.deleteProduct
   );
-
-router.use("/:productId/reviews", ReviewRouter);
 
 export default router;

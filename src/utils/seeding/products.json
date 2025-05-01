@@ -18,9 +18,7 @@
       3
     ],
     "number_of_times_sold": 543,
-    "price_after_discount": 45.13,
-    "ratings_average": 3.4,
-    "number_of_reviewers": 261
+    "price_after_discount": 45.13
   },
   {
     "title": "product_2",
@@ -40,9 +38,7 @@
       5
     ],
     "number_of_times_sold": 279,
-    "price_after_discount": 67.3,
-    "ratings_average": 3.7,
-    "number_of_reviewers": 163
+    "price_after_discount": 67.3
   },
   {
     "title": "product_3",
@@ -62,9 +58,7 @@
       8
     ],
     "number_of_times_sold": 224,
-    "price_after_discount": 78.79,
-    "ratings_average": 3.0,
-    "number_of_reviewers": 230
+    "price_after_discount": 78.79
   },
   {
     "title": "product_4",
@@ -86,9 +80,7 @@
       7
     ],
     "number_of_times_sold": 486,
-    "price_after_discount": 43.48,
-    "ratings_average": 3.3,
-    "number_of_reviewers": 136
+    "price_after_discount": 43.48
   },
   {
     "title": "product_5",
@@ -106,9 +98,7 @@
       4
     ],
     "number_of_times_sold": 841,
-    "price_after_discount": 40.82,
-    "ratings_average": 4.3,
-    "number_of_reviewers": 48
+    "price_after_discount": 40.82
   },
   {
     "title": "product_6",
@@ -129,9 +119,7 @@
       9
     ],
     "number_of_times_sold": 260,
-    "price_after_discount": 25.81,
-    "ratings_average": 2.8,
-    "number_of_reviewers": 54
+    "price_after_discount": 25.81
   },
   {
     "title": "product_7",
@@ -149,9 +137,7 @@
       3
     ],
     "number_of_times_sold": 764,
-    "price_after_discount": 17.11,
-    "ratings_average": 2.8,
-    "number_of_reviewers": 162
+    "price_after_discount": 17.11
   },
   {
     "title": "product_8",
@@ -172,9 +158,7 @@
       5
     ],
     "number_of_times_sold": 964,
-    "price_after_discount": 73.32,
-    "ratings_average": 3.6,
-    "number_of_reviewers": 275
+    "price_after_discount": 73.32
   },
   {
     "title": "product_9",
@@ -194,9 +178,7 @@
       8
     ],
     "number_of_times_sold": 396,
-    "price_after_discount": 71.68,
-    "ratings_average": 4.0,
-    "number_of_reviewers": 241
+    "price_after_discount": 71.68
   },
   {
     "title": "product_10",
@@ -215,9 +197,7 @@
       4
     ],
     "number_of_times_sold": 142,
-    "price_after_discount": 17.85,
-    "ratings_average": 3.6,
-    "number_of_reviewers": 329
+    "price_after_discount": 17.85
   },
   {
     "title": "product_11",
@@ -238,9 +218,7 @@
       6
     ],
     "number_of_times_sold": 730,
-    "price_after_discount": 51.57,
-    "ratings_average": 2.7,
-    "number_of_reviewers": 340
+    "price_after_discount": 51.57
   },
   {
     "title": "product_12",
@@ -260,9 +238,7 @@
       9
     ],
     "number_of_times_sold": 125,
-    "price_after_discount": 25.79,
-    "ratings_average": 2.6,
-    "number_of_reviewers": 73
+    "price_after_discount": 25.79
   },
   {
     "title": "product_13",
@@ -280,9 +256,7 @@
       3
     ],
     "number_of_times_sold": 381,
-    "price_after_discount": 29.04,
-    "ratings_average": 3.6,
-    "number_of_reviewers": 261
+    "price_after_discount": 29.04
   },
   {
     "title": "product_14",
@@ -302,9 +276,7 @@
       5
     ],
     "number_of_times_sold": 862,
-    "price_after_discount": 60.41,
-    "ratings_average": 4.3,
-    "number_of_reviewers": 150
+    "price_after_discount": 60.41
   },
   {
     "title": "product_15",
@@ -324,9 +296,7 @@
       8
     ],
     "number_of_times_sold": 599,
-    "price_after_discount": 66.71,
-    "ratings_average": 3.0,
-    "number_of_reviewers": 372
+    "price_after_discount": 66.71
   },
   {
     "title": "product_16",
@@ -345,9 +315,7 @@
       5
     ],
     "number_of_times_sold": 208,
-    "price_after_discount": 15.56,
-    "ratings_average": 3.9,
-    "number_of_reviewers": 137
+    "price_after_discount": 15.56
   },
   {
     "title": "product_17",
@@ -368,9 +336,7 @@
       6
     ],
     "number_of_times_sold": 745,
-    "price_after_discount": 57.45,
-    "ratings_average": 3.1,
-    "number_of_reviewers": 144
+    "price_after_discount": 57.45
   },
   {
     "title": "product_18",
@@ -390,9 +356,7 @@
       9
     ],
     "number_of_times_sold": 654,
-    "price_after_discount": 50.63,
-    "ratings_average": 3.8,
-    "number_of_reviewers": 205
+    "price_after_discount": 50.63
   },
   {
     "title": "product_19",
@@ -411,9 +375,7 @@
       3
     ],
     "number_of_times_sold": 757,
-    "price_after_discount": 16.05,
-    "ratings_average": 3.5,
-    "number_of_reviewers": 104
+    "price_after_discount": 16.05
   },
   {
     "title": "product_20",
@@ -434,9 +396,7 @@
       5
     ],
     "number_of_times_sold": 743,
-    "price_after_discount": 38.55,
-    "ratings_average": 4.6,
-    "number_of_reviewers": 186
+    "price_after_discount": 38.55
   },
   {
     "title": "product_21",
@@ -456,9 +416,7 @@
       8
     ],
     "number_of_times_sold": 523,
-    "price_after_discount": 34.41,
-    "ratings_average": 4.8,
-    "number_of_reviewers": 200
+    "price_after_discount": 34.41
   },
   {
     "title": "product_22",
@@ -476,9 +434,7 @@
       4
     ],
     "number_of_times_sold": 206,
-    "price_after_discount": 27.57,
-    "ratings_average": 2.6,
-    "number_of_reviewers": 236
+    "price_after_discount": 27.57
   },
   {
     "title": "product_23",
@@ -498,9 +454,7 @@
       6
     ],
     "number_of_times_sold": 394,
-    "price_after_discount": 51.12,
-    "ratings_average": 3.2,
-    "number_of_reviewers": 3
+    "price_after_discount": 51.12
   },
   {
     "title": "product_24",
@@ -520,9 +474,7 @@
       8
     ],
     "number_of_times_sold": 158,
-    "price_after_discount": 80.18,
-    "ratings_average": 3.3,
-    "number_of_reviewers": 396
+    "price_after_discount": 80.18
   },
   {
     "title": "product_25",
@@ -541,9 +493,7 @@
       3
     ],
     "number_of_times_sold": 982,
-    "price_after_discount": 17.58,
-    "ratings_average": 4.7,
-    "number_of_reviewers": 336
+    "price_after_discount": 17.58
   },
   {
     "title": "product_26",
@@ -564,9 +514,7 @@
       6
     ],
     "number_of_times_sold": 644,
-    "price_after_discount": 52.89,
-    "ratings_average": 3.0,
-    "number_of_reviewers": 52
+    "price_after_discount": 52.89
   },
   {
     "title": "product_27",
@@ -586,9 +534,7 @@
       8
     ],
     "number_of_times_sold": 87,
-    "price_after_discount": 82.24,
-    "ratings_average": 3.7,
-    "number_of_reviewers": 29
+    "price_after_discount": 82.24
   },
   {
     "title": "product_28",
@@ -607,9 +553,7 @@
       4
     ],
     "number_of_times_sold": 640,
-    "price_after_discount": 19.38,
-    "ratings_average": 3.1,
-    "number_of_reviewers": 365
+    "price_after_discount": 19.38
   },
   {
     "title": "product_29",
@@ -630,9 +574,7 @@
       6
     ],
     "number_of_times_sold": 67,
-    "price_after_discount": 42.75,
-    "ratings_average": 3.6,
-    "number_of_reviewers": 356
+    "price_after_discount": 42.75
   },
   {
     "title": "product_30",
@@ -652,8 +594,6 @@
       9
     ],
     "number_of_times_sold": 377,
-    "price_after_discount": 30.45,
-    "ratings_average": 3.6,
-    "number_of_reviewers": 299
+    "price_after_discount": 30.45
   }
 ]

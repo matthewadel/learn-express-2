@@ -18,6 +18,7 @@ router
   .post(
     verifyToken,
     allowedTo([UserRoles.ADMIN]),
+    subcategoriesController.setCategoryIdToBody,
     validateRequestSchema(subCategoriesSchema.createSubCategory),
     subcategoriesController.createSubCategory
   );

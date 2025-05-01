@@ -6,7 +6,7 @@ import { verifyToken } from "../middlewares/verifyToken";
 import { allowedTo } from "../middlewares/allowedTo";
 import { UserRoles } from "../models/entities/user.entity";
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 const reviewController = new ReviewController();
 
 router
@@ -14,6 +14,7 @@ router
   .post(
     verifyToken,
     allowedTo([UserRoles.USER]),
+    reviewController.setProductIdToBody,
     validateRequestSchema(reviewSchema.createReview),
     reviewController.createReview
   )

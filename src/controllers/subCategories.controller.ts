@@ -1,6 +1,6 @@
 import { SubCategoriesService } from "../services/subCategories.service";
 import { asyncWrapper } from "../middlewares/asyncWrapper";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { sendSuccessResponse } from "../utils/sendSuccessResponse";
 import { SubCategory } from "../models/entities/subCategory.entity";
 import { paginationInput } from "../utils/getPaginatedResultsWithFilter";
@@ -66,4 +66,12 @@ export class SubCategoryController {
       message: "Category Deleted Successfully"
     });
   });
+
+  setCategoryIdToBody = asyncWrapper(
+    async (req: Request, res: Response, next: NextFunction) => {
+      if (!req.body.parentCategoryId && req.params.categoryId)
+        req.body.parentCategoryId = +req.params.categoryId;
+      next();
+    }
+  );
 }

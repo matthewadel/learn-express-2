@@ -42,13 +42,17 @@ export class ReviewService {
     return await this.ReviewRepository.save({ ...body, user, product });
   }
 
-  async getAllReviews(requestParams: paginationInput<Review>) {
+  async getAllReviews(
+    requestParams: paginationInput<Review>,
+    productId?: number
+  ) {
     return await getPaginatedResultsWithFilter<Review>(
       Review,
       requestParams,
       ["title"],
       {
-        relations: ["user", "product"]
+        relations: ["user", "product"],
+        where: productId ? { product: { id: productId } } : {}
       }
     );
   }

@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { ReviewService } from "../services/review.service";
 import { sendSuccessResponse } from "../utils/sendSuccessResponse";
 import { paginationInput } from "../utils/getPaginatedResultsWithFilter";
@@ -24,7 +24,8 @@ export class ReviewController {
 
   getAllReviews = asyncWrapper(async (req: Request, res: Response) => {
     const reviews = await this.reviewService.getAllReviews(
-      req.query as unknown as paginationInput<Review>
+      req.query as unknown as paginationInput<Review>,
+      +req.params.productId
     );
     sendSuccessResponse({ res, data: reviews });
   });
@@ -53,4 +54,12 @@ export class ReviewController {
     await this.reviewService.deleteReview(req.user as User, +req.params.id);
     sendSuccessResponse({ res, message: "Review Deleted Successfully" });
   });
+
+  setProductIdToBody = asyncWrapper(
+    async (req: Request, res: Response, next: NextFunction) => {
+      if (!req.body.productId && req.params.productId)
+        req.body.productId = +req.params.productId;
+      next();
+    }
+  );
 }

@@ -1,3 +1,7 @@
+// this component will search only or filter only, so it can't search and filter data in the same time
+// or you have to send search_columns as a string instead of an array
+// it is better to serperate search logic from filter logic
+
 import {
   Between,
   EntityTarget,
