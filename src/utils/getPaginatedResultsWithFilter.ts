@@ -61,48 +61,58 @@ export async function getPaginatedResultsWithFilter<T>(
       [`${getImtesParams.sort_by}`]: getImtesParams.sort_direction || "DESC"
     };
 
-  if (
-    getImtesParams.filter_by &&
-    getImtesParams.filter_operator &&
-    getImtesParams.filter_value
-  ) {
-    if (
-      getImtesParams.filter_operator === "between" ||
-      getImtesParams.filter_operator === "in"
-    )
-      options.where = {
-        ...(options.where as FindOptionsWhere<ObjectLiteral>),
-        [`${String(getImtesParams.filter_by)}`]: operatorMap[
-          getImtesParams.filter_operator
-        ](JSON.parse(getImtesParams.filter_value || "[]"))
-      };
-    else
-      options.where = {
-        ...(options.where as FindOptionsWhere<ObjectLiteral>[]),
-        [`${String(getImtesParams.filter_by)}`]: operatorMap[
-          getImtesParams.filter_operator
-        ](getImtesParams.filter_value)
-      };
-  }
-
-  if (inputOptions?.where) {
-    options.where = {
-      ...(options.where as FindOptionsWhere<ObjectLiteral>),
-      ...(inputOptions.where as FindOptionsWhere<ObjectLiteral>)
-    };
-    delete inputOptions.where;
-  }
-
   if (search_columns?.length && !!getImtesParams.search_text) {
     search_columns.map((column) => {
+      options.where = [
+        options.where as FindOptionsWhere<ObjectLiteral>,
+        { [`${column}`]: ILike(`%${getImtesParams.search_text}%`) }
+      ];
+    });
+
+    if (inputOptions?.where) {
+      options.where = [
+        options.where as FindOptionsWhere<ObjectLiteral>,
+        inputOptions.where as FindOptionsWhere<ObjectLiteral>
+      ];
+      delete inputOptions.where;
+    }
+
+    options = { ...options, ...inputOptions };
+  } else {
+    if (
+      getImtesParams.filter_by &&
+      getImtesParams.filter_operator &&
+      getImtesParams.filter_value
+    ) {
+      if (
+        getImtesParams.filter_operator === "between" ||
+        getImtesParams.filter_operator === "in"
+      )
+        options.where = {
+          ...(options.where as FindOptionsWhere<ObjectLiteral>),
+          [`${String(getImtesParams.filter_by)}`]: operatorMap[
+            getImtesParams.filter_operator
+          ](JSON.parse(getImtesParams.filter_value || "[]"))
+        };
+      else
+        options.where = {
+          ...(options.where as FindOptionsWhere<ObjectLiteral>[]),
+          [`${String(getImtesParams.filter_by)}`]: operatorMap[
+            getImtesParams.filter_operator
+          ](getImtesParams.filter_value)
+        };
+    }
+
+    if (inputOptions?.where) {
       options.where = {
         ...(options.where as FindOptionsWhere<ObjectLiteral>),
-        [`${column}`]: ILike(`%${getImtesParams.search_text}%`)
+        ...(inputOptions.where as FindOptionsWhere<ObjectLiteral>)
       };
-    });
-  }
+      delete inputOptions.where;
+    }
 
-  options = { ...options, ...inputOptions };
+    options = { ...options, ...inputOptions };
+  }
 
   console.log(options);
   const repo = AppDataSource.getRepository(entity);
