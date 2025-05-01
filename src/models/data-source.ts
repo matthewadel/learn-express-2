@@ -7,6 +7,7 @@ import { BrandGenericSubscriber } from "./entities/brand.entity";
 import { ProductSubscriber } from "./entities/product.entity";
 import { UserGenericSubscriber } from "./entities/user.entity";
 import { getEnv } from "../utils/validateEnv";
+import { ReviewSubscriber } from "./entities/review.entity";
 
 export const AppDataSource = new DataSource({
   type: getEnv().DB_TYPE as "postgres",
@@ -23,7 +24,8 @@ export const AppDataSource = new DataSource({
     CategoryGenericSubscriber,
     BrandGenericSubscriber,
     ProductSubscriber,
-    UserGenericSubscriber
+    UserGenericSubscriber,
+    ReviewSubscriber
   ]
 });
 
