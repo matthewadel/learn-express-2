@@ -5,12 +5,14 @@ import { asyncWrapper } from "../middlewares/asyncWrapper";
 import { User } from "../models/entities/user.entity";
 import { authSchema } from "../schemas/auth.schema";
 import { z } from "zod";
+import { UsersService } from "../services/users.service";
 
 type verifyEmailParams = z.infer<typeof authSchema.verifyEmail>;
 
 export class AuthController {
   // Signup route handler
   authService = new AuthService();
+  usersService = new UsersService();
 
   register = asyncWrapper(async (req: Request, res: Response) => {
     const user = await this.authService.register(req.body);
@@ -55,5 +57,29 @@ export class AuthController {
       data,
       message: "password reset successfully"
     });
+  });
+
+  getUserProfile = asyncWrapper(async (req: Request, res: Response) => {
+    if (req.user?.id) {
+      const data = await this.usersService.getUserById(+req.user?.id);
+      SendSuccessResponse<User>({
+        res,
+        data
+      });
+    }
+  });
+
+  updateUserPassword = asyncWrapper(async (req: Request, res: Response) => {
+    if (req.user?.id) {
+      const data = await this.usersService.updatePassword(
+        +req.user?.id,
+        req.body
+      );
+      SendSuccessResponse<User>({
+        res,
+        data,
+        message: "Password Updated Successfully"
+      });
+    }
   });
 }

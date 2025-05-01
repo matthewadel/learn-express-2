@@ -6,6 +6,7 @@ import rootRouter from "./routes";
 import { globalErrorHandler } from "./middlewares/globalErrorHandler";
 import path from "path";
 import { getEnv } from "./utils/validateEnv";
+import { NotFoundError } from "./utils/errors";
 
 // this block must be in the same order
 const app = express();
@@ -20,7 +21,8 @@ if (getEnv().NODE_ENV === "development") {
 initializeDB().then(() => {
   app.use("/api", rootRouter);
   app.all("/*splat", (req: Request, res: Response, next: NextFunction) => {
-    next({ success: false, message: "Route not found" });
+    throw new NotFoundError("Route not found");
+    // next({ success: false, message: "Route not found" });
   });
 
   // handle express errors

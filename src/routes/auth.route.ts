@@ -6,6 +6,7 @@ import {
   compressSingleImage,
   uploadSingleImage
 } from "../middlewares/uploadSingleImage";
+import { verifyToken } from "../middlewares/verifyToken";
 
 const router = Router();
 const authController = new AuthController();
@@ -40,6 +41,14 @@ router.post(
   "/resetPassword",
   validateRequestSchema(authSchema.resetPassword),
   authController.resetPassword
+);
+
+router.get("/profile", verifyToken, authController.getUserProfile);
+
+router.put(
+  "/updatePassword",
+  validateRequestSchema(authSchema.updateUserPassword),
+  authController.updateUserPassword
 );
 
 export default router;

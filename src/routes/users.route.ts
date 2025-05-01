@@ -47,10 +47,4 @@ router
     usersController.deleteUser
   );
 
-router.put(
-  "/:userId/updatePassword",
-  validateRequestSchema(usersSchema.updateUserPassword),
-  usersController.updateUserPassword
-);
-
 export default router;

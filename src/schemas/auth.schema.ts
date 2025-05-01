@@ -56,10 +56,34 @@ const resetPassword = z.object({
     })
 });
 
+const updateUserPassword = z.object({
+  body: z
+    .object({
+      currentPassword: z
+        .string({ required_error: "currentPassword is required" })
+        .min(6, { message: "Password must be at least 6 characters long" }),
+      newPassword: z
+        .string({ required_error: "newPassword is required" })
+        .min(6, { message: "Password must be at least 6 characters long" }),
+      confirmPassword: z.string({
+        required_error: "confirmPassword is required"
+      })
+    })
+    .superRefine((val, ctx) => {
+      if (val.newPassword !== val.confirmPassword) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "newPassword and confirmPassword must match"
+        });
+      }
+    })
+});
+
 export const authSchema = {
   register,
   login,
   forgetPassword,
   verifyEmail,
-  resetPassword
+  resetPassword,
+  updateUserPassword
 };

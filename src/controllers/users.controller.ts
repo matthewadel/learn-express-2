@@ -50,18 +50,6 @@ export class UsersController {
     });
   });
 
-  updateUserPassword = asyncWrapper(async (req: Request, res: Response) => {
-    const data = await this.usersService.updatePassword(
-      +req.params.userId,
-      req.body
-    );
-    SendSuccessResponse<User>({
-      res,
-      data,
-      message: "Password Updated Successfully"
-    });
-  });
-
   deleteUser = asyncWrapper(async (req: Request, res: Response) => {
     await this.usersService.deleteUser(+req.params.userId);
     SendSuccessResponse<User>({

@@ -11,10 +11,11 @@ import bcrypt from "bcryptjs";
 import { z } from "zod";
 import { usersSchema } from "../schemas/users.schema";
 import { hashString } from "../utils/hashString";
+import { authSchema } from "../schemas/auth.schema";
 
 type CreateUserBody = z.infer<typeof usersSchema.createUser>;
 type UpdateUserBody = z.infer<typeof usersSchema.updateUser>;
-type updateUserPassword = z.infer<typeof usersSchema.updateUserPassword>;
+type updateUserPassword = z.infer<typeof authSchema.updateUserPassword>;
 
 export class UsersService {
   private UsersRepository = AppDataSource.getRepository(User);
