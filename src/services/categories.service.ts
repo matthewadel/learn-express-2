@@ -24,11 +24,11 @@ export class CategoryService {
   }
 
   async getAllCategories(requestParams: paginationInput<Category>) {
-    return await getPaginatedResultsWithFilter<Category>(
-      Category,
-      requestParams,
-      ["name"]
-    );
+    return await getPaginatedResultsWithFilter<Category>({
+      entity: Category,
+      getImtesParams: requestParams,
+      search_columns: ["name"]
+    });
   }
 
   // async getSubCategoriesInsideCategory(

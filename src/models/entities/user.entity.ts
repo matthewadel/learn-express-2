@@ -9,11 +9,14 @@ import {
   Unique,
   UpdateDateColumn,
   UpdateEvent,
-  OneToMany
+  OneToMany,
+  ManyToMany,
+  JoinTable
 } from "typeorm";
 import { MaxLength, MinLength } from "class-validator";
 import { returnImageUrlInResoinse } from "../../middlewares/uploadSingleImage";
 import { Review } from "./review.entity";
+import { Product } from "./product.entity";
 
 export enum UserRoles {
   ADMIN = "admin",
@@ -70,6 +73,10 @@ export class User {
 
   @OneToMany(() => Review, (review) => review.user, { cascade: true })
   reviews!: Review[];
+
+  @ManyToMany(() => Product, (product) => product.favoritedBy)
+  @JoinTable({ name: "wishlist" })
+  wishlist_products!: Product[];
 }
 
 @EventSubscriber()

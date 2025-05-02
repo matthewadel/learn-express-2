@@ -38,8 +38,6 @@ export class AuthService {
     const user = await this.userService.getUserByEmail(body.email);
 
     const ispasswordValid = await bcrypt.compare(body.password, user.password);
-    console.log({ user: user.password });
-    console.log({ body: body.password });
     if (!ispasswordValid) {
       throw new NotAuthenticatedError("Password Is Incorrect");
     }
@@ -78,7 +76,6 @@ export class AuthService {
   }
 
   async verifyEmail(query: verifyEmailParams["query"]) {
-    console.log(query.email);
     const user = await this.userService.getUserByEmail(query.email);
     if (
       user.passwordResetCode === query.token &&
@@ -92,7 +89,6 @@ export class AuthService {
   }
 
   async resetPassword(body: resetPasswordBody["body"]) {
-    console.log({ body });
     const user = await this.userService.getUserByEmail(body.email);
     if (!user.resetPasswordVerified)
       throw new NotAuthenticatedError("Code Is Not Verified");

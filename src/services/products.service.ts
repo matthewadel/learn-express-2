@@ -25,7 +25,6 @@ export class ProductsService {
   async createProduct(body: CreateProductBody["body"]): Promise<Product> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const newProduct: any = { ...body };
-    console.log(body);
     newProduct.brand = await this._getBrand(body.brand);
 
     newProduct.category = await this._getCategory(body.category);
@@ -62,11 +61,11 @@ export class ProductsService {
   }
 
   async getAllProducts(requestParamsrequestParams: paginationInput<Product>) {
-    return await getPaginatedResultsWithFilter<Product>(
-      Product,
-      requestParamsrequestParams,
-      ["title", "description"],
-      {
+    return await getPaginatedResultsWithFilter<Product>({
+      entity: Product,
+      getImtesParams: requestParamsrequestParams,
+      search_columns: ["title", "description"],
+      inputOptions: {
         relations: [
           "brand",
           "category",
@@ -76,7 +75,7 @@ export class ProductsService {
           "reviews"
         ]
       }
-    );
+    });
   }
 
   async updateProduct(id: number, body: UpdateProductBody["body"]) {

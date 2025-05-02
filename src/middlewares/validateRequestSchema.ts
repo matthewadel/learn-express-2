@@ -11,11 +11,6 @@ export function validateRequestSchema(schema: AnyZodObject) {
     next: NextFunction
   ): Promise<void> => {
     try {
-      console.log({
-        body: req.body,
-        query: req.query,
-        params: req.params
-      });
       const parsedData = await schema.parseAsync({
         body: req.body,
         query: req.query,
@@ -40,10 +35,6 @@ export function validateRequestSchema(schema: AnyZodObject) {
           };
         });
 
-        console.log(
-          "Validation Errors:",
-          JSON.stringify(validationErrors, null, 2)
-        );
         next(new BadRequestError("Validation Failed", validationErrors));
       } else {
         console.log(error);

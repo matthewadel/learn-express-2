@@ -82,13 +82,6 @@ export class ReviewSubscriber implements EntitySubscriberInterface<Review> {
           number_of_reviewers
         : 0;
 
-    console.log("Updating product ratings for product ID:", {
-      reviews,
-      productId,
-      ratings_average,
-      number_of_reviewers
-    });
-
     // Update the product
     await this.productRepository.update(productId, {
       ratings_average,

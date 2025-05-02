@@ -48,12 +48,17 @@ export const operatorMap = {
   in: (value: any[]) => In(value)
 };
 
-export async function getPaginatedResultsWithFilter<T>(
-  entity: EntityTarget<ObjectLiteral>,
-  getImtesParams: paginationInput<keyof EntityTarget<ObjectLiteral>>,
-  search_columns: string[],
-  inputOptions?: FindManyOptions<ObjectLiteral>
-): Promise<{ totalPages: number; totalItems: number; data: T[] }> {
+export async function getPaginatedResultsWithFilter<T>({
+  entity,
+  getImtesParams,
+  search_columns,
+  inputOptions
+}: {
+  entity: EntityTarget<ObjectLiteral>;
+  getImtesParams: paginationInput<keyof EntityTarget<ObjectLiteral>>;
+  search_columns?: string[];
+  inputOptions?: FindManyOptions<ObjectLiteral>;
+}): Promise<{ totalPages: number; totalItems: number; data: T[] }> {
   const page = getImtesParams.page || 1;
   const limit = getImtesParams.limit || 10;
   const skip = (page - 1) * limit;

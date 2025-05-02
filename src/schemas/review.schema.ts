@@ -11,7 +11,9 @@ const createReview = z.object({
       .number({ required_error: "Ratings are required" })
       .min(1, { message: "Ratings must be at least 1" })
       .max(5, { message: "Ratings must be at most 5" }),
-    productId: z.number({ required_error: "Product ID is required" })
+    productId: z
+      .number({ required_error: "Product ID is required" })
+      .positive({ message: "Product ID must be a positive number" })
   })
 });
 

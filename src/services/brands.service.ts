@@ -22,9 +22,11 @@ export class BrandsService {
   }
 
   async getAllBrands(requestParams: paginationInput<Brand>) {
-    return await getPaginatedResultsWithFilter<Brand>(Brand, requestParams, [
-      "name"
-    ]);
+    return await getPaginatedResultsWithFilter<Brand>({
+      entity: Brand,
+      getImtesParams: requestParams,
+      search_columns: ["name"]
+    });
   }
 
   async getBrandById(id: number): Promise<Brand> {

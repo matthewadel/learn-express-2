@@ -45,7 +45,6 @@ export const verifyToken = async (
       throw new NotAuthenticatedError("Invalid token format");
     }
     decoded = result as IDecodedToken;
-    console.log(decoded);
   } catch (e) {
     console.log(e);
     throw new NotAuthenticatedError((e as Error).message);
@@ -53,7 +52,6 @@ export const verifyToken = async (
 
   // 3- check if user exists as may hackers change the payload of the token
   const currentUser = await usersService.getUserById(decoded.userId);
-  console.log({ currentUser });
 
   // 4- check if user has changed his password after login or not
   if (currentUser?.passwordChangedAt) {

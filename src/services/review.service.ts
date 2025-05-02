@@ -46,15 +46,15 @@ export class ReviewService {
     requestParams: paginationInput<Review>,
     productId?: number
   ) {
-    return await getPaginatedResultsWithFilter<Review>(
-      Review,
-      requestParams,
-      ["title"],
-      {
+    return await getPaginatedResultsWithFilter<Review>({
+      entity: Review,
+      getImtesParams: requestParams,
+      search_columns: ["title"],
+      inputOptions: {
         relations: ["user", "product"],
         where: productId ? { product: { id: productId } } : {}
       }
-    );
+    });
   }
 
   async getReviewById(id: number): Promise<Review> {

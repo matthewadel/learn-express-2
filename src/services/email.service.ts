@@ -32,7 +32,6 @@ export class EmailService {
     subject: string;
   }) => {
     const verificationUrl = `${getEnv().BASE_URL}/api/auth/verify-email?token=${token}&email=${email}`;
-    console.log({ verificationUrl });
     // 2) define email options like from, to, subject, content
     const mailOptions = {
       from: getEnv().EMAIL_USER,
@@ -40,7 +39,6 @@ export class EmailService {
       subject,
       text: `Please verify your email address by clicking on the link: ${verificationUrl}`
     };
-    console.log(this.transporter);
     await this.transporter?.sendMail(mailOptions);
     return verificationUrl;
   };

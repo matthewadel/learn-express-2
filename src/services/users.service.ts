@@ -35,10 +35,11 @@ export class UsersService {
   }
 
   async getAllUsers(requestParams: paginationInput<User>) {
-    return await getPaginatedResultsWithFilter<User>(User, requestParams, [
-      "email",
-      "name"
-    ]);
+    return await getPaginatedResultsWithFilter<User>({
+      entity: User,
+      getImtesParams: requestParams,
+      search_columns: ["email", "name"]
+    });
   }
 
   async getUserById(id: number): Promise<User> {
@@ -73,7 +74,6 @@ export class UsersService {
 
   async updatePassword(userId: number, body: updateUserPassword["body"]) {
     const user = await findOneBy<User>(User, { id: userId });
-    console.log("password", user.password);
 
     try {
       const result = await bcrypt.compare(body.currentPassword, user.password);

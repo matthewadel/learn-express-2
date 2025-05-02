@@ -22,9 +22,11 @@ export class ColorsService {
   }
 
   async getAllColors(requestParams: paginationInput<Color>) {
-    return await getPaginatedResultsWithFilter<Color>(Color, requestParams, [
-      "name"
-    ]);
+    return await getPaginatedResultsWithFilter<Color>({
+      entity: Color,
+      getImtesParams: requestParams,
+      search_columns: ["name"]
+    });
   }
 
   async getColorById(id: number) {

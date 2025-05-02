@@ -7,6 +7,7 @@ import colorsRouter from "./colors.route";
 import UsersRouter from "./users.route";
 import AuthRouter from "./auth.route";
 import ReviewRouter from "./review.route";
+import WishlistRouter from "./wishlist.route";
 
 const router = Router();
 
@@ -18,5 +19,6 @@ router.use("/color", colorsRouter);
 router.use("/user", UsersRouter);
 router.use("/auth", AuthRouter);
 router.use("/review", ReviewRouter);
+router.use("/wishlist", WishlistRouter);
 
 export default router;

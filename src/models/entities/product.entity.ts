@@ -29,6 +29,7 @@ import {
   InsertEvent
 } from "typeorm";
 import { getEnv } from "../../utils/validateEnv";
+import { User } from "./user.entity";
 
 @Entity("products")
 export class Product {
@@ -89,6 +90,10 @@ export class Product {
   @ManyToMany(() => Color, (color) => color.products, { nullable: false })
   @JoinTable({ name: "products_colors" })
   colors!: Color[];
+
+  // many to many
+  @ManyToMany(() => User, (user) => user.wishlist_products)
+  favoritedBy!: User[];
 
   // one to many
   @OneToMany(() => Image, (image) => image.product, { cascade: true })

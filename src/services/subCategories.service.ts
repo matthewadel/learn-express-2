@@ -44,17 +44,17 @@ export class SubCategoriesService {
     requestParams: paginationInput<SubCategory>,
     parentCategoryId?: number
   ) {
-    return await getPaginatedResultsWithFilter<SubCategory>(
-      SubCategory,
-      requestParams,
-      ["name"],
-      {
+    return await getPaginatedResultsWithFilter<SubCategory>({
+      entity: SubCategory,
+      getImtesParams: requestParams,
+      search_columns: ["name"],
+      inputOptions: {
         where: parentCategoryId
           ? { parent_category: { id: parentCategoryId } }
           : {},
         relations: ["parent_category"]
       }
-    );
+    });
   }
 
   // Get a single sub-category by ID
