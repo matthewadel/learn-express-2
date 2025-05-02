@@ -14,7 +14,7 @@ import {
   JoinTable
 } from "typeorm";
 import { MaxLength, MinLength } from "class-validator";
-import { returnImageUrlInResoinse } from "../../middlewares";
+import { returnImageUrlInResoinse } from "../../middlewares/uploadSingleImage";
 import { Review } from "./review.entity";
 import { Product } from "./product.entity";
 

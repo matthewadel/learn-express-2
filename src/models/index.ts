@@ -1,3 +1,4 @@
+export * from "./data-source";
 export * from "./entities/brand.entity";
 export * from "./entities/category.entity";
 export * from "./entities/color.entity";
@@ -6,6 +7,3 @@ export * from "./entities/product.entity";
 export * from "./entities/review.entity";
 export * from "./entities/subCategory.entity";
 export * from "./entities/user.entity";
-
-export * from "./entities";
-export * from "./data-source";

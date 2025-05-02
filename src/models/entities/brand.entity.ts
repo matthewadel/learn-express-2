@@ -12,7 +12,7 @@ import {
   EntitySubscriberInterface
 } from "typeorm";
 import { Product } from "./product.entity";
-import { returnImageUrlInResoinse } from "../../middlewares";
+import { returnImageUrlInResoinse } from "../../middlewares/uploadSingleImage";
 
 @Entity("brands")
 @Unique(["name"])

@@ -12,7 +12,7 @@ import { SubCategory } from "./subCategory.entity";
 import { MaxLength, MinLength } from "class-validator";
 import { Product } from "./product.entity";
 import { EventSubscriber, EntitySubscriberInterface } from "typeorm";
-import { returnImageUrlInResoinse } from "../../middlewares";
+import { returnImageUrlInResoinse } from "../../middlewares/uploadSingleImage";
 
 @Entity("categories")
 @Unique(["name"])
