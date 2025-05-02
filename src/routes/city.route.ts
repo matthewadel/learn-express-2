@@ -9,8 +9,6 @@ import { citySchema } from "../schemas/city.schema";
 const router = Router();
 const cityController = new CityController();
 
-router.use(verifyToken, allowedTo([UserRoles.ADMIN]));
-
 router
   .route("/")
   .get(
@@ -18,6 +16,8 @@ router
     cityController.getAllCities
   )
   .post(
+    verifyToken,
+    allowedTo([UserRoles.ADMIN]),
     validateRequestSchema(citySchema.createCity),
     cityController.createCity
   );
@@ -25,7 +25,12 @@ router
 router
   .route("/:cityId")
   .get(cityController.getCityById)
-  .put(validateRequestSchema(citySchema.updateCity), cityController.updateCity)
-  .delete(cityController.deleteCity);
+  .put(
+    verifyToken,
+    allowedTo([UserRoles.ADMIN]),
+    validateRequestSchema(citySchema.updateCity),
+    cityController.updateCity
+  )
+  .delete(verifyToken, allowedTo([UserRoles.ADMIN]), cityController.deleteCity);
 
 export default router;
