@@ -23,14 +23,6 @@ export class SubCategory {
   @MaxLength(32)
   name!: string;
 
-  @ManyToOne(() => Category, (category) => category.subCategories, {
-    onDelete: "CASCADE"
-  })
-  parent_category!: Category;
-
-  @ManyToMany(() => Product, (product) => product.subCategories)
-  products!: Product[];
-
   @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   created_at!: Date;
 
@@ -40,4 +32,12 @@ export class SubCategory {
     onUpdate: "CURRENT_TIMESTAMP(6)"
   })
   updated_at?: Date;
+
+  @ManyToMany(() => Product, (product) => product.subCategories)
+  products!: Product[];
+
+  @ManyToOne(() => Category, (category) => category.subCategories, {
+    onDelete: "CASCADE"
+  })
+  parent_category!: Category;
 }

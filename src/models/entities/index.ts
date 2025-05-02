@@ -9,13 +9,13 @@ import { User } from "./user.entity";
 
 const entities = [
   User,
+  Brand,
   Category,
   SubCategory,
-  Brand,
   Image,
-  Product,
   Color,
-  Review
+  Review,
+  Product
 ];
 
 export { entities };

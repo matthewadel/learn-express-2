@@ -1,13 +1,10 @@
 import { Router } from "express";
-import { validateRequestSchema } from "../middlewares/validateRequestSchema";
+import { validateRequestSchema } from "../middlewares";
 import { ProductsController } from "../controllers";
-import { productsSchema } from "../schemas/products.schema";
-import {
-  compressMultipleImages,
-  uploadMultipleImages
-} from "../middlewares/uploadMultipleImages";
-import { allowedTo } from "../middlewares/allowedTo";
-import { verifyToken } from "../middlewares/verifyToken";
+import { productsSchema } from "../schemas";
+import { compressMultipleImages, uploadMultipleImages } from "../middlewares";
+import { allowedTo } from "../middlewares";
+import { verifyToken } from "../middlewares";
 import { UserRoles } from "../models";
 import ReviewRouter from "./review.route";
 

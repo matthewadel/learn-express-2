@@ -1,12 +1,9 @@
 import { Router } from "express";
-import { validateRequestSchema } from "../middlewares/validateRequestSchema";
-import { authSchema } from "../schemas/auth.schema";
+import { validateRequestSchema } from "../middlewares";
+import { authSchema } from "../schemas";
 import { AuthController } from "../controllers";
-import {
-  compressSingleImage,
-  uploadSingleImage
-} from "../middlewares/uploadSingleImage";
-import { verifyToken } from "../middlewares/verifyToken";
+import { compressSingleImage, uploadSingleImage } from "../middlewares";
+import { verifyToken } from "../middlewares";
 
 const router = Router();
 const authController = new AuthController();

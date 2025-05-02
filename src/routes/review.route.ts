@@ -1,9 +1,9 @@
 import express from "express";
 import { ReviewController } from "../controllers";
-import { validateRequestSchema } from "../middlewares/validateRequestSchema";
-import { reviewSchema } from "../schemas/review.schema";
-import { verifyToken } from "../middlewares/verifyToken";
-import { allowedTo } from "../middlewares/allowedTo";
+import { validateRequestSchema } from "../middlewares";
+import { reviewSchema } from "../schemas";
+import { verifyToken } from "../middlewares";
+import { allowedTo } from "../middlewares";
 import { UserRoles } from "../models";
 
 const router = express.Router({ mergeParams: true });

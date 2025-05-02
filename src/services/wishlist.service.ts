@@ -1,11 +1,8 @@
 import { AppDataSource } from "../models";
 import { User } from "../models";
-import { BadRequestError } from "../utils/errors";
-import {
-  getPaginatedResultsWithFilter,
-  paginationInput
-} from "../utils/getPaginatedResultsWithFilter";
-import { findOneBy } from "../utils/findOneBy";
+import { BadRequestError } from "../utils";
+import { getPaginatedResultsWithFilter, paginationInput } from "../utils";
+import { findOneBy } from "../utils";
 import { Product } from "../models";
 
 export class WishlistService {

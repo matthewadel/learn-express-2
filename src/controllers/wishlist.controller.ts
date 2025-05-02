@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { asyncWrapper } from "../middlewares/asyncWrapper";
-import { WishlistService } from "../services/wishlist.service";
+import { asyncWrapper } from "../middlewares";
+import { WishlistService } from "../services";
 import { User } from "../models";
-import { paginationInput } from "../utils/getPaginatedResultsWithFilter";
-import { sendSuccessResponse } from "../utils/sendSuccessResponse";
+import { paginationInput } from "../utils";
+import { sendSuccessResponse } from "../utils";
 import { Product } from "../models";
 
 export class WishlistController {

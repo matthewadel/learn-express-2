@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express";
-import { ReviewService } from "../services/review.service";
-import { sendSuccessResponse } from "../utils/sendSuccessResponse";
-import { paginationInput } from "../utils/getPaginatedResultsWithFilter";
+import { ReviewService } from "../services";
+import { sendSuccessResponse } from "../utils";
+import { paginationInput } from "../utils";
 import { Review } from "../models";
-import { asyncWrapper } from "../middlewares/asyncWrapper";
+import { asyncWrapper } from "../middlewares";
 import { User } from "../models";
 
 export class ReviewController {

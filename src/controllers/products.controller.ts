@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { asyncWrapper } from "../middlewares/asyncWrapper";
+import { asyncWrapper } from "../middlewares";
 import { Product } from "../models";
-import { ProductsService } from "../services/products.service";
-import { sendSuccessResponse } from "../utils/sendSuccessResponse";
-import { paginationInput } from "../utils/getPaginatedResultsWithFilter";
+import { ProductsService } from "../services";
+import { sendSuccessResponse } from "../utils";
+import { paginationInput } from "../utils";
 
 export class ProductsController {
   private readonly productsService: ProductsService = new ProductsService();

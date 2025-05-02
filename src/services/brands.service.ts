@@ -1,11 +1,8 @@
 import { AppDataSource } from "../models";
-import { BadRequestError } from "../utils/errors";
+import { BadRequestError } from "../utils";
 import { Brand } from "../models";
-import { findOneBy } from "../utils/findOneBy";
-import {
-  getPaginatedResultsWithFilter,
-  paginationInput
-} from "../utils/getPaginatedResultsWithFilter";
+import { findOneBy } from "../utils";
+import { getPaginatedResultsWithFilter, paginationInput } from "../utils";
 import { brandsSchema } from "../schemas";
 import { z } from "zod";
 

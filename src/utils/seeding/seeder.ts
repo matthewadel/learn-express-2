@@ -1,11 +1,11 @@
 import fs from "fs";
 import "dotenv/config";
-import { CategoryService } from "./../../services/categories.service";
+import { CategoryService } from "./../../services";
 import { initializeDB } from "../../models";
 import { AppDataSource } from "../../models";
-import { ProductsService } from "../../services/products.service";
+import { ProductsService } from "../../services";
 import { BrandsService, SubCategoriesService } from "../../services";
-import { ColorsService } from "../../services/colors.service";
+import { ColorsService } from "../../services";
 
 const seedBrands = async () => {
   try {

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { getALlItemsValidationWithPagination } from "../utils/getAllItemsValidationWithPagination";
+import { getALlItemsValidationWithPagination } from "../utils";
 
 const createReview = z.object({
   body: z.object({

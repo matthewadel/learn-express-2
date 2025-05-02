@@ -1,6 +1,6 @@
 import { AppDataSource } from "../models";
 import { Image } from "../models";
-import { findOneBy } from "../utils/findOneBy";
+import { findOneBy } from "../utils";
 
 export class ImagesService {
   private imageRepository = AppDataSource.getRepository(Image);

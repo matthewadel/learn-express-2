@@ -4,15 +4,12 @@ import { Category } from "../models";
 import { Color } from "../models";
 import { Product } from "../models";
 import { SubCategory } from "../models";
-import { findOneBy } from "../utils/findOneBy";
+import { findOneBy } from "../utils";
 import { ImagesService } from "./images.service";
 import { z } from "zod";
-import { productsSchema } from "../schemas/products.schema";
-import { BadRequestError } from "../utils/errors";
-import {
-  getPaginatedResultsWithFilter,
-  paginationInput
-} from "../utils/getPaginatedResultsWithFilter";
+import { productsSchema } from "../schemas";
+import { BadRequestError } from "../utils";
+import { getPaginatedResultsWithFilter, paginationInput } from "../utils";
 
 // Extract the type of body from productsSchema.createProduct
 type CreateProductBody = z.infer<typeof productsSchema.createProduct>;
@@ -32,7 +29,7 @@ export class ProductsService {
     if (body.image_cover) newProduct.image_cover = body.image_cover[0];
     if (body.images) newProduct.images = await this._getImages(body.images);
 
-    if (body.colors) newProduct.colors = await this._getColors(body.colors);
+    // if (body.colors) newProduct.colors = await this._getColors(body.colors);
 
     if (body.subCategories)
       newProduct.subCategories = await this._getSubCategories(

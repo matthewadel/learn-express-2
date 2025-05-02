@@ -1,9 +1,9 @@
-import { SubCategoriesService } from "../services/subCategories.service";
-import { asyncWrapper } from "../middlewares/asyncWrapper";
+import { SubCategoriesService } from "../services";
+import { asyncWrapper } from "../middlewares";
 import { NextFunction, Request, Response } from "express";
-import { sendSuccessResponse } from "../utils/sendSuccessResponse";
+import { sendSuccessResponse } from "../utils";
 import { SubCategory } from "../models";
-import { paginationInput } from "../utils/getPaginatedResultsWithFilter";
+import { paginationInput } from "../utils";
 
 export class SubCategoryController {
   private readonly subCategoriesService: SubCategoriesService =

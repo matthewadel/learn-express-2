@@ -1,17 +1,14 @@
-import { AppDataSource } from "../models";
-import { BadRequestError } from "../utils/errors";
+import { BadRequestError } from "../utils";
 import { User, UserRoles } from "../models";
-import { findOneBy } from "../utils/findOneBy";
-import {
-  getPaginatedResultsWithFilter,
-  paginationInput
-} from "../utils/getPaginatedResultsWithFilter";
+import { AppDataSource } from "../models/data-source";
+import { findOneBy } from "../utils";
+import { getPaginatedResultsWithFilter, paginationInput } from "../utils";
 import bcrypt from "bcryptjs";
 
 import { z } from "zod";
-import { usersSchema } from "../schemas/users.schema";
-import { hashString } from "../utils/hashString";
-import { authSchema } from "../schemas/auth.schema";
+import { usersSchema } from "../schemas";
+import { hashString } from "../utils";
+import { authSchema } from "../schemas";
 
 type CreateUserBody = z.infer<typeof usersSchema.createUser>;
 type UpdateUserBody = z.infer<typeof usersSchema.updateUser>;

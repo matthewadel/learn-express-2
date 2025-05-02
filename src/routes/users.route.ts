@@ -1,13 +1,10 @@
 import { Router } from "express";
-import { validateRequestSchema } from "../middlewares/validateRequestSchema";
-import { usersSchema } from "../schemas/users.schema";
+import { validateRequestSchema } from "../middlewares";
+import { usersSchema } from "../schemas";
 import { UsersController } from "../controllers";
-import {
-  compressSingleImage,
-  uploadSingleImage
-} from "../middlewares/uploadSingleImage";
-import { allowedTo } from "../middlewares/allowedTo";
-import { verifyToken } from "../middlewares/verifyToken";
+import { compressSingleImage, uploadSingleImage } from "../middlewares";
+import { allowedTo } from "../middlewares";
+import { verifyToken } from "../middlewares";
 import { UserRoles } from "../models";
 
 const router = Router();

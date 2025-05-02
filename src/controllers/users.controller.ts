@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { asyncWrapper } from "../middlewares/asyncWrapper";
-import { sendSuccessResponse } from "../utils/sendSuccessResponse";
-import { UsersService } from "../services/users.service";
+import { asyncWrapper } from "../middlewares";
+import { sendSuccessResponse } from "../utils";
+import { UsersService } from "../services";
 import { User } from "../models";
-import { paginationInput } from "../utils/getPaginatedResultsWithFilter";
+import { paginationInput } from "../utils";
 
 export class UsersController {
   private readonly usersService: UsersService = new UsersService();

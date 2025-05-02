@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { AnyZodObject, ZodError, ZodIssue } from "zod";
-import { BadRequestError } from "../utils/errors";
+import { BadRequestError } from "../utils";
 
 // ** arg => schema
 export function validateRequestSchema(schema: AnyZodObject) {

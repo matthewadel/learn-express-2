@@ -1,13 +1,10 @@
 import { AppDataSource } from "../models";
 import { Color } from "../models";
-import { findOneBy } from "../utils/findOneBy";
-import { BadRequestError } from "../utils/errors";
-import {
-  getPaginatedResultsWithFilter,
-  paginationInput
-} from "../utils/getPaginatedResultsWithFilter";
+import { findOneBy } from "../utils";
+import { BadRequestError } from "../utils";
+import { getPaginatedResultsWithFilter, paginationInput } from "../utils";
 import { z } from "zod";
-import { colorsSchema } from "../schemas/colors.schema";
+import { colorsSchema } from "../schemas";
 
 type CreateColorBody = z.infer<typeof colorsSchema.createColor>;
 

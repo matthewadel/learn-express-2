@@ -1,13 +1,10 @@
 import { Router } from "express";
 import { CategoriesController } from "../controllers";
-import { categoriesSchema } from "../schemas/categories.schema";
-import { validateRequestSchema } from "../middlewares/validateRequestSchema";
-import {
-  compressSingleImage,
-  uploadSingleImage
-} from "../middlewares/uploadSingleImage";
-import { verifyToken } from "../middlewares/verifyToken";
-import { allowedTo } from "../middlewares/allowedTo";
+import { categoriesSchema } from "../schemas";
+import { validateRequestSchema } from "../middlewares";
+import { compressSingleImage, uploadSingleImage } from "../middlewares";
+import { verifyToken } from "../middlewares";
+import { allowedTo } from "../middlewares";
 import { UserRoles } from "../models";
 import subCategoriesRouter from "./subCategories.route";
 

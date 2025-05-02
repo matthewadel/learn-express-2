@@ -3,10 +3,10 @@ import express, { NextFunction, Request, Response } from "express";
 import morgan from "morgan";
 import { initializeDB } from "./models";
 import rootRouter from "./routes";
-import { globalErrorHandler } from "./middlewares/globalErrorHandler";
+import { globalErrorHandler } from "./middlewares";
 import path from "path";
-import { getEnv } from "./utils/validateEnv";
-import { NotFoundError } from "./utils/errors";
+import { getEnv } from "./utils";
+import { NotFoundError } from "./utils";
 
 // this block must be in the same order
 const app = express();

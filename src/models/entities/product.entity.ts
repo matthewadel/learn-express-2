@@ -28,7 +28,7 @@ import {
   EventSubscriber,
   InsertEvent
 } from "typeorm";
-import { getEnv } from "../../utils/validateEnv";
+import { getEnv } from "../../utils";
 import { User } from "./user.entity";
 
 @Entity("products")

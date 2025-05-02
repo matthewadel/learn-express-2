@@ -1,9 +1,9 @@
-import { subCategoriesSchema } from "./../schemas/subCategories.schema";
+import { subCategoriesSchema } from "./../schemas";
 import { Router } from "express";
-import { validateRequestSchema } from "../middlewares/validateRequestSchema";
+import { validateRequestSchema } from "../middlewares";
 import { SubCategoryController } from "../controllers";
-import { allowedTo } from "../middlewares/allowedTo";
-import { verifyToken } from "../middlewares/verifyToken";
+import { allowedTo } from "../middlewares";
+import { verifyToken } from "../middlewares";
 import { UserRoles } from "../models";
 
 const router = Router({ mergeParams: true });

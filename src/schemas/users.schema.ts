@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { getALlItemsValidationWithPagination } from "../utils/getAllItemsValidationWithPagination";
+import { getALlItemsValidationWithPagination } from "../utils";
 import { UserRoles } from "../models";
 
 const createUser = z.object({

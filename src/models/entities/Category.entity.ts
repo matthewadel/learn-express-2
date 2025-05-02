@@ -12,7 +12,7 @@ import { SubCategory } from "./subCategory.entity";
 import { MaxLength, MinLength } from "class-validator";
 import { Product } from "./product.entity";
 import { EventSubscriber, EntitySubscriberInterface } from "typeorm";
-import { returnImageUrlInResoinse } from "../../middlewares/uploadSingleImage";
+import { returnImageUrlInResoinse } from "../../middlewares";
 
 @Entity("categories")
 @Unique(["name"])
@@ -38,11 +38,11 @@ export class Category {
   })
   updated_at?: Date;
 
-  @OneToMany(() => SubCategory, (subCategory) => subCategory.parent_category)
-  subCategories!: SubCategory[];
-
   @OneToMany(() => Product, (product) => product.category)
   products!: Product[];
+
+  @OneToMany(() => SubCategory, (subCategory) => subCategory.parent_category)
+  subCategories!: SubCategory[];
 }
 
 //it is somethinng like mongoose middle schema.post('init',()=>{}) in get and schema.post('init',()=>{}) in create

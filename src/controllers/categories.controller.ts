@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { CategoryService } from "../services/categories.service";
-import { asyncWrapper } from "../middlewares/asyncWrapper";
-import { sendSuccessResponse } from "../utils/sendSuccessResponse";
+import { CategoryService } from "../services";
+import { asyncWrapper } from "../middlewares";
+import { sendSuccessResponse } from "../utils";
 import { Category } from "../models";
-import { paginationInput } from "../utils/getPaginatedResultsWithFilter";
+import { paginationInput } from "../utils";
 
 export class CategoriesController {
   private readonly categoriesService: CategoryService = new CategoryService();

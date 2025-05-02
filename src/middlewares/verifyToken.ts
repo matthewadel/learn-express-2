@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from "express";
-import { NotAuthenticatedError } from "../utils/errors";
+import { NotAuthenticatedError } from "../utils";
 import jwt from "jsonwebtoken";
-import { UsersService } from "../services/users.service";
+import { UsersService } from "../services";
 import "express";
 import { User } from "../models";
-import { getEnv } from "../utils/validateEnv";
+import { getEnv } from "../utils";
 
 const usersService = new UsersService();
 

@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { validateRequestSchema } from "../middlewares/validateRequestSchema";
+import { validateRequestSchema } from "../middlewares";
 import { ColorsController } from "../controllers";
-import { colorsSchema } from "../schemas/colors.schema";
-import { verifyToken } from "../middlewares/verifyToken";
-import { allowedTo } from "../middlewares/allowedTo";
+import { colorsSchema } from "../schemas";
+import { verifyToken } from "../middlewares";
+import { allowedTo } from "../middlewares";
 import { UserRoles } from "../models";
 
 const router = Router();

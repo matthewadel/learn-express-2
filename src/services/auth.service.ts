@@ -1,13 +1,13 @@
 import { z } from "zod";
 import { UsersService } from "./users.service";
 import jwt from "jsonwebtoken";
-import { authSchema } from "../schemas/auth.schema";
+import { authSchema } from "../schemas";
 import { User } from "../models";
-import { NotAuthenticatedError, ServerError } from "../utils/errors";
+import { NotAuthenticatedError, ServerError } from "../utils";
 import bcrypt from "bcryptjs";
 import { AppDataSource } from "../models";
-import { getEnv } from "../utils/validateEnv";
-import { hashString } from "../utils/hashString";
+import { getEnv } from "../utils";
+import { hashString } from "../utils";
 import { EmailService } from "./email.service";
 
 type registerBody = z.infer<typeof authSchema.register>;

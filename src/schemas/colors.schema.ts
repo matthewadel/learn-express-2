@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { getALlItemsValidationWithPagination } from "../utils/getAllItemsValidationWithPagination";
+import { getALlItemsValidationWithPagination } from "../utils";
 
 const createColor = z.object({
   body: z.object({

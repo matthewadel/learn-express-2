@@ -1,12 +1,9 @@
 import { AppDataSource } from "../models";
-import { BadRequestError, NotAuthorizedError } from "../utils/errors";
+import { BadRequestError, NotAuthorizedError } from "../utils";
 import { Review } from "../models";
-import { findOneBy } from "../utils/findOneBy";
-import {
-  getPaginatedResultsWithFilter,
-  paginationInput
-} from "../utils/getPaginatedResultsWithFilter";
-import { reviewSchema } from "../schemas/review.schema";
+import { findOneBy } from "../utils";
+import { getPaginatedResultsWithFilter, paginationInput } from "../utils";
+import { reviewSchema } from "../schemas";
 import { z } from "zod";
 import { Product } from "../models";
 import { User } from "../models";

@@ -2,13 +2,15 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { entities } from "./entities";
-import { CategoryGenericSubscriber } from "./entities/category.entity";
-import { BrandGenericSubscriber } from "./entities/brand.entity";
-import { ProductSubscriber } from "./entities/product.entity";
-import { UserGenericSubscriber } from "./entities/user.entity";
-import { getEnv } from "../utils/validateEnv";
-import { ReviewSubscriber } from "./entities/review.entity";
-
+import {
+  CategoryGenericSubscriber,
+  BrandGenericSubscriber,
+  ProductSubscriber,
+  UserGenericSubscriber,
+  ReviewSubscriber
+} from ".";
+import { getEnv } from "../utils";
+console.log(entities);
 export const AppDataSource = new DataSource({
   type: getEnv().DB_TYPE as "postgres",
   host: getEnv().DB_HOST,
@@ -18,7 +20,7 @@ export const AppDataSource = new DataSource({
   database: getEnv().DB_NAME,
   synchronize: getEnv().NODE_ENV === "development",
   logging: false,
-  entities: entities,
+  entities,
   migrations: [],
   subscribers: [
     CategoryGenericSubscriber,

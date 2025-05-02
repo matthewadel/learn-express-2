@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import { getEnv } from "../utils/validateEnv";
+import { getEnv } from "../utils";
 
 export class EmailService {
   private transporter: nodemailer.Transporter | undefined;

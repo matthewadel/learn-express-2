@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { AuthService } from "../services/auth.service";
-import { sendSuccessResponse } from "../utils/sendSuccessResponse";
-import { asyncWrapper } from "../middlewares/asyncWrapper";
+import { AuthService } from "../services";
+import { sendSuccessResponse } from "../utils";
+import { asyncWrapper } from "../middlewares";
 import { User } from "../models";
-import { authSchema } from "../schemas/auth.schema";
+import { authSchema } from "../schemas";
 import { z } from "zod";
-import { UsersService } from "../services/users.service";
+import { UsersService } from "../services";
 
 type verifyEmailParams = z.infer<typeof authSchema.verifyEmail>;
 

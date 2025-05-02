@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { asyncWrapper } from "../middlewares/asyncWrapper";
-import { ColorsService } from "../services/colors.service";
-import { sendSuccessResponse } from "../utils/sendSuccessResponse";
+import { asyncWrapper } from "../middlewares";
+import { ColorsService } from "../services";
+import { sendSuccessResponse } from "../utils";
 import { Color } from "../models";
-import { paginationInput } from "../utils/getPaginatedResultsWithFilter";
+import { paginationInput } from "../utils";
 
 export class ColorsController {
   private readonly colorsService: ColorsService = new ColorsService();
