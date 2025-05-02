@@ -70,13 +70,12 @@ export class WishlistService {
     getImtesParams
   }: {
     user: User;
-    getImtesParams: paginationInput<User>;
+    getImtesParams: paginationInput<Product>;
   }) {
-    return await getPaginatedResultsWithFilter<User>({
-      entity: User,
+    return await getPaginatedResultsWithFilter<Product>({
+      entity: Product,
       inputOptions: {
-        relations: ["wishlist_products"],
-        where: { id: user.id }
+        where: { favoritedBy: { id: user.id } }
       },
       getImtesParams
     });

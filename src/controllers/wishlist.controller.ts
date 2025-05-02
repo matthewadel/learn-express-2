@@ -4,6 +4,7 @@ import { WishlistService } from "../services/wishlist.service";
 import { User } from "../models/entities/user.entity";
 import { paginationInput } from "../utils/getPaginatedResultsWithFilter";
 import { sendSuccessResponse } from "../utils/sendSuccessResponse";
+import { Product } from "../models/entities/product.entity";
 
 export class WishlistController {
   private readonly wishlistService = new WishlistService();
@@ -34,12 +35,18 @@ export class WishlistController {
   getWishlistOfUser = asyncWrapper(async (req: Request, res: Response) => {
     const response = await this.wishlistService.getWishlistOfUser({
       user: req.user as User,
-      getImtesParams: req.query as unknown as paginationInput<User>
+      getImtesParams: req.query as unknown as paginationInput<Product>
     });
-    sendSuccessResponse<User>({
+    sendSuccessResponse<Product>({
       res,
       currentPage: +(req.query?.page || 1),
       ...response
     });
   });
 }
+
+// id
+// detail
+// city
+// phone
+// postal code
