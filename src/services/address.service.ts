@@ -5,8 +5,8 @@ import {
   paginationInput,
   getPaginatedResultsWithFilter,
   NotFoundError,
-  NotAuthorizedError,
-  findOneBy
+  findOneBy,
+  checkAuthorization
 } from "../utils";
 import { addressSchema } from "../schemas/address.schema";
 import { z } from "zod";
@@ -79,22 +79,13 @@ export class AddressService {
   }): Promise<Address | null> {
     const address = await this.getAddressById(id);
 
-    Object.assign(address, data);
-
-    this._handleAuthorization(user, address);
-    return await this.addressRepository.save(address);
+    checkAuthorization(user, address);
+    return await this.addressRepository.save({ ...address, ...data });
   }
 
   async deleteAddress({ id, user }: { id: number; user: User }): Promise<void> {
     const address = await this.getAddressById(id);
-    this._handleAuthorization(user, address);
+    checkAuthorization(user, address);
     await this.addressRepository.delete(id);
-  }
-
-  private _handleAuthorization(user: User, address: Address) {
-    if (user.role !== "admin" && address.user.id !== user.id)
-      throw new NotAuthorizedError(
-        "You are not authorized to perform this action"
-      );
   }
 }

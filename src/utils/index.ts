@@ -5,3 +5,4 @@ export * from "./getPaginatedResultsWithFilter";
 export * from "./hashString";
 export * from "./sendSuccessResponse";
 export * from "./validateEnv";
+export * from "./checkAuthorization";

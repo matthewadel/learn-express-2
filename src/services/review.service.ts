@@ -1,5 +1,5 @@
 import { AppDataSource } from "../models";
-import { BadRequestError, NotAuthorizedError } from "../utils";
+import { BadRequestError, checkAuthorization } from "../utils";
 import { Review } from "../models";
 import { findOneBy } from "../utils";
 import { getPaginatedResultsWithFilter, paginationInput } from "../utils";
@@ -71,26 +71,18 @@ export class ReviewService {
   ): Promise<Review> {
     const review = await this.getReviewById(id);
 
-    this._handleAuthorization(user, review);
+    checkAuthorization(user, review);
 
     if (body.productId) {
       const product = await this.productService.getProductById(body.productId);
       review.product = product;
     }
-    await this.ReviewRepository.save({ ...review, ...body });
-    return review;
+    return this.ReviewRepository.save({ ...review, ...body });
   }
 
   async deleteReview(user: User, id: number): Promise<void> {
     const review = await this.getReviewById(id);
-    this._handleAuthorization(user, review);
+    checkAuthorization(user, review);
     await this.ReviewRepository.remove(review);
-  }
-
-  private _handleAuthorization(user: User, review: Review) {
-    if (user.role !== "admin" && review.user.id !== user.id)
-      throw new NotAuthorizedError(
-        "You are not authorized to perform this action"
-      );
   }
 }

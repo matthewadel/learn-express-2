@@ -1,8 +1,3 @@
-// create global checkAuthorization function
-// handle all delete methods to be performed by admin or by the same user that has created this entity
-// handle all put methods to be performed by admin or by the same user that has created this entity
-
-
 1- setup with nodemon, typescript, pg and typeorm
 2- create env file, validate and get env params
 3- register and login
