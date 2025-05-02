@@ -9,3 +9,5 @@ export * from "./review.service";
 export * from "./subCategories.service";
 export * from "./users.service";
 export * from "./wishlist.service";
+export * from "./city.service";
+export * from "./address.service";

@@ -9,6 +9,7 @@ import AuthRouter from "./auth.route";
 import ReviewRouter from "./review.route";
 import WishlistRouter from "./wishlist.route";
 import AddresstRouter from "./address.route";
+import CityRouter from "./city.route";
 
 const router = Router();
 
@@ -22,5 +23,6 @@ router.use("/auth", AuthRouter);
 router.use("/review", ReviewRouter);
 router.use("/wishlist", WishlistRouter);
 router.use("/address", AddresstRouter);
+router.use("/city", CityRouter);
 
 export default router;

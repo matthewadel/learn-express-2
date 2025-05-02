@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { asyncWrapper } from "../middlewares";
 import { sendSuccessResponse } from "../utils";
-import { AddressService } from "../services/address.service";
-import { Address } from "../models/entities/address.entity";
+import { AddressService } from "../services";
+import { Address } from "../models";
 import { paginationInput } from "../utils";
 import { User } from "../models";
 
