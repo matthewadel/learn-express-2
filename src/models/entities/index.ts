@@ -8,6 +8,7 @@ import { SubCategory } from "./subCategory.entity";
 import { User } from "./user.entity";
 import { Address } from "./address.entity";
 import { City } from "./city.entity";
+import { Coupon } from "./coupon.entity";
 
 const entities = [
   User,
@@ -19,7 +20,8 @@ const entities = [
   Review,
   Product,
   Address,
-  City
+  City,
+  Coupon
 ];
 
 export { entities };

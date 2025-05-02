@@ -9,3 +9,4 @@ export * from "./entities/subCategory.entity";
 export * from "./entities/user.entity";
 export * from "./entities/address.entity";
 export * from "./entities/city.entity";
+export * from "./entities/coupon.entity";

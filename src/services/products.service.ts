@@ -129,12 +129,11 @@ export class ProductsService {
       delete body.deletedImagesIds;
     }
 
-    await this.productsRepository.save({
+    return this.productsRepository.save({
       ...product,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ...(body as any)
     });
-    return product;
   }
 
   async deleteProduct(id: number) {

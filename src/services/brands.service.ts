@@ -1,5 +1,4 @@
 import { AppDataSource } from "../models";
-import { BadRequestError } from "../utils";
 import { Brand } from "../models";
 import { findOneBy } from "../utils";
 import { getPaginatedResultsWithFilter, paginationInput } from "../utils";
@@ -12,9 +11,7 @@ export class BrandsService {
   private BrandsRepository = AppDataSource.getRepository(Brand);
 
   async createBrand(body: CreateBrandBody["body"]): Promise<Brand> {
-    const brand = await this.getBrandByname(body.name);
-    if (brand) throw new BadRequestError("This Brand Already Exists");
-
+    await this.getBrandByname(body.name);
     return await this.BrandsRepository.save(body);
   }
 
@@ -37,8 +34,7 @@ export class BrandsService {
   async updateBrand(id: number, body: UpdateBrandBody["body"]): Promise<Brand> {
     const brand = await this.getBrandById(id);
 
-    await this.BrandsRepository.save({ ...brand, ...body });
-    return brand;
+    return this.BrandsRepository.save({ ...brand, ...body });
   }
 
   async deleteBrand(id: number): Promise<void> {

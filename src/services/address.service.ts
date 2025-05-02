@@ -13,6 +13,7 @@ import { z } from "zod";
 import { CityService } from "./city.service";
 
 type CreateAddressBody = z.infer<typeof addressSchema.createAddress>;
+type updateAddressBody = z.infer<typeof addressSchema.updateAddress>;
 
 export class AddressService {
   private readonly addressRepository: Repository<Address> =
@@ -42,14 +43,15 @@ export class AddressService {
     return await getPaginatedResultsWithFilter<Address>({
       entity: Address,
       getImtesParams: query,
-      search_columns: ["details", "alias"]
+      search_columns: ["details", "alias"],
+      inputOptions: { relations: ["city"] }
     });
   }
 
   async getAddressById(id: number) {
     return await findOneBy<Address>(Address, {
       id,
-      options: { relations: ["user"] }
+      options: { relations: ["user", "city"] }
     });
   }
 
@@ -64,7 +66,7 @@ export class AddressService {
       entity: Address,
       getImtesParams: query,
       search_columns: ["details", "alias"],
-      inputOptions: { where: { user: { id: user.id } } }
+      inputOptions: { where: { user: { id: user.id } }, relations: ["city"] }
     });
   }
 
@@ -74,13 +76,17 @@ export class AddressService {
     user
   }: {
     id: number;
-    data: Partial<Address>;
+    data: updateAddressBody["body"];
     user: User;
-  }): Promise<Address | null> {
+  }) {
     const address = await this.getAddressById(id);
 
     checkAuthorization(user, address);
-    return await this.addressRepository.save({ ...address, ...data });
+    return await this.addressRepository.save({
+      ...address,
+      ...data,
+      alias: (data.alias as AddressAlias) ?? address.alias
+    });
   }
 
   async deleteAddress({ id, user }: { id: number; user: User }): Promise<void> {

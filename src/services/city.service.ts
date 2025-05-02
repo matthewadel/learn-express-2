@@ -3,8 +3,7 @@ import { AppDataSource, City } from "../models";
 import {
   paginationInput,
   getPaginatedResultsWithFilter,
-  findOneBy,
-  BadRequestError
+  findOneBy
 } from "../utils";
 import { citySchema } from "../schemas/city.schema";
 import { z } from "zod";
@@ -18,8 +17,7 @@ export class CityService {
     AppDataSource.getRepository(City);
 
   async createCity(body: CreateCityBody["body"]): Promise<City> {
-    const brand = await this.getCityByName(body.name);
-    if (brand) throw new BadRequestError("This City Already Exists");
+    await this.getCityByName(body.name);
 
     const newCity = this.cityRepository.create(body);
     return await this.cityRepository.save(newCity);
@@ -43,8 +41,7 @@ export class CityService {
 
   async updateCity(id: number, data: UpdateCityBody["body"]): Promise<City> {
     const city = await this.getCityById(id);
-    Object.assign(city, data);
-    return await this.cityRepository.save(city);
+    return await this.cityRepository.save({ ...city, ...data });
   }
 
   async deleteCity(id: number): Promise<void> {

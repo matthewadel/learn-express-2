@@ -7,3 +7,5 @@ export * from "./review.schema";
 export * from "./subCategories.schema";
 export * from "./users.schema";
 export * from "./wishlist.schema";
+export * from "./address.schema";
+export * from "./coupon.schema";

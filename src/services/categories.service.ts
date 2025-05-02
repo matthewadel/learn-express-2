@@ -1,5 +1,4 @@
 import { AppDataSource } from "../models";
-import { BadRequestError } from "../utils";
 import { Category } from "../models";
 import { findOneBy } from "../utils";
 import { getPaginatedResultsWithFilter, paginationInput } from "../utils";
@@ -13,9 +12,7 @@ export class CategoryService {
   private categoryRepository = AppDataSource.getRepository(Category);
 
   async createCategory(body: CreateCategotyBody["body"]): Promise<Category> {
-    const cat = await this.getCategoryByName(body.name);
-    if (cat) throw new BadRequestError("This Category Already Exists");
-
+    await this.getCategoryByName(body.name);
     return await this.categoryRepository.save(body);
   }
 

@@ -21,8 +21,8 @@ export async function findOneBy<T>(
   const repo = AppDataSource.getRepository(entity);
   const item = await repo.findOne({ where: { id, name, email }, ...options });
 
-  if (checkExistence && !!item)
-    throw new BadRequestError(`${entity} already exist`);
-  else if (!item) throw new NotFoundError(`${entity} not found`);
+  if (checkExistence) {
+    if (item) throw new BadRequestError(`${entity} already exist`);
+  } else if (!item) throw new NotFoundError(`${entity} not found`);
   return item as T;
 }

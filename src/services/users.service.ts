@@ -19,8 +19,7 @@ export class UsersService {
   private UsersRepository = AppDataSource.getRepository(User);
 
   async createUser(body: CreateUserBody["body"]): Promise<User> {
-    const user = await this.getUserByEmail(body.email);
-    if (user) throw new BadRequestError("This User Already Exists");
+    await this.getUserByEmail(body.email);
 
     const password = await hashString(body.password);
     const userEntity = this.UsersRepository.create({
@@ -64,7 +63,7 @@ export class UsersService {
       ...user,
       ...body,
       // password,
-      role: body.role as UserRoles // Ensure role is cast to UserRoles
+      role: (body.role as UserRoles) ?? user.role // Ensure role is cast to UserRoles
     });
 
     return await this.UsersRepository.save(updatedUser);

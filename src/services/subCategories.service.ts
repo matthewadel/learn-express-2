@@ -1,6 +1,5 @@
 import { AppDataSource } from "../models";
 import { SubCategory } from "../models";
-import { BadRequestError, NotFoundError } from "../utils";
 import { findOneBy } from "../utils";
 import { getPaginatedResultsWithFilter, paginationInput } from "../utils";
 import { subCategoriesSchema } from "../schemas";
@@ -25,10 +24,8 @@ export class SubCategoriesService {
     const parentCategory = await this._findParentCategoryBy({
       id: body.parentCategoryId
     });
-    if (!parentCategory) throw new NotFoundError("Parent Category Not Found");
 
-    const cat = await this.getSubCategoryByName(body.name);
-    if (cat) throw new BadRequestError("This SubCategory Already Exists");
+    await this.getSubCategoryByName(body.name);
 
     return this.subCategoryRepository.save({
       ...body,
@@ -84,9 +81,7 @@ export class SubCategoriesService {
       subCategory.parent_category = parentCategory;
       delete body.parentCategoryId;
     }
-    await this.subCategoryRepository.save({ ...subCategory, ...body });
-
-    return subCategory;
+    return this.subCategoryRepository.save({ ...subCategory, ...body });
   }
 
   // Delete a sub-category

@@ -1,7 +1,6 @@
 import { AppDataSource } from "../models";
 import { Color } from "../models";
 import { findOneBy } from "../utils";
-import { BadRequestError } from "../utils";
 import { getPaginatedResultsWithFilter, paginationInput } from "../utils";
 import { z } from "zod";
 import { colorsSchema } from "../schemas";
@@ -12,9 +11,7 @@ export class ColorsService {
   private colorsRepository = AppDataSource.getRepository(Color);
 
   async createColor(body: CreateColorBody["body"]) {
-    const color = await this.getColorByName(body.name);
-    if (color) throw new BadRequestError("This Color Already Exists");
-
+    await this.getColorByName(body.name);
     return this.colorsRepository.save(body);
   }
 

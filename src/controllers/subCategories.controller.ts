@@ -34,7 +34,7 @@ export class SubCategoryController {
   });
 
   getSubCategoryBy = asyncWrapper(async (req: Request, res: Response) => {
-    const data = await this.subCategoriesService.getSubCategoryBy(
+    const data = await this.subCategoriesService.getSubCategoryById(
       +req.params.subCategoryId
     );
     sendSuccessResponse<SubCategory>({
