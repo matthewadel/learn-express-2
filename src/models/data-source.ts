@@ -2,14 +2,14 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { entities } from "./entities";
+import { getEnv } from "../utils";
 import {
   CategoryGenericSubscriber,
   BrandGenericSubscriber,
   ProductSubscriber,
   UserGenericSubscriber,
   ReviewSubscriber
-} from ".";
-import { getEnv } from "../utils";
+} from "./subscribers";
 
 export const AppDataSource = new DataSource({
   type: getEnv().DB_TYPE as "postgres",

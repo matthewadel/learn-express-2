@@ -2,7 +2,6 @@
 // handle all delete methods to be performed by admin or by the same user that has created this entity
 // handle all put methods to be performed by admin or by the same user that has created this entity
 // getOneBy
-// create a new folder for subscribers
 
 
 1- setup with nodemon, typescript, pg and typeorm

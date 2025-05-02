@@ -2,20 +2,15 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  EntitySubscriberInterface,
-  EventSubscriber,
-  InsertEvent,
   PrimaryGeneratedColumn,
   Unique,
   UpdateDateColumn,
-  UpdateEvent,
   OneToMany,
   ManyToMany,
   JoinTable,
   Index
 } from "typeorm";
 import { MaxLength, MinLength } from "class-validator";
-import { returnImageUrlInResoinse } from "../../middlewares/uploadSingleImage";
 import { Review } from "./review.entity";
 import { Product } from "./product.entity";
 import { Address } from "./address.entity";
@@ -86,42 +81,4 @@ export class User {
 
   @OneToMany(() => Product, (product) => product.user, { onDelete: "CASCADE" })
   products!: Product[];
-}
-
-@EventSubscriber()
-export class UserGenericSubscriber implements EntitySubscriberInterface<User> {
-  // works in get and update
-  async afterLoad(entity: User) {
-    returnImageUrlInResoinse<User>({
-      entity,
-      fieldName: "profileImage",
-      folderName: "profileImages"
-    });
-
-    // Exclude the password field
-    // delete (entity as Partial<User>).password;
-  }
-
-  // works after insert
-  async afterInsert(event: InsertEvent<User>) {
-    returnImageUrlInResoinse<User>({
-      entity: event.entity,
-      fieldName: "profileImage",
-      folderName: "profileImages"
-    });
-
-    // Exclude the password field
-    // delete (event.entity as User as Partial<User>).password;
-  }
-
-  async afterUpdate(event: UpdateEvent<User>) {
-    returnImageUrlInResoinse<User>({
-      entity: event.entity as User,
-      fieldName: "profileImage",
-      folderName: "profileImages"
-    });
-
-    // Exclude the password field
-    // delete (event.entity as User as Partial<User>).password;
-  }
 }

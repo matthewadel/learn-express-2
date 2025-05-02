@@ -5,14 +5,11 @@ import {
   Unique,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany,
-  InsertEvent
+  OneToMany
 } from "typeorm";
 import { SubCategory } from "./subCategory.entity";
 import { MaxLength, MinLength } from "class-validator";
 import { Product } from "./product.entity";
-import { EventSubscriber, EntitySubscriberInterface } from "typeorm";
-import { returnImageUrlInResoinse } from "../../middlewares/uploadSingleImage";
 
 @Entity("categories")
 @Unique(["name"])
@@ -43,28 +40,4 @@ export class Category {
 
   @OneToMany(() => SubCategory, (subCategory) => subCategory.parent_category)
   subCategories!: SubCategory[];
-}
-
-//it is somethinng like mongoose middle schema.post('init',()=>{}) in get and schema.post('init',()=>{}) in create
-@EventSubscriber()
-export class CategoryGenericSubscriber
-  implements EntitySubscriberInterface<Category>
-{
-  // works in get and update
-  async afterLoad(entity: Category) {
-    returnImageUrlInResoinse<Category>({
-      entity,
-      fieldName: "image",
-      folderName: "categories"
-    });
-  }
-
-  // works after insert
-  async afterInsert(event: InsertEvent<Category>) {
-    returnImageUrlInResoinse<Category>({
-      entity: event.entity,
-      fieldName: "image",
-      folderName: "categories"
-    });
-  }
 }
