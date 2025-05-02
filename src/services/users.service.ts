@@ -13,6 +13,7 @@ import { authSchema } from "../schemas";
 type CreateUserBody = z.infer<typeof usersSchema.createUser>;
 type UpdateUserBody = z.infer<typeof usersSchema.updateUser>;
 type updateUserPassword = z.infer<typeof authSchema.updateUserPassword>;
+type changeRoleBody = z.infer<typeof usersSchema.changeUserRole>;
 
 export class UsersService {
   private UsersRepository = AppDataSource.getRepository(User);
@@ -94,5 +95,17 @@ export class UsersService {
     const user = await findOneBy<User>(User, { id });
 
     await this.UsersRepository.remove(user);
+  }
+
+  async changeUserRole({
+    userId,
+    body
+  }: {
+    userId: number;
+    body: changeRoleBody["body"];
+  }): Promise<User> {
+    const user = await findOneBy<User>(User, { id: userId });
+
+    return this.UsersRepository.save({ ...user, role: body.role as UserRoles });
   }
 }

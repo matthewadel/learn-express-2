@@ -6,6 +6,8 @@ import { Product } from "./product.entity";
 import { Review } from "./review.entity";
 import { SubCategory } from "./subCategory.entity";
 import { User } from "./user.entity";
+import { Address } from "./address.entity";
+import { City } from "./city.entity";
 
 const entities = [
   User,
@@ -15,7 +17,9 @@ const entities = [
   Image,
   Color,
   Review,
-  Product
+  Product,
+  Address,
+  City
 ];
 
 export { entities };

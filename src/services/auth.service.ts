@@ -2,7 +2,7 @@ import { z } from "zod";
 import { UsersService } from "./users.service";
 import jwt from "jsonwebtoken";
 import { authSchema } from "../schemas";
-import { User } from "../models";
+import { User, UserRoles } from "../models";
 import { NotAuthenticatedError, ServerError } from "../utils";
 import bcrypt from "bcryptjs";
 import { AppDataSource } from "../models";
@@ -30,6 +30,7 @@ export class AuthService {
 
     return {
       ...user,
+      role: UserRoles.USER,
       token
     };
   }

@@ -7,3 +7,5 @@ export * from "./entities/product.entity";
 export * from "./entities/review.entity";
 export * from "./entities/subCategory.entity";
 export * from "./entities/user.entity";
+export * from "./entities/address.entity";
+export * from "./entities/city.entity";

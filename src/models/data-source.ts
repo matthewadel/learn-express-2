@@ -10,7 +10,7 @@ import {
   ReviewSubscriber
 } from ".";
 import { getEnv } from "../utils";
-console.log(entities);
+
 export const AppDataSource = new DataSource({
   type: getEnv().DB_TYPE as "postgres",
   host: getEnv().DB_HOST,

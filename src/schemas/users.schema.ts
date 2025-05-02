@@ -43,8 +43,15 @@ const getAllUsers = getALlItemsValidationWithPagination(
   createUser.shape.body.innerType().shape
 );
 
+const changeUserRole = z.object({
+  body: z.object({
+    role: z.enum(Object.values(UserRoles) as [string, ...string[]]).optional()
+  })
+});
+
 export const usersSchema = {
   createUser,
   updateUser,
-  getAllUsers
+  getAllUsers,
+  changeUserRole
 };

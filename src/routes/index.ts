@@ -8,6 +8,7 @@ import UsersRouter from "./users.route";
 import AuthRouter from "./auth.route";
 import ReviewRouter from "./review.route";
 import WishlistRouter from "./wishlist.route";
+import AddresstRouter from "./address.route";
 
 const router = Router();
 
@@ -20,5 +21,6 @@ router.use("/user", UsersRouter);
 router.use("/auth", AuthRouter);
 router.use("/review", ReviewRouter);
 router.use("/wishlist", WishlistRouter);
+router.use("/address", AddresstRouter);
 
 export default router;

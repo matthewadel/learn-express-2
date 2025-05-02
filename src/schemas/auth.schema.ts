@@ -2,7 +2,7 @@ import { z } from "zod";
 import { usersSchema } from "./users.schema";
 
 const register = z.object({
-  body: usersSchema.createUser.shape.body.innerType()
+  body: usersSchema.createUser.shape.body.innerType().omit({ role: true })
 });
 
 const login = z.object({

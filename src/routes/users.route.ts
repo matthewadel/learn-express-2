@@ -36,4 +36,11 @@ router
   )
   .delete(usersController.deleteUser);
 
+router
+  .route("/:userId/change-role")
+  .put(
+    validateRequestSchema(usersSchema.changeUserRole),
+    usersController.changeUserRole
+  );
+
 export default router;

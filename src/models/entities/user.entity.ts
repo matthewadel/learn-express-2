@@ -11,12 +11,14 @@ import {
   UpdateEvent,
   OneToMany,
   ManyToMany,
-  JoinTable
+  JoinTable,
+  Index
 } from "typeorm";
 import { MaxLength, MinLength } from "class-validator";
 import { returnImageUrlInResoinse } from "../../middlewares/uploadSingleImage";
 import { Review } from "./review.entity";
 import { Product } from "./product.entity";
+import { Address } from "./address.entity";
 
 export enum UserRoles {
   ADMIN = "admin",
@@ -25,6 +27,7 @@ export enum UserRoles {
 
 @Entity("users")
 @Unique(["email"])
+@Index(["email"])
 export class User {
   @PrimaryGeneratedColumn()
   id!: number;
@@ -77,6 +80,9 @@ export class User {
   @ManyToMany(() => Product, (product) => product.favoritedBy)
   @JoinTable({ name: "wishlist" })
   wishlist_products!: Product[];
+
+  @OneToMany(() => Address, (address) => address.user, { cascade: true })
+  addresses!: Address[];
 }
 
 @EventSubscriber()

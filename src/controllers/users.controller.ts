@@ -57,4 +57,16 @@ export class UsersController {
       message: "User Deleted Successfully"
     });
   });
+
+  changeUserRole = asyncWrapper(async (req: Request, res: Response) => {
+    const data = await this.usersService.changeUserRole({
+      userId: +req.params.userId,
+      body: req.body
+    });
+    sendSuccessResponse<User>({
+      res,
+      data,
+      message: "User Updated Successfully"
+    });
+  });
 }
