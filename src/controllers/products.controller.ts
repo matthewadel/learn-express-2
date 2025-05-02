@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { asyncWrapper } from "../middlewares";
-import { Product } from "../models";
+import { Product, User } from "../models";
 import { ProductsService } from "../services";
 import { sendSuccessResponse } from "../utils";
 import { paginationInput } from "../utils";
@@ -9,7 +9,10 @@ export class ProductsController {
   private readonly productsService: ProductsService = new ProductsService();
 
   createProduct = asyncWrapper(async (req: Request, res: Response) => {
-    const data = await this.productsService.createProduct(req.body);
+    const data = await this.productsService.createProduct({
+      user: req.user as User,
+      body: req.body
+    });
     sendSuccessResponse<Product>({
       res,
       data,

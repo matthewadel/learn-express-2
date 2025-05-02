@@ -2,7 +2,8 @@ import { Router } from "express";
 import { validateRequestSchema } from "../middlewares";
 import { usersSchema } from "../schemas";
 import { UsersController } from "../controllers";
-import { compressSingleImage, uploadSingleImage } from "../middlewares";
+import { uploadSingleImage } from "../middlewares/uploadSingleImage";
+import { compressSingleImage } from "../middlewares/uploadSingleImage";
 import { allowedTo } from "../middlewares";
 import { verifyToken } from "../middlewares";
 import { UserRoles } from "../models";
@@ -20,7 +21,7 @@ router
   )
   .post(
     uploadSingleImage("profileImage"),
-    compressSingleImage("profileImage", "profileImages"),
+    compressSingleImage("profileImage", "profileImage", "profileImages"),
     validateRequestSchema(usersSchema.createUser),
     usersController.createUser
   );
@@ -30,7 +31,7 @@ router
   .get(usersController.getUserById)
   .put(
     uploadSingleImage("profileImage"),
-    compressSingleImage("profileImage", "profileImages"),
+    compressSingleImage("profileImage", "profileImage", "profileImages"),
     validateRequestSchema(usersSchema.updateUser),
     usersController.updateUser
   )

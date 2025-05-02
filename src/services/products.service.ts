@@ -1,4 +1,4 @@
-import { AppDataSource } from "../models";
+import { AppDataSource, User } from "../models";
 import { Brand } from "../models";
 import { Category } from "../models";
 import { Color } from "../models";
@@ -19,12 +19,20 @@ export class ProductsService {
   private productsRepository = AppDataSource.getRepository(Product);
   private imagesService = new ImagesService();
 
-  async createProduct(body: CreateProductBody["body"]): Promise<Product> {
+  async createProduct({
+    user,
+    body
+  }: {
+    user: User;
+    body: CreateProductBody["body"];
+  }): Promise<Product> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const newProduct: any = { ...body };
     newProduct.brand = await this._getBrand(body.brand);
 
     newProduct.category = await this._getCategory(body.category);
+
+    newProduct.user = user;
 
     if (body.image_cover) newProduct.image_cover = body.image_cover[0];
     if (body.images) newProduct.images = await this._getImages(body.images);

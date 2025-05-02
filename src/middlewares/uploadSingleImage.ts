@@ -41,9 +41,13 @@ export const uploadSingleImage = (fieldName: string) => {
   return upload.single(fieldName);
 };
 
-export const compressSingleImage = (fieldName: string, folderName: string) =>
+export const compressSingleImage = (
+  fieldName: string,
+  fileNamePrefix: string,
+  folderName: string
+) =>
   asyncWrapper(async (req: Request, res: Response, next: NextFunction) => {
-    const filename = `${fieldName}-${v4()}-${Date.now()}.png`;
+    const filename = `${fileNamePrefix}-${v4()}-${Date.now()}.png`;
     if (req.file?.buffer) {
       await sharp(req.file?.buffer)
         .resize(300, 300)

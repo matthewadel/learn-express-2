@@ -11,7 +11,7 @@ export class ReviewController {
 
   createReview = asyncWrapper(async (req: Request, res: Response) => {
     const review = await this.reviewService.createReview(
-      +(req.user?.id ?? 0),
+      req.user as User,
       req.body
     );
     sendSuccessResponse({

@@ -96,6 +96,10 @@ export class Product {
   favoritedBy!: User[];
 
   // one to many
+  @ManyToOne(() => User, (user) => user.products, { cascade: true })
+  user!: User;
+
+  // one to many
   @OneToMany(() => Image, (image) => image.product, { cascade: true })
   images!: Image[];
 
@@ -131,7 +135,7 @@ export class ProductSubscriber implements EntitySubscriberInterface<Product> {
     if (entity.image_cover) {
       entity.image_cover = `${getEnv().BASE_URL}/productCovers/${entity.image_cover}`;
     }
-
+    console.log({ image_cover: entity.image_cover });
     if (entity.images && Array.isArray(entity.images)) {
       entity.images = entity.images.map((image) => {
         return {

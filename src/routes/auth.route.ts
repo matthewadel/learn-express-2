@@ -11,7 +11,7 @@ const authController = new AuthController();
 router.post(
   "/register",
   uploadSingleImage("profileImage"),
-  compressSingleImage("profileImage", "profileImages"),
+  compressSingleImage("profileImage", "profileImage", "profileImages"),
   validateRequestSchema(authSchema.register),
   authController.register
 );

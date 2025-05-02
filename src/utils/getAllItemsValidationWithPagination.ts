@@ -34,9 +34,20 @@ export const getALlItemsValidationWithPagination = (schema: any) => {
           .optional(),
         search_text: z.string().optional(),
         sort_by: z
-          .enum(Object.keys(schema) as [string, ...string[]], {
-            invalid_type_error: `sort_by must be one of these keys ${Object.keys(schema).join(", ")}`
-          })
+          .enum(
+            [
+              ...(Object.keys(schema) as [string, ...string[]]),
+              "created_at",
+              "updated_ay"
+            ],
+            {
+              invalid_type_error: `sort_by must be one of these keys ${[
+                ...Object.keys(schema),
+                "created_at",
+                "updated_ay"
+              ].join(", ")}`
+            }
+          )
           .optional(),
         sort_direction: z
           .enum(["ASC", "DESC"], {

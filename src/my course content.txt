@@ -1,6 +1,8 @@
+// create global checkAuthorization function
 // handle all delete methods to be performed by admin or by the same user that has created this entity
 // handle all put methods to be performed by admin or by the same user that has created this entity
-// don't send userId in the body of any request, just extract it from the req.user
+// getOneBy
+// create a new folder for subscribers
 
 
 1- setup with nodemon, typescript, pg and typeorm

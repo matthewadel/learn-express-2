@@ -21,7 +21,7 @@ router
     verifyToken,
     allowedTo([UserRoles.ADMIN]),
     uploadSingleImage("image"),
-    compressSingleImage("category", "categories"),
+    compressSingleImage("image", "category", "categories"),
     validateRequestSchema(categoriesSchema.createCategory),
     categoriesController.createCategory
   );
@@ -33,7 +33,7 @@ router
     verifyToken,
     allowedTo([UserRoles.ADMIN]),
     uploadSingleImage("image"),
-    compressSingleImage("category", "categories"),
+    compressSingleImage("image", "category", "categories"),
     validateRequestSchema(categoriesSchema.updateCategory),
     categoriesController.updateCategory
   )

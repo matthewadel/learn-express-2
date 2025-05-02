@@ -83,6 +83,9 @@ export class User {
 
   @OneToMany(() => Address, (address) => address.user, { cascade: true })
   addresses!: Address[];
+
+  @OneToMany(() => Product, (product) => product.user, { onDelete: "CASCADE" })
+  products!: Product[];
 }
 
 @EventSubscriber()

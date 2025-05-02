@@ -15,12 +15,12 @@ export class ReviewService {
   private ReviewRepository = AppDataSource.getRepository(Review);
 
   async createReview(
-    userId: number,
+    user: User,
     body: CreateReviewBody["body"]
   ): Promise<Review> {
     const review = await this.ReviewRepository.findOne({
       where: {
-        user: { id: userId },
+        user: { id: user.id },
         product: { id: +body.productId }
       }
     });
@@ -29,14 +29,18 @@ export class ReviewService {
       id: +body.productId
     });
 
-    const user = await findOneBy<User>(User, {
-      id: userId
+    const newUser = await findOneBy<User>(User, {
+      id: user.id
     });
 
     if (review)
       throw new BadRequestError("You've Already Reviewed This Product");
 
-    return await this.ReviewRepository.save({ ...body, user, product });
+    return await this.ReviewRepository.save({
+      ...body,
+      user: newUser,
+      product
+    });
   }
 
   async getAllReviews(

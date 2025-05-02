@@ -20,7 +20,7 @@ router
     verifyToken,
     allowedTo([UserRoles.ADMIN]),
     uploadSingleImage("image"),
-    compressSingleImage("brand", "brands"),
+    compressSingleImage("image", "brand", "brands"),
     validateRequestSchema(brandsSchema.createBrand),
     brandsController.createBrand
   );
@@ -32,7 +32,7 @@ router
     verifyToken,
     allowedTo([UserRoles.ADMIN]),
     uploadSingleImage("image"),
-    compressSingleImage("brand", "brands"),
+    compressSingleImage("image", "brand", "brands"),
     validateRequestSchema(brandsSchema.updateBrand),
     brandsController.updateBrand
   )
