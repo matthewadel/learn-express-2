@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import multer from "multer";
 import { v4 } from "uuid";
 import sharp from "sharp";
-import { asyncWrapper } from "../middlewares";
+import { asyncWrapper } from "../middlewares/asyncWrapper";
 import { BadRequestError } from "../utils";
 import { getEnv } from "../utils";
 
