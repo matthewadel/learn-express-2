@@ -2,7 +2,7 @@ import { SubCategoriesService } from "../services/subCategories.service";
 import { asyncWrapper } from "../middlewares/asyncWrapper";
 import { NextFunction, Request, Response } from "express";
 import { sendSuccessResponse } from "../utils/sendSuccessResponse";
-import { SubCategory } from "../models/entities/subCategory.entity";
+import { SubCategory } from "../models";
 import { paginationInput } from "../utils/getPaginatedResultsWithFilter";
 
 export class SubCategoryController {

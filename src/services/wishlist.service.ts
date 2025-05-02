@@ -1,12 +1,12 @@
-import { AppDataSource } from "../models/data-source";
-import { User } from "../models/entities/user.entity";
+import { AppDataSource } from "../models";
+import { User } from "../models";
 import { BadRequestError } from "../utils/errors";
 import {
   getPaginatedResultsWithFilter,
   paginationInput
 } from "../utils/getPaginatedResultsWithFilter";
 import { findOneBy } from "../utils/findOneBy";
-import { Product } from "../models/entities/product.entity";
+import { Product } from "../models";
 
 export class WishlistService {
   private UserRepository = AppDataSource.getRepository(User);

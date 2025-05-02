@@ -1,10 +1,10 @@
 import express from "express";
-import { ReviewController } from "../controllers/review.controller";
+import { ReviewController } from "../controllers";
 import { validateRequestSchema } from "../middlewares/validateRequestSchema";
 import { reviewSchema } from "../schemas/review.schema";
 import { verifyToken } from "../middlewares/verifyToken";
 import { allowedTo } from "../middlewares/allowedTo";
-import { UserRoles } from "../models/entities/user.entity";
+import { UserRoles } from "../models";
 
 const router = express.Router({ mergeParams: true });
 const reviewController = new ReviewController();

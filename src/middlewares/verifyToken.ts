@@ -3,7 +3,7 @@ import { NotAuthenticatedError } from "../utils/errors";
 import jwt from "jsonwebtoken";
 import { UsersService } from "../services/users.service";
 import "express";
-import { User } from "../models/entities/user.entity";
+import { User } from "../models";
 import { getEnv } from "../utils/validateEnv";
 
 const usersService = new UsersService();

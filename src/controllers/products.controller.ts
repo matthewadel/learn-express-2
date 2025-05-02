@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { asyncWrapper } from "../middlewares/asyncWrapper";
-import { Product } from "../models/entities/product.entity";
+import { Product } from "../models";
 import { ProductsService } from "../services/products.service";
 import { sendSuccessResponse } from "../utils/sendSuccessResponse";
 import { paginationInput } from "../utils/getPaginatedResultsWithFilter";

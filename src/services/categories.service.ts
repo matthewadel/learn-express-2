@@ -1,6 +1,5 @@
-import { AppDataSource } from "../models/data-source";
-import { Category } from "../models/entities/category.entity";
-// import { SubCategory } from "../models/entities/subCategory.entity";
+import { AppDataSource } from "../models";
+import { Category } from "../models";
 import { BadRequestError } from "../utils/errors";
 import { findOneBy } from "../utils/findOneBy";
 import {

@@ -17,7 +17,7 @@ import {
   MoreThanOrEqual,
   ObjectLiteral
 } from "typeorm";
-import { AppDataSource } from "../models/data-source";
+import { AppDataSource } from "../models";
 
 export type paginationInput<T> = {
   page: number;

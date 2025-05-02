@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { getALlItemsValidationWithPagination } from "../utils/getAllItemsValidationWithPagination";
-import { UserRoles } from "../models/entities/user.entity";
+import { UserRoles } from "../models";
 
 const createUser = z.object({
   body: z

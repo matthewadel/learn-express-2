@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { UserRoles } from "../models/entities/user.entity";
+import { UserRoles } from "../models";
 import { NotAuthorizedError } from "../utils/errors";
 import { asyncWrapper } from "./asyncWrapper";
 

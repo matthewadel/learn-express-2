@@ -1,6 +1,6 @@
-import { AppDataSource } from "../models/data-source";
+import { AppDataSource } from "../models";
 import { BadRequestError, NotAuthorizedError } from "../utils/errors";
-import { Review } from "../models/entities/review.entity";
+import { Review } from "../models";
 import { findOneBy } from "../utils/findOneBy";
 import {
   getPaginatedResultsWithFilter,
@@ -8,8 +8,8 @@ import {
 } from "../utils/getPaginatedResultsWithFilter";
 import { reviewSchema } from "../schemas/review.schema";
 import { z } from "zod";
-import { Product } from "../models/entities/product.entity";
-import { User } from "../models/entities/user.entity";
+import { Product } from "../models";
+import { User } from "../models";
 
 type CreateReviewBody = z.infer<typeof reviewSchema.createReview>;
 type UpdateReviewBody = z.infer<typeof reviewSchema.updateReview>;

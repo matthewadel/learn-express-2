@@ -1,10 +1,10 @@
 import { Router } from "express";
 import { validateRequestSchema } from "../middlewares/validateRequestSchema";
-import { ColorsController } from "../controllers/colors.controller";
+import { ColorsController } from "../controllers";
 import { colorsSchema } from "../schemas/colors.schema";
 import { verifyToken } from "../middlewares/verifyToken";
 import { allowedTo } from "../middlewares/allowedTo";
-import { UserRoles } from "../models/entities/user.entity";
+import { UserRoles } from "../models";
 
 const router = Router();
 const colorsController = new ColorsController();

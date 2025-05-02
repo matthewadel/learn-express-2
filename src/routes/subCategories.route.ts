@@ -1,10 +1,10 @@
 import { subCategoriesSchema } from "./../schemas/subCategories.schema";
 import { Router } from "express";
 import { validateRequestSchema } from "../middlewares/validateRequestSchema";
-import { SubCategoryController } from "../controllers/subCategories.controller";
+import { SubCategoryController } from "../controllers";
 import { allowedTo } from "../middlewares/allowedTo";
 import { verifyToken } from "../middlewares/verifyToken";
-import { UserRoles } from "../models/entities/user.entity";
+import { UserRoles } from "../models";
 
 const router = Router({ mergeParams: true });
 const subcategoriesController = new SubCategoryController();

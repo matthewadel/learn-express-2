@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { AuthService } from "../services/auth.service";
 import { sendSuccessResponse } from "../utils/sendSuccessResponse";
 import { asyncWrapper } from "../middlewares/asyncWrapper";
-import { User } from "../models/entities/user.entity";
+import { User } from "../models";
 import { authSchema } from "../schemas/auth.schema";
 import { z } from "zod";
 import { UsersService } from "../services/users.service";

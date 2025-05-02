@@ -2,9 +2,9 @@ import { NextFunction, Request, Response } from "express";
 import { ReviewService } from "../services/review.service";
 import { sendSuccessResponse } from "../utils/sendSuccessResponse";
 import { paginationInput } from "../utils/getPaginatedResultsWithFilter";
-import { Review } from "../models/entities/review.entity";
+import { Review } from "../models";
 import { asyncWrapper } from "../middlewares/asyncWrapper";
-import { User } from "../models/entities/user.entity";
+import { User } from "../models";
 
 export class ReviewController {
   reviewService = new ReviewService();

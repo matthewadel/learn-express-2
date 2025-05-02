@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { asyncWrapper } from "../middlewares/asyncWrapper";
 import { sendSuccessResponse } from "../utils/sendSuccessResponse";
 import { UsersService } from "../services/users.service";
-import { User } from "../models/entities/user.entity";
+import { User } from "../models";
 import { paginationInput } from "../utils/getPaginatedResultsWithFilter";
 
 export class UsersController {

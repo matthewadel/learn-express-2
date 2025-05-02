@@ -3,8 +3,8 @@ import { validateRequestSchema } from "../middlewares/validateRequestSchema";
 import { wishlistSchema } from "../schemas";
 import { verifyToken } from "../middlewares/verifyToken";
 import { allowedTo } from "../middlewares/allowedTo";
-import { UserRoles } from "../models/entities/user.entity";
-import { WishlistController } from "../controllers/wishlist.controller";
+import { UserRoles } from "../models";
+import { WishlistController } from "../controllers";
 
 const router = Router();
 const wishlistController = new WishlistController();

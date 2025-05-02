@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { CategoryService } from "../services/categories.service";
 import { asyncWrapper } from "../middlewares/asyncWrapper";
 import { sendSuccessResponse } from "../utils/sendSuccessResponse";
-import { Category } from "../models/entities/category.entity";
+import { Category } from "../models";
 import { paginationInput } from "../utils/getPaginatedResultsWithFilter";
 
 export class CategoriesController {

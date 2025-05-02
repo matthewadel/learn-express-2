@@ -1,9 +1,9 @@
-import { AppDataSource } from "../models/data-source";
-import { Brand } from "../models/entities/brand.entity";
-import { Category } from "../models/entities/category.entity";
-import { Color } from "../models/entities/color.entity";
-import { Product } from "../models/entities/product.entity";
-import { SubCategory } from "../models/entities/subCategory.entity";
+import { AppDataSource } from "../models";
+import { Brand } from "../models";
+import { Category } from "../models";
+import { Color } from "../models";
+import { Product } from "../models";
+import { SubCategory } from "../models";
 import { findOneBy } from "../utils/findOneBy";
 import { ImagesService } from "./images.service";
 import { z } from "zod";

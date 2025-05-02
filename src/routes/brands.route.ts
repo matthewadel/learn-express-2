@@ -8,7 +8,7 @@ import {
 } from "../middlewares/uploadSingleImage";
 import { verifyToken } from "../middlewares/verifyToken";
 import { allowedTo } from "../middlewares/allowedTo";
-import { UserRoles } from "../models/entities/user.entity";
+import { UserRoles } from "../models";
 
 const router = Router();
 const brandsController = new BrandsController();

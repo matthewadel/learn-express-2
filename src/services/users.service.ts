@@ -1,6 +1,6 @@
-import { AppDataSource } from "../models/data-source";
+import { AppDataSource } from "../models";
 import { BadRequestError } from "../utils/errors";
-import { User, UserRoles } from "../models/entities/user.entity";
+import { User, UserRoles } from "../models";
 import { findOneBy } from "../utils/findOneBy";
 import {
   getPaginatedResultsWithFilter,

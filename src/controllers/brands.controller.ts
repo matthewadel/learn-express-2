@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { asyncWrapper } from "../middlewares/asyncWrapper";
 import { sendSuccessResponse } from "../utils/sendSuccessResponse";
 import { BrandsService } from "../services";
-import { Brand } from "../models/entities/brand.entity";
+import { Brand } from "../models";
 import { paginationInput } from "../utils/getPaginatedResultsWithFilter";
 
 export class BrandsController {

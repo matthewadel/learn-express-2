@@ -1,5 +1,5 @@
-import { AppDataSource } from "../models/data-source";
-import { Image } from "../models/entities/image.entity";
+import { AppDataSource } from "../models";
+import { Image } from "../models";
 import { findOneBy } from "../utils/findOneBy";
 
 export class ImagesService {

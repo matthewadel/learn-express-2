@@ -1,14 +1,14 @@
 import { Router } from "express";
 import { validateRequestSchema } from "../middlewares/validateRequestSchema";
 import { usersSchema } from "../schemas/users.schema";
-import { UsersController } from "../controllers/users.controller";
+import { UsersController } from "../controllers";
 import {
   compressSingleImage,
   uploadSingleImage
 } from "../middlewares/uploadSingleImage";
 import { allowedTo } from "../middlewares/allowedTo";
 import { verifyToken } from "../middlewares/verifyToken";
-import { UserRoles } from "../models/entities/user.entity";
+import { UserRoles } from "../models";
 
 const router = Router();
 const usersController = new UsersController();

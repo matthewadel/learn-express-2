@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { asyncWrapper } from "../middlewares/asyncWrapper";
 import { WishlistService } from "../services/wishlist.service";
-import { User } from "../models/entities/user.entity";
+import { User } from "../models";
 import { paginationInput } from "../utils/getPaginatedResultsWithFilter";
 import { sendSuccessResponse } from "../utils/sendSuccessResponse";
-import { Product } from "../models/entities/product.entity";
+import { Product } from "../models";
 
 export class WishlistController {
   private readonly wishlistService = new WishlistService();

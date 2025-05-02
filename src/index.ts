@@ -1,7 +1,7 @@
 import "dotenv/config";
 import express, { NextFunction, Request, Response } from "express";
 import morgan from "morgan";
-import { initializeDB } from "./models/data-source";
+import { initializeDB } from "./models";
 import rootRouter from "./routes";
 import { globalErrorHandler } from "./middlewares/globalErrorHandler";
 import path from "path";

@@ -1,6 +1,6 @@
 import { EntityTarget, FindOneOptions, ObjectLiteral } from "typeorm";
 import { NotFoundError } from "./errors";
-import { AppDataSource } from "../models/data-source";
+import { AppDataSource } from "../models";
 
 export async function findOneBy<T>(
   entity: EntityTarget<ObjectLiteral>,

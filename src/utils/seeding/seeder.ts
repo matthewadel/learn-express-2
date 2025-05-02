@@ -1,8 +1,8 @@
 import fs from "fs";
 import "dotenv/config";
 import { CategoryService } from "./../../services/categories.service";
-import { initializeDB } from "../../models/data-source";
-import { AppDataSource } from "../../models/data-source";
+import { initializeDB } from "../../models";
+import { AppDataSource } from "../../models";
 import { ProductsService } from "../../services/products.service";
 import { BrandsService, SubCategoriesService } from "../../services";
 import { ColorsService } from "../../services/colors.service";

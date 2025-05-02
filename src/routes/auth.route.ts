@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { validateRequestSchema } from "../middlewares/validateRequestSchema";
 import { authSchema } from "../schemas/auth.schema";
-import { AuthController } from "../controllers/auth.controller";
+import { AuthController } from "../controllers";
 import {
   compressSingleImage,
   uploadSingleImage

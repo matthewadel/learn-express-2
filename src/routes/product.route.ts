@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { validateRequestSchema } from "../middlewares/validateRequestSchema";
-import { ProductsController } from "../controllers/products.controller";
+import { ProductsController } from "../controllers";
 import { productsSchema } from "../schemas/products.schema";
 import {
   compressMultipleImages,
@@ -8,7 +8,7 @@ import {
 } from "../middlewares/uploadMultipleImages";
 import { allowedTo } from "../middlewares/allowedTo";
 import { verifyToken } from "../middlewares/verifyToken";
-import { UserRoles } from "../models/entities/user.entity";
+import { UserRoles } from "../models";
 import ReviewRouter from "./review.route";
 
 const router = Router();

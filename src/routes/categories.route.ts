@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { CategoriesController } from "../controllers/categories.controller";
+import { CategoriesController } from "../controllers";
 import { categoriesSchema } from "../schemas/categories.schema";
 import { validateRequestSchema } from "../middlewares/validateRequestSchema";
 import {
@@ -8,7 +8,7 @@ import {
 } from "../middlewares/uploadSingleImage";
 import { verifyToken } from "../middlewares/verifyToken";
 import { allowedTo } from "../middlewares/allowedTo";
-import { UserRoles } from "../models/entities/user.entity";
+import { UserRoles } from "../models";
 import subCategoriesRouter from "./subCategories.route";
 
 const router = Router();

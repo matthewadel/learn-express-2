@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { asyncWrapper } from "../middlewares/asyncWrapper";
 import { ColorsService } from "../services/colors.service";
 import { sendSuccessResponse } from "../utils/sendSuccessResponse";
-import { Color } from "../models/entities/color.entity";
+import { Color } from "../models";
 import { paginationInput } from "../utils/getPaginatedResultsWithFilter";
 
 export class ColorsController {

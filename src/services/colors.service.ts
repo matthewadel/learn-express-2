@@ -1,5 +1,5 @@
-import { AppDataSource } from "../models/data-source";
-import { Color } from "../models/entities/color.entity";
+import { AppDataSource } from "../models";
+import { Color } from "../models";
 import { findOneBy } from "../utils/findOneBy";
 import { BadRequestError } from "../utils/errors";
 import {
