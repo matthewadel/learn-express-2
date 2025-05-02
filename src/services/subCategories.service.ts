@@ -1,11 +1,11 @@
 import { AppDataSource } from "../models";
 import { SubCategory } from "../models";
-import { Category } from "../models";
 import { BadRequestError, NotFoundError } from "../utils";
 import { findOneBy } from "../utils";
 import { getPaginatedResultsWithFilter, paginationInput } from "../utils";
 import { subCategoriesSchema } from "../schemas";
 import { z } from "zod";
+import { CategoryService } from "./categories.service";
 
 type CreateSubCategoryBody = z.infer<
   typeof subCategoriesSchema.createSubCategory
@@ -16,7 +16,7 @@ type UpdateSubCategoryBody = z.infer<
 
 export class SubCategoriesService {
   private subCategoryRepository = AppDataSource.getRepository(SubCategory);
-  private categoryRepository = AppDataSource.getRepository(Category);
+  private categoryService = new CategoryService();
 
   // Create a new sub-category
   async createSubCategory({
@@ -27,7 +27,7 @@ export class SubCategoriesService {
     });
     if (!parentCategory) throw new NotFoundError("Parent Category Not Found");
 
-    const cat = await this.subCategoryRepository.findOneBy({ name: body.name });
+    const cat = await this.getSubCategoryByName(body.name);
     if (cat) throw new BadRequestError("This SubCategory Already Exists");
 
     return this.subCategoryRepository.save({
@@ -55,12 +55,19 @@ export class SubCategoriesService {
   }
 
   // Get a single sub-category by ID
-  async getSubCategoryBy(id: number): Promise<SubCategory> {
-    const category = await findOneBy<SubCategory>(SubCategory, {
+  async getSubCategoryById(id: number): Promise<SubCategory> {
+    return findOneBy<SubCategory>(SubCategory, {
       id,
       options: { relations: ["parent_category"] }
     });
-    return category;
+  }
+
+  async getSubCategoryByName(name: string): Promise<SubCategory> {
+    return findOneBy<SubCategory>(SubCategory, {
+      name,
+      options: { relations: ["parent_category"] },
+      checkExistence: true
+    });
   }
 
   // Update a sub-category
@@ -68,9 +75,7 @@ export class SubCategoriesService {
     id: number,
     body: UpdateSubCategoryBody["body"]
   ): Promise<SubCategory> {
-    const subCategory = await findOneBy<SubCategory>(SubCategory, {
-      id
-    });
+    const subCategory = await this.getSubCategoryById(id);
 
     if (body.parentCategoryId) {
       const parentCategory = await this._findParentCategoryBy({
@@ -86,21 +91,12 @@ export class SubCategoriesService {
 
   // Delete a sub-category
   async deleteSubCategory(id: number): Promise<void> {
-    const subCategory = await findOneBy<SubCategory>(SubCategory, {
-      id
-    });
+    const subCategory = await this.getSubCategoryById(id);
 
     await this.subCategoryRepository.remove(subCategory);
   }
 
   private async _findParentCategoryBy({ id }: { id: number }) {
-    let parentCategory: Category | null = null;
-
-    parentCategory = await this.categoryRepository.findOneBy({
-      id
-    });
-    if (!parentCategory) throw new NotFoundError("Parent category not found");
-
-    return parentCategory;
+    return this.categoryService.getCategoryById(id);
   }
 }

@@ -12,7 +12,7 @@ export class ColorsService {
   private colorsRepository = AppDataSource.getRepository(Color);
 
   async createColor(body: CreateColorBody["body"]) {
-    const color = await this.colorsRepository.findOneBy({ name: body.name });
+    const color = await this.getColorByName(body.name);
     if (color) throw new BadRequestError("This Color Already Exists");
 
     return this.colorsRepository.save(body);
@@ -27,16 +27,20 @@ export class ColorsService {
   }
 
   async getColorById(id: number) {
-    const color = await findOneBy<Color>(Color, {
+    return findOneBy<Color>(Color, {
       id
     });
-    return color;
+  }
+
+  async getColorByName(name: string) {
+    return findOneBy<Color>(Color, {
+      name,
+      checkExistence: true
+    });
   }
 
   async deleteColor(id: number) {
-    const color = await findOneBy<Color>(Color, {
-      id
-    });
+    const color = await this.getColorById(id);
 
     await this.colorsRepository.remove(color);
   }

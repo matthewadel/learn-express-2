@@ -12,7 +12,7 @@ export class BrandsService {
   private BrandsRepository = AppDataSource.getRepository(Brand);
 
   async createBrand(body: CreateBrandBody["body"]): Promise<Brand> {
-    const brand = await this.BrandsRepository.findOneBy({ name: body.name });
+    const brand = await this.getBrandByname(body.name);
     if (brand) throw new BadRequestError("This Brand Already Exists");
 
     return await this.BrandsRepository.save(body);
@@ -30,15 +30,19 @@ export class BrandsService {
     return await findOneBy<Brand>(Brand, { id });
   }
 
+  async getBrandByname(name: string): Promise<Brand> {
+    return await findOneBy<Brand>(Brand, { name, checkExistence: true });
+  }
+
   async updateBrand(id: number, body: UpdateBrandBody["body"]): Promise<Brand> {
-    const brand = await findOneBy<Brand>(Brand, { id });
+    const brand = await this.getBrandById(id);
 
     await this.BrandsRepository.save({ ...brand, ...body });
     return brand;
   }
 
   async deleteBrand(id: number): Promise<void> {
-    const brand = await findOneBy<Brand>(Brand, { id });
+    const brand = await this.getBrandById(id);
 
     await this.BrandsRepository.remove(brand);
   }

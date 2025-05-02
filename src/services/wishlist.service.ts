@@ -2,11 +2,12 @@ import { AppDataSource } from "../models";
 import { User } from "../models";
 import { BadRequestError } from "../utils";
 import { getPaginatedResultsWithFilter, paginationInput } from "../utils";
-import { findOneBy } from "../utils";
 import { Product } from "../models";
+import { ProductsService } from "./products.service";
 
 export class WishlistService {
   private UserRepository = AppDataSource.getRepository(User);
+  private productService = new ProductsService();
 
   async addToWishlist({ productId, user }: { productId: number; user: User }) {
     const userWithWishlist = await this.UserRepository.findOne({
@@ -22,9 +23,7 @@ export class WishlistService {
       throw new BadRequestError("Product already in wishlist");
     }
 
-    const product = await findOneBy<Product>(Product, {
-      id: productId
-    });
+    const product = await this.productService.getProductById(productId);
     user.wishlist_products = [
       ...(userWithWishlist?.wishlist_products || []),
       product

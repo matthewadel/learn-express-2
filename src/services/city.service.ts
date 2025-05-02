@@ -3,7 +3,6 @@ import { AppDataSource, City } from "../models";
 import {
   paginationInput,
   getPaginatedResultsWithFilter,
-  NotFoundError,
   findOneBy,
   BadRequestError
 } from "../utils";
@@ -19,7 +18,7 @@ export class CityService {
     AppDataSource.getRepository(City);
 
   async createCity(body: CreateCityBody["body"]): Promise<City> {
-    const brand = await this.cityRepository.findOneBy({ name: body.name });
+    const brand = await this.getCityByName(body.name);
     if (brand) throw new BadRequestError("This City Already Exists");
 
     const newCity = this.cityRepository.create(body);
@@ -35,9 +34,11 @@ export class CityService {
   }
 
   async getCityById(id: number): Promise<City> {
-    const city = await findOneBy<City>(City, { id });
-    if (!city) throw new NotFoundError("City not found");
-    return city;
+    return findOneBy<City>(City, { id });
+  }
+
+  async getCityByName(name: string): Promise<City> {
+    return findOneBy<City>(City, { name, checkExistence: true });
   }
 
   async updateCity(id: number, data: UpdateCityBody["body"]): Promise<City> {

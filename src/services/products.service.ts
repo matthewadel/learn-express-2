@@ -1,15 +1,15 @@
 import { AppDataSource, User } from "../models";
-import { Brand } from "../models";
-import { Category } from "../models";
-import { Color } from "../models";
 import { Product } from "../models";
-import { SubCategory } from "../models";
 import { findOneBy } from "../utils";
 import { ImagesService } from "./images.service";
 import { z } from "zod";
 import { productsSchema } from "../schemas";
 import { BadRequestError } from "../utils";
 import { getPaginatedResultsWithFilter, paginationInput } from "../utils";
+import { BrandsService } from "./brands.service";
+import { CategoryService } from "./categories.service";
+import { ColorsService } from "./colors.service";
+import { SubCategoriesService } from "./subCategories.service";
 
 // Extract the type of body from productsSchema.createProduct
 type CreateProductBody = z.infer<typeof productsSchema.createProduct>;
@@ -18,6 +18,10 @@ type UpdateProductBody = z.infer<typeof productsSchema.updateProduct>;
 export class ProductsService {
   private productsRepository = AppDataSource.getRepository(Product);
   private imagesService = new ImagesService();
+  private brandService = new BrandsService();
+  private categoryService = new CategoryService();
+  private colorService = new ColorsService();
+  private subCategoriesService = new SubCategoriesService();
 
   async createProduct({
     user,
@@ -37,7 +41,7 @@ export class ProductsService {
     if (body.image_cover) newProduct.image_cover = body.image_cover[0];
     if (body.images) newProduct.images = await this._getImages(body.images);
 
-    // if (body.colors) newProduct.colors = await this._getColors(body.colors);
+    if (body.colors) newProduct.colors = await this._getColors(body.colors);
 
     if (body.subCategories)
       newProduct.subCategories = await this._getSubCategories(
@@ -84,12 +88,7 @@ export class ProductsService {
   }
 
   async updateProduct(id: number, body: UpdateProductBody["body"]) {
-    const product = await findOneBy<Product>(Product, {
-      id: id,
-      options: {
-        relations: ["brand", "category", "subCategories", "colors", "images"]
-      }
-    });
+    const product = await this.getProductById(id);
 
     if (body.brand) {
       product.brand = await this._getBrand(body.brand);
@@ -139,31 +138,23 @@ export class ProductsService {
   }
 
   async deleteProduct(id: number) {
-    const product = await findOneBy<Product>(Product, {
-      id
-    });
+    const product = await this.getProductById(id);
 
     await this.productsRepository.remove(product);
   }
 
   private async _getBrand(id: number) {
-    return await findOneBy<Brand>(Brand, {
-      id
-    });
+    return this.brandService.getBrandById(id);
   }
 
   private async _getCategory(id: number) {
-    return await findOneBy<Category>(Category, {
-      id
-    });
+    return this.categoryService.getCategoryById(id);
   }
 
   private async _getColors(colors: number[]) {
     return await Promise.all(
       colors.map(async (color: number) => {
-        return await findOneBy<Color>(Color, {
-          id: color
-        });
+        return this.colorService.getColorById(color);
       })
     );
   }
@@ -182,10 +173,8 @@ export class ProductsService {
   ) {
     return await Promise.all(
       subCategories.map(async (subCategory: number) => {
-        const subCat = await findOneBy<SubCategory>(SubCategory, {
-          id: subCategory,
-          options: { relations: ["parent_category"] }
-        });
+        const subCat =
+          await this.subCategoriesService.getSubCategoryById(subCategory);
 
         if (subCat.parent_category.id !== parentCategoryId)
           throw new BadRequestError(

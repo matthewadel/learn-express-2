@@ -1,5 +1,5 @@
 import { Repository } from "typeorm";
-import { AddressAlias, AppDataSource, City, User } from "../models";
+import { AddressAlias, AppDataSource, User } from "../models";
 import { Address } from "../models";
 import {
   paginationInput,
@@ -10,14 +10,14 @@ import {
 } from "../utils";
 import { addressSchema } from "../schemas/address.schema";
 import { z } from "zod";
+import { CityService } from "./city.service";
 
 type CreateAddressBody = z.infer<typeof addressSchema.createAddress>;
 
 export class AddressService {
   private readonly addressRepository: Repository<Address> =
     AppDataSource.getRepository(Address);
-  private readonly cityRepository: Repository<City> =
-    AppDataSource.getRepository(City);
+  private readonly cityService = new CityService();
 
   async createAddress({
     user,
@@ -26,9 +26,7 @@ export class AddressService {
     user: User;
     address: CreateAddressBody["body"];
   }) {
-    const city = await this.cityRepository.findOne({
-      where: { id: address.cityId }
-    });
+    const city = await this.cityService.getCityById(address.cityId);
     if (!city) throw new NotFoundError("City not found");
 
     const newAddress = this.addressRepository.create({

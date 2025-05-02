@@ -19,7 +19,7 @@ export class UsersService {
   private UsersRepository = AppDataSource.getRepository(User);
 
   async createUser(body: CreateUserBody["body"]): Promise<User> {
-    const user = await this.UsersRepository.findOneBy({ email: body.email });
+    const user = await this.getUserByEmail(body.email);
     if (user) throw new BadRequestError("This User Already Exists");
 
     const password = await hashString(body.password);
@@ -45,14 +45,14 @@ export class UsersService {
   }
 
   async getUserByEmail(email: string): Promise<User> {
-    return await findOneBy<User>(User, { email });
+    return await findOneBy<User>(User, { email, checkExistence: true });
   }
 
   async updateUser(
     id: number,
     body: UpdateUserBody["body"] & { password?: string }
   ): Promise<User> {
-    const user = await findOneBy<User>(User, { id });
+    const user = await this.getUserById(id);
 
     // const password = body.password
     //   ? await hashString(body.password)
@@ -71,7 +71,7 @@ export class UsersService {
   }
 
   async updatePassword(userId: number, body: updateUserPassword["body"]) {
-    const user = await findOneBy<User>(User, { id: userId });
+    const user = await this.getUserById(userId);
 
     try {
       const result = await bcrypt.compare(body.currentPassword, user.password);
@@ -92,7 +92,7 @@ export class UsersService {
   }
 
   async deleteUser(id: number): Promise<void> {
-    const user = await findOneBy<User>(User, { id });
+    const user = await this.getUserById(id);
 
     await this.UsersRepository.remove(user);
   }
@@ -104,7 +104,7 @@ export class UsersService {
     userId: number;
     body: changeRoleBody["body"];
   }): Promise<User> {
-    const user = await findOneBy<User>(User, { id: userId });
+    const user = await this.getUserById(userId);
 
     return this.UsersRepository.save({ ...user, role: body.role as UserRoles });
   }

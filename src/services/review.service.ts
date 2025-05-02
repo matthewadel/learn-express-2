@@ -5,14 +5,17 @@ import { findOneBy } from "../utils";
 import { getPaginatedResultsWithFilter, paginationInput } from "../utils";
 import { reviewSchema } from "../schemas";
 import { z } from "zod";
-import { Product } from "../models";
 import { User } from "../models";
+import { ProductsService } from "./products.service";
+import { UsersService } from "./users.service";
 
 type CreateReviewBody = z.infer<typeof reviewSchema.createReview>;
 type UpdateReviewBody = z.infer<typeof reviewSchema.updateReview>;
 
 export class ReviewService {
   private ReviewRepository = AppDataSource.getRepository(Review);
+  private productService = new ProductsService();
+  private usersService = new UsersService();
 
   async createReview(
     user: User,
@@ -25,13 +28,9 @@ export class ReviewService {
       }
     });
 
-    const product = await findOneBy<Product>(Product, {
-      id: +body.productId
-    });
+    const product = await this.productService.getProductById(+body.productId);
 
-    const newUser = await findOneBy<User>(User, {
-      id: user.id
-    });
+    const newUser = await this.usersService.getUserById(user.id);
 
     if (review)
       throw new BadRequestError("You've Already Reviewed This Product");
@@ -75,7 +74,7 @@ export class ReviewService {
     this._handleAuthorization(user, review);
 
     if (body.productId) {
-      const product = await findOneBy<Product>(Product, { id: body.productId });
+      const product = await this.productService.getProductById(body.productId);
       review.product = product;
     }
     await this.ReviewRepository.save({ ...review, ...body });
