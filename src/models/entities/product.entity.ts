@@ -24,6 +24,7 @@ import {
   JoinTable
 } from "typeorm";
 import { User } from "./user.entity";
+import { CartProducts } from "./cartProducts.entity";
 
 @Entity("products")
 export class Product {
@@ -90,7 +91,7 @@ export class Product {
   favoritedBy!: User[];
 
   // one to many
-  @ManyToOne(() => User, (user) => user.products, { cascade: true })
+  @ManyToOne(() => User, (user) => user.products, { onDelete: "CASCADE" })
   user!: User;
 
   // one to many
@@ -117,4 +118,9 @@ export class Product {
 
   @OneToMany(() => Review, (review) => review.product, { cascade: true })
   reviews!: Review[];
+
+  @OneToMany(() => CartProducts, (cartProduct) => cartProduct.product, {
+    cascade: true
+  })
+  cartProducts!: CartProducts[];
 }

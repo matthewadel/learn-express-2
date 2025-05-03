@@ -1,6 +1,6 @@
 import fs from "fs";
 import "dotenv/config";
-import { CategoryService } from "./../../services";
+import { CategoryService, UsersService } from "./../../services";
 import { initializeDB } from "../../models";
 import { AppDataSource } from "../../models";
 import { ProductsService } from "../../services";
@@ -108,6 +108,31 @@ const seedColors = async () => {
   }
 };
 
+const seedUsers = async () => {
+  try {
+    const users = JSON.parse(
+      fs.readFileSync(__dirname + "/users.json", "utf-8")
+    );
+
+    // const productRepository = AppDataSource.getRepository(Product);
+    const usersService = new UsersService();
+    for (const user of users) {
+      try {
+        await usersService.seedUser(user);
+      } catch (error) {
+        console.log("user", user);
+        throw new Error((error as Error).message);
+      }
+    }
+
+    console.log("Users have been seeded successfully ✅");
+    return; // Exit the function instead of using process.exit()
+  } catch (error) {
+    console.error("Error seeding products:", error);
+    throw error; // Throw the error instead of using process.exit()
+  }
+};
+
 const seedProducts = async () => {
   try {
     const products = JSON.parse(
@@ -121,6 +146,7 @@ const seedProducts = async () => {
         await productsService.createProduct(product);
       } catch (error) {
         console.log("product", product);
+        console.log(error);
         throw new Error((error as Error).message);
       }
     }
@@ -138,6 +164,7 @@ const seedData = async () => {
   await seedCategories();
   await seedSubCategories();
   await seedColors();
+  await seedUsers();
   await seedProducts();
   process.exit();
 };
@@ -164,6 +191,8 @@ const deleteData = async () => {
     console.log("Colors have been deleted successfully!");
     await queryRunner.query(`DROP TABLE IF EXISTS products CASCADE`);
     console.log("Products have been deleted successfully!");
+    await queryRunner.query(`DROP TABLE IF EXISTS users CASCADE`);
+    console.log("Users table has been deleted successfully!");
     process.exit();
   } catch (e) {
     console.log(e);

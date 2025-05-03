@@ -30,4 +30,4 @@ nestjs
 app problems
 1- exclude password from response globally like nestjs
 2- sanitizing user inputs
-3- transform all import to be from root
+3- transform all import to be from root (absolute import)

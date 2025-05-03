@@ -14,6 +14,7 @@ import { MaxLength, MinLength } from "class-validator";
 import { Review } from "./review.entity";
 import { Product } from "./product.entity";
 import { Address } from "./address.entity";
+import { Cart } from "./cart.entity";
 
 export enum UserRoles {
   ADMIN = "admin",
@@ -79,6 +80,9 @@ export class User {
   @OneToMany(() => Address, (address) => address.user, { cascade: true })
   addresses!: Address[];
 
-  @OneToMany(() => Product, (product) => product.user, { onDelete: "CASCADE" })
+  @OneToMany(() => Product, (product) => product.user, { cascade: true })
   products!: Product[];
+
+  @OneToMany(() => Cart, (cart) => cart.user, { onDelete: "CASCADE" })
+  userCarts!: Cart[];
 }

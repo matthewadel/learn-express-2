@@ -62,7 +62,8 @@ export class ProductsService {
           "subCategories",
           "colors",
           "images",
-          "reviews"
+          "reviews",
+          "user"
         ]
       }
     });
@@ -81,7 +82,8 @@ export class ProductsService {
           "subCategories",
           "colors",
           "images",
-          "reviews"
+          "reviews",
+          "user"
         ]
       }
     });

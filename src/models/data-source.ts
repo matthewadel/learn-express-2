@@ -2,7 +2,7 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { entities } from "./entities";
-import { getEnv } from "../utils";
+import { getEnv } from "../utils/validateEnv";
 import {
   CategoryGenericSubscriber,
   BrandGenericSubscriber,

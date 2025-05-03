@@ -7,3 +7,4 @@ export * from "./review.controller";
 export * from "./subCategories.controller";
 export * from "./users.controller";
 export * from "./wishlist.controller";
+export * from "./cart.controller";

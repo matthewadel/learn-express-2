@@ -47,6 +47,10 @@ export class UsersService {
     return await findOneBy<User>(User, { email, checkExistence: true });
   }
 
+  async checkEmailExistence(email: string): Promise<User> {
+    return await findOneBy<User>(User, { email });
+  }
+
   async updateUser(
     id: number,
     body: UpdateUserBody["body"] & { password?: string }
@@ -106,5 +110,15 @@ export class UsersService {
     const user = await this.getUserById(userId);
 
     return this.UsersRepository.save({ ...user, role: body.role as UserRoles });
+  }
+
+  async seedUser(body: CreateUserBody["body"]) {
+    const user = await this.createUser(body);
+
+    if (body.role === UserRoles.ADMIN)
+      await this.changeUserRole({
+        userId: user.id,
+        body: { role: UserRoles.ADMIN }
+      });
   }
 }

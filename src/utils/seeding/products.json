@@ -1,599 +1,901 @@
 [
   {
-    "title": "product_1",
-    "description": "A versatile product for daily use.",
-    "image_cover": "/images/product1.jpg",
-    "images": [
-      "/images/product1_1.jpg",
-      "/images/product1_2.jpg"
-    ],
-    "quantity": 10,
-    "colors": [
-      1
-    ],
-    "price": 50.0,
-    "brand": 2,
-    "category": 2,
-    "subCategories": [
-      3
-    ],
-    "number_of_times_sold": 543,
-    "price_after_discount": 45.13
+    "user": {
+      "id": 6,
+      "name": "admin1",
+      "email": "admin1@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "role": "admin"
+    },
+    "body": {
+      "title": "product_1",
+      "description": "A versatile product for daily use.",
+      "image_cover": [
+        "/images/product1.jpg"
+      ],
+      "images": [
+        "/images/product1_1.jpg",
+        "/images/product1_2.jpg"
+      ],
+      "quantity": 10,
+      "colors": [
+        1
+      ],
+      "price": 50.0,
+      "brand": 2,
+      "category": 2,
+      "subCategories": [
+        3
+      ],
+      "number_of_times_sold": 543,
+      "price_after_discount": 45.13
+    }
   },
   {
-    "title": "product_2",
-    "description": "A premium product for professionals.",
-    "image_cover": "/images/product2.jpg",
-    "images": [
-      "/images/product2_1.jpg"
-    ],
-    "quantity": 5,
-    "colors": [
-      4
-    ],
-    "price": 75.0,
-    "brand": 3,
-    "category": 3,
-    "subCategories": [
-      5
-    ],
-    "number_of_times_sold": 279,
-    "price_after_discount": 67.3
+    "user": {
+      "id": 6,
+      "name": "admin1",
+      "email": "admin1@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "role": "admin"
+    },
+    "body": {
+      "title": "product_2",
+      "description": "A premium product for professionals.",
+      "image_cover": "/images/product2.jpg",
+      "images": [
+        "/images/product2_1.jpg"
+      ],
+      "quantity": 5,
+      "colors": [
+        4
+      ],
+      "price": 75.0,
+      "brand": 3,
+      "category": 3,
+      "subCategories": [
+        5
+      ],
+      "number_of_times_sold": 279,
+      "price_after_discount": 67.3
+    }
   },
   {
-    "title": "product_3",
-    "description": "Perfect for outdoor activities.",
-    "image_cover": "/images/product3.jpg",
-    "images": [
-      "/images/product3_1.jpg"
-    ],
-    "quantity": 15,
-    "colors": [
-      5
-    ],
-    "price": 100.0,
-    "brand": 4,
-    "category": 4,
-    "subCategories": [
-      8
-    ],
-    "number_of_times_sold": 224,
-    "price_after_discount": 78.79
+    "user": {
+      "id": 6,
+      "name": "admin1",
+      "email": "admin1@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "role": "admin"
+    },
+    "body": {
+      "title": "product_3",
+      "description": "Perfect for outdoor activities.",
+      "image_cover": "/images/product3.jpg",
+      "images": [
+        "/images/product3_1.jpg"
+      ],
+      "quantity": 15,
+      "colors": [
+        5
+      ],
+      "price": 100.0,
+      "brand": 4,
+      "category": 4,
+      "subCategories": [
+        8
+      ],
+      "number_of_times_sold": 224,
+      "price_after_discount": 78.79
+    }
   },
   {
-    "title": "product_4",
-    "description": "A must-have for your collection.",
-    "image_cover": "/images/product4.jpg",
-    "images": [
-      "/images/product4_1.jpg",
-      "/images/product4_2.jpg"
-    ],
-    "quantity": 8,
-    "colors": [
-      1,
-      4
-    ],
-    "price": 60.0,
-    "brand": 2,
-    "category": 4,
-    "subCategories": [
-      7
-    ],
-    "number_of_times_sold": 486,
-    "price_after_discount": 43.48
+    "user": {
+      "id": 6,
+      "name": "admin1",
+      "email": "admin1@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "role": "admin"
+    },
+    "body": {
+      "title": "product_4",
+      "description": "A must-have for your collection.",
+      "image_cover": "/images/product4.jpg",
+      "images": [
+        "/images/product4_1.jpg",
+        "/images/product4_2.jpg"
+      ],
+      "quantity": 8,
+      "colors": [
+        1,
+        4
+      ],
+      "price": 60.0,
+      "brand": 2,
+      "category": 4,
+      "subCategories": [
+        7
+      ],
+      "number_of_times_sold": 486,
+      "price_after_discount": 43.48
+    }
   },
   {
-    "title": "product_5",
-    "description": "High-quality and durable.",
-    "image_cover": "/images/product5.jpg",
-    "images": [],
-    "quantity": 20,
-    "colors": [
-      5
-    ],
-    "price": 45.0,
-    "brand": 3,
-    "category": 2,
-    "subCategories": [
-      4
-    ],
-    "number_of_times_sold": 841,
-    "price_after_discount": 40.82
+    "user": {
+      "id": 6,
+      "name": "admin1",
+      "email": "admin1@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "role": "admin"
+    },
+    "body": {
+      "title": "product_5",
+      "description": "High-quality and durable.",
+      "image_cover": "/images/product5.jpg",
+      "images": [],
+      "quantity": 20,
+      "colors": [
+        5
+      ],
+      "price": 45.0,
+      "brand": 3,
+      "category": 2,
+      "subCategories": [
+        4
+      ],
+      "number_of_times_sold": 841,
+      "price_after_discount": 40.82
+    }
   },
   {
-    "title": "product_6",
-    "description": "Compact and lightweight.",
-    "image_cover": "/images/product6.jpg",
-    "images": [
-      "/images/product6_1.jpg"
-    ],
-    "quantity": 12,
-    "colors": [
-      1,
-      5
-    ],
-    "price": 30.0,
-    "brand": 4,
-    "category": 5,
-    "subCategories": [
-      9
-    ],
-    "number_of_times_sold": 260,
-    "price_after_discount": 25.81
+    "user": {
+      "id": 6,
+      "name": "admin1",
+      "email": "admin1@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "role": "admin"
+    },
+    "body": {
+      "title": "product_6",
+      "description": "Compact and lightweight.",
+      "image_cover": "/images/product6.jpg",
+      "images": [
+        "/images/product6_1.jpg"
+      ],
+      "quantity": 12,
+      "colors": [
+        1,
+        5
+      ],
+      "price": 30.0,
+      "brand": 4,
+      "category": 5,
+      "subCategories": [
+        9
+      ],
+      "number_of_times_sold": 260,
+      "price_after_discount": 25.81
+    }
   },
   {
-    "title": "product_7",
-    "description": "Affordable and reliable.",
-    "image_cover": "/images/product7.jpg",
-    "images": [],
-    "quantity": 25,
-    "colors": [
-      4
-    ],
-    "price": 20.0,
-    "brand": 2,
-    "category": 2,
-    "subCategories": [
-      3
-    ],
-    "number_of_times_sold": 764,
-    "price_after_discount": 17.11
+    "user": {
+      "id": 6,
+      "name": "admin1",
+      "email": "admin1@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "role": "admin"
+    },
+    "body": {
+      "title": "product_7",
+      "description": "Affordable and reliable.",
+      "image_cover": "/images/product7.jpg",
+      "images": [],
+      "quantity": 25,
+      "colors": [
+        4
+      ],
+      "price": 20.0,
+      "brand": 2,
+      "category": 2,
+      "subCategories": [
+        3
+      ],
+      "number_of_times_sold": 764,
+      "price_after_discount": 17.11
+    }
   },
   {
-    "title": "product_8",
-    "description": "Stylish and modern design.",
-    "image_cover": "/images/product8.jpg",
-    "images": [
-      "/images/product8_1.jpg",
-      "/images/product8_2.jpg"
-    ],
-    "quantity": 18,
-    "colors": [
-      5
-    ],
-    "price": 80.0,
-    "brand": 3,
-    "category": 3,
-    "subCategories": [
-      5
-    ],
-    "number_of_times_sold": 964,
-    "price_after_discount": 73.32
+    "user": {
+      "id": 6,
+      "name": "admin1",
+      "email": "admin1@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "role": "admin"
+    },
+    "body": {
+      "title": "product_8",
+      "description": "Stylish and modern design.",
+      "image_cover": "/images/product8.jpg",
+      "images": [
+        "/images/product8_1.jpg",
+        "/images/product8_2.jpg"
+      ],
+      "quantity": 18,
+      "colors": [
+        5
+      ],
+      "price": 80.0,
+      "brand": 3,
+      "category": 3,
+      "subCategories": [
+        5
+      ],
+      "number_of_times_sold": 964,
+      "price_after_discount": 73.32
+    }
   },
   {
-    "title": "product_9",
-    "description": "Perfect for gifting.",
-    "image_cover": "/images/product9.jpg",
-    "images": [
-      "/images/product9_1.jpg"
-    ],
-    "quantity": 7,
-    "colors": [
-      1
-    ],
-    "price": 90.0,
-    "brand": 4,
-    "category": 4,
-    "subCategories": [
-      8
-    ],
-    "number_of_times_sold": 396,
-    "price_after_discount": 71.68
+    "user": {
+      "id": 6,
+      "name": "admin1",
+      "email": "admin1@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "role": "admin"
+    },
+    "body": {
+      "title": "product_9",
+      "description": "Perfect for gifting.",
+      "image_cover": "/images/product9.jpg",
+      "images": [
+        "/images/product9_1.jpg"
+      ],
+      "quantity": 7,
+      "colors": [
+        1
+      ],
+      "price": 90.0,
+      "brand": 4,
+      "category": 4,
+      "subCategories": [
+        8
+      ],
+      "number_of_times_sold": 396,
+      "price_after_discount": 71.68
+    }
   },
   {
-    "title": "product_10",
-    "description": "A reliable choice for everyone.",
-    "image_cover": "/images/product10.jpg",
-    "images": [],
-    "quantity": 30,
-    "colors": [
-      4,
-      5
-    ],
-    "price": 25.0,
-    "brand": 2,
-    "category": 2,
-    "subCategories": [
-      4
-    ],
-    "number_of_times_sold": 142,
-    "price_after_discount": 17.85
+    "user": {
+      "id": 6,
+      "name": "admin1",
+      "email": "admin1@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "role": "admin"
+    },
+    "body": {
+      "title": "product_10",
+      "description": "A reliable choice for everyone.",
+      "image_cover": "/images/product10.jpg",
+      "images": [],
+      "quantity": 30,
+      "colors": [
+        4,
+        5
+      ],
+      "price": 25.0,
+      "brand": 2,
+      "category": 2,
+      "subCategories": [
+        4
+      ],
+      "number_of_times_sold": 142,
+      "price_after_discount": 17.85
+    }
   },
   {
-    "title": "product_11",
-    "description": "Durable and long-lasting.",
-    "image_cover": "/images/product11.jpg",
-    "images": [
-      "/images/product11_1.jpg"
-    ],
-    "quantity": 14,
-    "colors": [
-      1,
-      4
-    ],
-    "price": 55.0,
-    "brand": 3,
-    "category": 3,
-    "subCategories": [
-      6
-    ],
-    "number_of_times_sold": 730,
-    "price_after_discount": 51.57
+    "user": {
+      "id": 6,
+      "name": "admin1",
+      "email": "admin1@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "role": "admin"
+    },
+    "body": {
+      "title": "product_11",
+      "description": "Durable and long-lasting.",
+      "image_cover": "/images/product11.jpg",
+      "images": [
+        "/images/product11_1.jpg"
+      ],
+      "quantity": 14,
+      "colors": [
+        1,
+        4
+      ],
+      "price": 55.0,
+      "brand": 3,
+      "category": 3,
+      "subCategories": [
+        6
+      ],
+      "number_of_times_sold": 730,
+      "price_after_discount": 51.57
+    }
   },
   {
-    "title": "product_12",
-    "description": "Compact and easy to use.",
-    "image_cover": "/images/product12.jpg",
-    "images": [
-      "/images/product12_1.jpg"
-    ],
-    "quantity": 9,
-    "colors": [
-      5
-    ],
-    "price": 35.0,
-    "brand": 4,
-    "category": 5,
-    "subCategories": [
-      9
-    ],
-    "number_of_times_sold": 125,
-    "price_after_discount": 25.79
+    "user": {
+      "id": 6,
+      "name": "admin1",
+      "email": "admin1@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "role": "admin"
+    },
+    "body": {
+      "title": "product_12",
+      "description": "Compact and easy to use.",
+      "image_cover": "/images/product12.jpg",
+      "images": [
+        "/images/product12_1.jpg"
+      ],
+      "quantity": 9,
+      "colors": [
+        5
+      ],
+      "price": 35.0,
+      "brand": 4,
+      "category": 5,
+      "subCategories": [
+        9
+      ],
+      "number_of_times_sold": 125,
+      "price_after_discount": 25.79
+    }
   },
   {
-    "title": "product_13",
-    "description": "A great addition to your home.",
-    "image_cover": "/images/product13.jpg",
-    "images": [],
-    "quantity": 22,
-    "colors": [
-      1
-    ],
-    "price": 40.0,
-    "brand": 2,
-    "category": 2,
-    "subCategories": [
-      3
-    ],
-    "number_of_times_sold": 381,
-    "price_after_discount": 29.04
+    "user": {
+      "id": 6,
+      "name": "admin1",
+      "email": "admin1@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "role": "admin"
+    },
+    "body": {
+      "title": "product_13",
+      "description": "A great addition to your home.",
+      "image_cover": "/images/product13.jpg",
+      "images": [],
+      "quantity": 22,
+      "colors": [
+        1
+      ],
+      "price": 40.0,
+      "brand": 2,
+      "category": 2,
+      "subCategories": [
+        3
+      ],
+      "number_of_times_sold": 381,
+      "price_after_discount": 29.04
+    }
   },
   {
-    "title": "product_14",
-    "description": "Perfect for professionals.",
-    "image_cover": "/images/product14.jpg",
-    "images": [
-      "/images/product14_1.jpg"
-    ],
-    "quantity": 6,
-    "colors": [
-      4
-    ],
-    "price": 85.0,
-    "brand": 3,
-    "category": 3,
-    "subCategories": [
-      5
-    ],
-    "number_of_times_sold": 862,
-    "price_after_discount": 60.41
+    "user": {
+      "id": 6,
+      "name": "admin1",
+      "email": "admin1@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "role": "admin"
+    },
+    "body": {
+      "title": "product_14",
+      "description": "Perfect for professionals.",
+      "image_cover": "/images/product14.jpg",
+      "images": [
+        "/images/product14_1.jpg"
+      ],
+      "quantity": 6,
+      "colors": [
+        4
+      ],
+      "price": 85.0,
+      "brand": 3,
+      "category": 3,
+      "subCategories": [
+        5
+      ],
+      "number_of_times_sold": 862,
+      "price_after_discount": 60.41
+    }
   },
   {
-    "title": "product_15",
-    "description": "A premium product for daily use.",
-    "image_cover": "/images/product15.jpg",
-    "images": [
-      "/images/product15_1.jpg"
-    ],
-    "quantity": 11,
-    "colors": [
-      5
-    ],
-    "price": 95.0,
-    "brand": 4,
-    "category": 4,
-    "subCategories": [
-      8
-    ],
-    "number_of_times_sold": 599,
-    "price_after_discount": 66.71
+    "user": {
+      "id": 6,
+      "name": "admin1",
+      "email": "admin1@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "role": "admin"
+    },
+    "body": {
+      "title": "product_15",
+      "description": "A premium product for daily use.",
+      "image_cover": "/images/product15.jpg",
+      "images": [
+        "/images/product15_1.jpg"
+      ],
+      "quantity": 11,
+      "colors": [
+        5
+      ],
+      "price": 95.0,
+      "brand": 4,
+      "category": 4,
+      "subCategories": [
+        8
+      ],
+      "number_of_times_sold": 599,
+      "price_after_discount": 66.71
+    }
   },
   {
-    "title": "product_16",
-    "description": "Affordable and efficient.",
-    "image_cover": "/images/product16.jpg",
-    "images": [],
-    "quantity": 28,
-    "colors": [
-      1,
-      4
-    ],
-    "price": 22.0,
-    "brand": 2,
-    "category": 3,
-    "subCategories": [
-      5
-    ],
-    "number_of_times_sold": 208,
-    "price_after_discount": 15.56
+    "user": {
+      "id": 6,
+      "name": "admin1",
+      "email": "admin1@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "role": "admin"
+    },
+    "body": {
+      "title": "product_16",
+      "description": "Affordable and efficient.",
+      "image_cover": "/images/product16.jpg",
+      "images": [],
+      "quantity": 28,
+      "colors": [
+        1,
+        4
+      ],
+      "price": 22.0,
+      "brand": 2,
+      "category": 3,
+      "subCategories": [
+        5
+      ],
+      "number_of_times_sold": 208,
+      "price_after_discount": 15.56
+    }
   },
   {
-    "title": "product_17",
-    "description": "Stylish and functional.",
-    "image_cover": "/images/product17.jpg",
-    "images": [
-      "/images/product17_1.jpg",
-      "/images/product17_2.jpg"
-    ],
-    "quantity": 16,
-    "colors": [
-      5
-    ],
-    "price": 70.0,
-    "brand": 3,
-    "category": 3,
-    "subCategories": [
-      6
-    ],
-    "number_of_times_sold": 745,
-    "price_after_discount": 57.45
+    "user": {
+      "id": 6,
+      "name": "admin1",
+      "email": "admin1@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "role": "admin"
+    },
+    "body": {
+      "title": "product_17",
+      "description": "Stylish and functional.",
+      "image_cover": "/images/product17.jpg",
+      "images": [
+        "/images/product17_1.jpg",
+        "/images/product17_2.jpg"
+      ],
+      "quantity": 16,
+      "colors": [
+        5
+      ],
+      "price": 70.0,
+      "brand": 3,
+      "category": 3,
+      "subCategories": [
+        6
+      ],
+      "number_of_times_sold": 745,
+      "price_after_discount": 57.45
+    }
   },
   {
-    "title": "product_18",
-    "description": "Perfect for travel.",
-    "image_cover": "/images/product18.jpg",
-    "images": [
-      "/images/product18_1.jpg"
-    ],
-    "quantity": 8,
-    "colors": [
-      1
-    ],
-    "price": 65.0,
-    "brand": 4,
-    "category": 5,
-    "subCategories": [
-      9
-    ],
-    "number_of_times_sold": 654,
-    "price_after_discount": 50.63
+    "user": {
+      "id": 6,
+      "name": "admin1",
+      "email": "admin1@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "role": "admin"
+    },
+    "body": {
+      "title": "product_18",
+      "description": "Perfect for travel.",
+      "image_cover": "/images/product18.jpg",
+      "images": [
+        "/images/product18_1.jpg"
+      ],
+      "quantity": 8,
+      "colors": [
+        1
+      ],
+      "price": 65.0,
+      "brand": 4,
+      "category": 5,
+      "subCategories": [
+        9
+      ],
+      "number_of_times_sold": 654,
+      "price_after_discount": 50.63
+    }
   },
   {
-    "title": "product_19",
-    "description": "A reliable and affordable option.",
-    "image_cover": "/images/product19.jpg",
-    "images": [],
-    "quantity": 35,
-    "colors": [
-      4,
-      5
-    ],
-    "price": 18.0,
-    "brand": 2,
-    "category": 2,
-    "subCategories": [
-      3
-    ],
-    "number_of_times_sold": 757,
-    "price_after_discount": 16.05
+    "user": {
+      "id": 6,
+      "name": "admin1",
+      "email": "admin1@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "role": "admin"
+    },
+    "body": {
+      "title": "product_19",
+      "description": "A reliable and affordable option.",
+      "image_cover": "/images/product19.jpg",
+      "images": [],
+      "quantity": 35,
+      "colors": [
+        4,
+        5
+      ],
+      "price": 18.0,
+      "brand": 2,
+      "category": 2,
+      "subCategories": [
+        3
+      ],
+      "number_of_times_sold": 757,
+      "price_after_discount": 16.05
+    }
   },
   {
-    "title": "product_20",
-    "description": "Durable and stylish.",
-    "image_cover": "/images/product20.jpg",
-    "images": [
-      "/images/product20_1.jpg"
-    ],
-    "quantity": 13,
-    "colors": [
-      1,
-      4
-    ],
-    "price": 50.0,
-    "brand": 3,
-    "category": 3,
-    "subCategories": [
-      5
-    ],
-    "number_of_times_sold": 743,
-    "price_after_discount": 38.55
+    "user": {
+      "id": 6,
+      "name": "admin1",
+      "email": "admin1@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "role": "admin"
+    },
+    "body": {
+      "title": "product_20",
+      "description": "Durable and stylish.",
+      "image_cover": "/images/product20.jpg",
+      "images": [
+        "/images/product20_1.jpg"
+      ],
+      "quantity": 13,
+      "colors": [
+        1,
+        4
+      ],
+      "price": 50.0,
+      "brand": 3,
+      "category": 3,
+      "subCategories": [
+        5
+      ],
+      "number_of_times_sold": 743,
+      "price_after_discount": 38.55
+    }
   },
   {
-    "title": "product_21",
-    "description": "Compact and powerful.",
-    "image_cover": "/images/product21.jpg",
-    "images": [
-      "/images/product21_1.jpg"
-    ],
-    "quantity": 10,
-    "colors": [
-      5
-    ],
-    "price": 45.0,
-    "brand": 4,
-    "category": 4,
-    "subCategories": [
-      8
-    ],
-    "number_of_times_sold": 523,
-    "price_after_discount": 34.41
+    "user": {
+      "id": 6,
+      "name": "admin1",
+      "email": "admin1@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "role": "admin"
+    },
+    "body": {
+      "title": "product_21",
+      "description": "Compact and powerful.",
+      "image_cover": "/images/product21.jpg",
+      "images": [
+        "/images/product21_1.jpg"
+      ],
+      "quantity": 10,
+      "colors": [
+        5
+      ],
+      "price": 45.0,
+      "brand": 4,
+      "category": 4,
+      "subCategories": [
+        8
+      ],
+      "number_of_times_sold": 523,
+      "price_after_discount": 34.41
+    }
   },
   {
-    "title": "product_22",
-    "description": "A great value for the price.",
-    "image_cover": "/images/product22.jpg",
-    "images": [],
-    "quantity": 20,
-    "colors": [
-      1
-    ],
-    "price": 35.0,
-    "brand": 2,
-    "category": 2,
-    "subCategories": [
-      4
-    ],
-    "number_of_times_sold": 206,
-    "price_after_discount": 27.57
+    "user": {
+      "id": 6,
+      "name": "admin1",
+      "email": "admin1@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "role": "admin"
+    },
+    "body": {
+      "title": "product_22",
+      "description": "A great value for the price.",
+      "image_cover": "/images/product22.jpg",
+      "images": [],
+      "quantity": 20,
+      "colors": [
+        1
+      ],
+      "price": 35.0,
+      "brand": 2,
+      "category": 2,
+      "subCategories": [
+        4
+      ],
+      "number_of_times_sold": 206,
+      "price_after_discount": 27.57
+    }
   },
   {
-    "title": "product_23",
-    "description": "Perfect for everyday use.",
-    "image_cover": "/images/product23.jpg",
-    "images": [
-      "/images/product23_1.jpg"
-    ],
-    "quantity": 12,
-    "colors": [
-      4
-    ],
-    "price": 60.0,
-    "brand": 3,
-    "category": 3,
-    "subCategories": [
-      6
-    ],
-    "number_of_times_sold": 394,
-    "price_after_discount": 51.12
+    "user": {
+      "id": 6,
+      "name": "admin1",
+      "email": "admin1@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "role": "admin"
+    },
+    "body": {
+      "title": "product_23",
+      "description": "Perfect for everyday use.",
+      "image_cover": "/images/product23.jpg",
+      "images": [
+        "/images/product23_1.jpg"
+      ],
+      "quantity": 12,
+      "colors": [
+        4
+      ],
+      "price": 60.0,
+      "brand": 3,
+      "category": 3,
+      "subCategories": [
+        6
+      ],
+      "number_of_times_sold": 394,
+      "price_after_discount": 51.12
+    }
   },
   {
-    "title": "product_24",
-    "description": "A premium choice for professionals.",
-    "image_cover": "/images/product24.jpg",
-    "images": [
-      "/images/product24_1.jpg"
-    ],
-    "quantity": 9,
-    "colors": [
-      5
-    ],
-    "price": 85.0,
-    "brand": 4,
-    "category": 4,
-    "subCategories": [
-      8
-    ],
-    "number_of_times_sold": 158,
-    "price_after_discount": 80.18
+    "user": {
+      "id": 6,
+      "name": "admin1",
+      "email": "admin1@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "role": "admin"
+    },
+    "body": {
+      "title": "product_24",
+      "description": "A premium choice for professionals.",
+      "image_cover": "/images/product24.jpg",
+      "images": [
+        "/images/product24_1.jpg"
+      ],
+      "quantity": 9,
+      "colors": [
+        5
+      ],
+      "price": 85.0,
+      "brand": 4,
+      "category": 4,
+      "subCategories": [
+        8
+      ],
+      "number_of_times_sold": 158,
+      "price_after_discount": 80.18
+    }
   },
   {
-    "title": "product_25",
-    "description": "Affordable and reliable.",
-    "image_cover": "/images/product25.jpg",
-    "images": [],
-    "quantity": 30,
-    "colors": [
-      1,
-      4
-    ],
-    "price": 20.0,
-    "brand": 2,
-    "category": 2,
-    "subCategories": [
-      3
-    ],
-    "number_of_times_sold": 982,
-    "price_after_discount": 17.58
+    "user": {
+      "id": 6,
+      "name": "admin1",
+      "email": "admin1@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "role": "admin"
+    },
+    "body": {
+      "title": "product_25",
+      "description": "Affordable and reliable.",
+      "image_cover": "/images/product25.jpg",
+      "images": [],
+      "quantity": 30,
+      "colors": [
+        1,
+        4
+      ],
+      "price": 20.0,
+      "brand": 2,
+      "category": 2,
+      "subCategories": [
+        3
+      ],
+      "number_of_times_sold": 982,
+      "price_after_discount": 17.58
+    }
   },
   {
-    "title": "product_26",
-    "description": "Stylish and modern.",
-    "image_cover": "/images/product26.jpg",
-    "images": [
-      "/images/product26_1.jpg",
-      "/images/product26_2.jpg"
-    ],
-    "quantity": 18,
-    "colors": [
-      5
-    ],
-    "price": 75.0,
-    "brand": 3,
-    "category": 3,
-    "subCategories": [
-      6
-    ],
-    "number_of_times_sold": 644,
-    "price_after_discount": 52.89
+    "user": {
+      "id": 6,
+      "name": "admin1",
+      "email": "admin1@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "role": "admin"
+    },
+    "body": {
+      "title": "product_26",
+      "description": "Stylish and modern.",
+      "image_cover": "/images/product26.jpg",
+      "images": [
+        "/images/product26_1.jpg",
+        "/images/product26_2.jpg"
+      ],
+      "quantity": 18,
+      "colors": [
+        5
+      ],
+      "price": 75.0,
+      "brand": 3,
+      "category": 3,
+      "subCategories": [
+        6
+      ],
+      "number_of_times_sold": 644,
+      "price_after_discount": 52.89
+    }
   },
   {
-    "title": "product_27",
-    "description": "Perfect for gifting.",
-    "image_cover": "/images/product27.jpg",
-    "images": [
-      "/images/product27_1.jpg"
-    ],
-    "quantity": 7,
-    "colors": [
-      1
-    ],
-    "price": 90.0,
-    "brand": 4,
-    "category": 4,
-    "subCategories": [
-      8
-    ],
-    "number_of_times_sold": 87,
-    "price_after_discount": 82.24
+    "user": {
+      "id": 6,
+      "name": "admin1",
+      "email": "admin1@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "role": "admin"
+    },
+    "body": {
+      "title": "product_27",
+      "description": "Perfect for gifting.",
+      "image_cover": "/images/product27.jpg",
+      "images": [
+        "/images/product27_1.jpg"
+      ],
+      "quantity": 7,
+      "colors": [
+        1
+      ],
+      "price": 90.0,
+      "brand": 4,
+      "category": 4,
+      "subCategories": [
+        8
+      ],
+      "number_of_times_sold": 87,
+      "price_after_discount": 82.24
+    }
   },
   {
-    "title": "product_28",
-    "description": "A reliable choice for everyone.",
-    "image_cover": "/images/product28.jpg",
-    "images": [],
-    "quantity": 30,
-    "colors": [
-      4,
-      5
-    ],
-    "price": 25.0,
-    "brand": 2,
-    "category": 2,
-    "subCategories": [
-      4
-    ],
-    "number_of_times_sold": 640,
-    "price_after_discount": 19.38
+    "user": {
+      "id": 6,
+      "name": "admin1",
+      "email": "admin1@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "role": "admin"
+    },
+    "body": {
+      "title": "product_28",
+      "description": "A reliable choice for everyone.",
+      "image_cover": "/images/product28.jpg",
+      "images": [],
+      "quantity": 30,
+      "colors": [
+        4,
+        5
+      ],
+      "price": 25.0,
+      "brand": 2,
+      "category": 2,
+      "subCategories": [
+        4
+      ],
+      "number_of_times_sold": 640,
+      "price_after_discount": 19.38
+    }
   },
   {
-    "title": "product_29",
-    "description": "Durable and long-lasting.",
-    "image_cover": "/images/product29.jpg",
-    "images": [
-      "/images/product29_1.jpg"
-    ],
-    "quantity": 14,
-    "colors": [
-      1,
-      4
-    ],
-    "price": 55.0,
-    "brand": 3,
-    "category": 3,
-    "subCategories": [
-      6
-    ],
-    "number_of_times_sold": 67,
-    "price_after_discount": 42.75
+    "user": {
+      "id": 6,
+      "name": "admin1",
+      "email": "admin1@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "role": "admin"
+    },
+    "body": {
+      "title": "product_29",
+      "description": "Durable and long-lasting.",
+      "image_cover": "/images/product29.jpg",
+      "images": [
+        "/images/product29_1.jpg"
+      ],
+      "quantity": 14,
+      "colors": [
+        1,
+        4
+      ],
+      "price": 55.0,
+      "brand": 3,
+      "category": 3,
+      "subCategories": [
+        6
+      ],
+      "number_of_times_sold": 67,
+      "price_after_discount": 42.75
+    }
   },
   {
-    "title": "product_30",
-    "description": "Compact and easy to use.",
-    "image_cover": "/images/product30.jpg",
-    "images": [
-      "/images/product30_1.jpg"
-    ],
-    "quantity": 9,
-    "colors": [
-      5
-    ],
-    "price": 35.0,
-    "brand": 4,
-    "category": 5,
-    "subCategories": [
-      9
-    ],
-    "number_of_times_sold": 377,
-    "price_after_discount": 30.45
+    "user": {
+      "id": 6,
+      "name": "admin1",
+      "email": "admin1@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "role": "admin"
+    },
+    "body": {
+      "title": "product_30",
+      "description": "Compact and easy to use.",
+      "image_cover": "/images/product30.jpg",
+      "images": [
+        "/images/product30_1.jpg"
+      ],
+      "quantity": 9,
+      "colors": [
+        5
+      ],
+      "price": 35.0,
+      "brand": 4,
+      "category": 5,
+      "subCategories": [
+        9
+      ],
+      "number_of_times_sold": 377,
+      "price_after_discount": 30.45
+    }
   }
 ]

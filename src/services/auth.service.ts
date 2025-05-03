@@ -36,7 +36,7 @@ export class AuthService {
   }
 
   async login(body: loginBody["body"]) {
-    const user = await this.userService.getUserByEmail(body.email);
+    const user = await this.userService.checkEmailExistence(body.email);
 
     const ispasswordValid = await bcrypt.compare(body.password, user.password);
     if (!ispasswordValid) {
@@ -50,7 +50,7 @@ export class AuthService {
   }
 
   async forgetPassword(body: forgetPasswordBody["body"]) {
-    const user = await this.userService.getUserByEmail(body.email);
+    const user = await this.userService.checkEmailExistence(body.email);
     // generate 6 random digits
     const resetCode = Math.floor(100000 + Math.random() * 900000).toString();
     const hashedCode = await hashString(resetCode);
@@ -77,7 +77,7 @@ export class AuthService {
   }
 
   async verifyEmail(query: verifyEmailParams["query"]) {
-    const user = await this.userService.getUserByEmail(query.email);
+    const user = await this.userService.checkEmailExistence(query.email);
     if (
       user.passwordResetCode === query.token &&
       (user.passwordResetExpires as Date) > new Date()
@@ -90,7 +90,7 @@ export class AuthService {
   }
 
   async resetPassword(body: resetPasswordBody["body"]) {
-    const user = await this.userService.getUserByEmail(body.email);
+    const user = await this.userService.checkEmailExistence(body.email);
     if (!user.resetPasswordVerified)
       throw new NotAuthenticatedError("Code Is Not Verified");
 
