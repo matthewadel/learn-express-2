@@ -2,7 +2,7 @@ import { CouponsService } from "./coupon.service";
 import { BadRequestError, NotFoundError } from "./../utils/errors";
 import { CartProducts } from "./../models/entities/cartProducts.entity";
 import { ProductsService } from "./products.service";
-import { AppDataSource, DiscountType, User } from "../models";
+import { AppDataSource, User } from "../models";
 import { Cart } from "../models/entities/cart.entity";
 import { cartSchema } from "../schemas";
 import { z } from "zod";
@@ -61,7 +61,8 @@ export class CartService {
         price: product.price * (body.quantity || 1)
       });
 
-      cart.cartProducts.push(newCartProduct);
+      if (cart.cartProducts) cart.cartProducts.push(newCartProduct);
+      else cart.cartProducts = [newCartProduct];
     }
 
     const totalPrice = cart.cartProducts.reduce((total, item) => {
@@ -187,8 +188,11 @@ export class CartService {
   }
 
   async emptyMyCart({ user }: { user: User }) {
+    const cart = await this.cartRepository.findOne({
+      where: { user: { id: user.id } }
+    });
     await this.cartRepository.delete({ user: { id: user.id } });
-    // await this.cartProductRepository.delete({ cart: { id: cartId } });
+    await this.cartProductRepository.delete({ cart: { id: cart?.id } });
   }
 
   async applyCoupon({ user, couponName }: { user: User; couponName: string }) {
@@ -206,10 +210,10 @@ export class CartService {
       relations: ["cartProducts", "cartProducts.color", "cartProducts.product"]
     });
     if (cart) {
-      const discountValue =
-        coupon.discount_type === DiscountType.DEDUCTION
-          ? coupon.discount
-          : (cart?.totalPrice as number) * (coupon.discount / 100);
+      const discountValue = this.couponsService.calculateCouponDiscount({
+        coupon,
+        cart
+      });
       return {
         ...cart,
         price_after_discount: (cart?.totalPrice as number) - discountValue

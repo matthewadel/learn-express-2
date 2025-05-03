@@ -6,10 +6,12 @@ import {
   UpdateDateColumn,
   ManyToOne,
   OneToOne,
-  JoinColumn
+  JoinColumn,
+  OneToMany
 } from "typeorm";
 import { User } from "./user.entity";
 import { City } from "./city.entity";
+import { Order } from "./order.entity";
 
 export enum AddressAlias {
   HOME = "home",
@@ -34,6 +36,9 @@ export class Address {
 
   @ManyToOne(() => User, (user) => user.addresses, { onDelete: "CASCADE" })
   user!: User;
+
+  @OneToMany(() => Order, (order) => order.user)
+  order!: Order[];
 
   @OneToOne(() => City, (city) => city.address, { onDelete: "CASCADE" })
   @JoinColumn({ name: "cityId" })

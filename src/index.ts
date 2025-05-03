@@ -7,11 +7,15 @@ import { globalErrorHandler } from "./middlewares";
 import path from "path";
 import { getEnv } from "./utils";
 import { NotFoundError } from "./utils";
+import cors from "cors";
+import compression from "compression";
 
 // this block must be in the same order
 const app = express();
 
 app.use(express.json());
+app.use(cors());
+app.use(compression());
 app.use(express.static(path.join(__dirname, "uploads")));
 
 if (getEnv().NODE_ENV === "development") {

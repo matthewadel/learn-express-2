@@ -4,6 +4,7 @@ import { findOneBy } from "../utils";
 import { getPaginatedResultsWithFilter, paginationInput } from "../utils";
 import { couponSchema } from "../schemas";
 import { z } from "zod";
+import { Cart } from "../models/entities/cart.entity";
 
 type CreateCouponBody = z.infer<typeof couponSchema.createCoupon>;
 type UpdateCouponBody = z.infer<typeof couponSchema.updateCoupon>;
@@ -37,6 +38,14 @@ export class CouponsService {
 
   async getCouponByNamewithourCheckExistence(name: string): Promise<Coupon> {
     return await findOneBy<Coupon>(Coupon, { name });
+  }
+
+  calculateCouponDiscount({ coupon, cart }: { coupon?: Coupon; cart: Cart }) {
+    if (coupon)
+      return coupon.discount_type === DiscountType.DEDUCTION
+        ? coupon.discount
+        : (cart?.totalPrice as number) * (coupon.discount / 100);
+    else return 0;
   }
 
   async updateCoupon(

@@ -69,14 +69,6 @@ export function returnImageUrlInResoinse<T>({
   fieldName: keyof T;
   folderName: string;
 }) {
-  console.log(
-    `${getEnv().BASE_URL}/${folderName}/${entity[fieldName]}` as NonNullable<T>[keyof T]
-  );
-  console.log({
-    entity,
-    fieldName,
-    folderName
-  });
   if (entity?.[fieldName] && getEnv().BASE_URL) {
     entity[fieldName] =
       `${getEnv().BASE_URL}/${folderName}/${entity[fieldName]}` as NonNullable<T>[keyof T];

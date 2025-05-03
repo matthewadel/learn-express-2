@@ -8,7 +8,10 @@ import { returnImageUrlInResoinse } from "../../middlewares/uploadSingleImage";
 import { User } from "../entities/user.entity";
 
 @EventSubscriber()
-export class UserGenericSubscriber implements EntitySubscriberInterface<User> {
+export class UserSubscriber implements EntitySubscriberInterface<User> {
+  listenTo() {
+    return User;
+  }
   // works in get and update
   async afterLoad(entity: User) {
     returnImageUrlInResoinse<User>({

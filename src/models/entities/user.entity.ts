@@ -15,6 +15,7 @@ import { Review } from "./review.entity";
 import { Product } from "./product.entity";
 import { Address } from "./address.entity";
 import { Cart } from "./cart.entity";
+import { Order } from "./order.entity";
 
 export enum UserRoles {
   ADMIN = "admin",
@@ -85,4 +86,7 @@ export class User {
 
   @OneToMany(() => Cart, (cart) => cart.user, { onDelete: "CASCADE" })
   userCarts!: Cart[];
+
+  @OneToMany(() => Order, (order) => order.user)
+  order!: Order[];
 }

@@ -11,6 +11,7 @@ import { City } from "./city.entity";
 import { Coupon } from "./coupon.entity";
 import { Cart } from "./cart.entity";
 import { CartProducts } from "./cartProducts.entity";
+import { Order } from "./order.entity";
 
 const entities = [
   User,
@@ -25,7 +26,8 @@ const entities = [
   City,
   Coupon,
   Cart,
-  CartProducts
+  CartProducts,
+  Order
 ];
 
 export { entities };

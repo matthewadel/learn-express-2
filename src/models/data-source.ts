@@ -7,7 +7,7 @@ import {
   CategorySubscriber,
   BrandSubscriber,
   ProductSubscriber,
-  UserGenericSubscriber,
+  UserSubscriber,
   ReviewSubscriber
 } from "./subscribers";
 
@@ -26,7 +26,7 @@ export const AppDataSource = new DataSource({
     CategorySubscriber,
     BrandSubscriber,
     ProductSubscriber,
-    UserGenericSubscriber,
+    UserSubscriber,
     ReviewSubscriber
   ]
 });

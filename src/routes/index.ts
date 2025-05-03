@@ -12,6 +12,7 @@ import AddresstRouter from "./address.route";
 import CityRouter from "./city.route";
 import CouponRouter from "./coupon.route";
 import CartRouter from "./cart.route";
+import OrderRouter from "./order.route";
 
 const router = Router();
 
@@ -28,5 +29,6 @@ router.use("/address", AddresstRouter);
 router.use("/city", CityRouter);
 router.use("/coupon", CouponRouter);
 router.use("/cart", CartRouter);
+router.use("/order", OrderRouter);
 
 export default router;

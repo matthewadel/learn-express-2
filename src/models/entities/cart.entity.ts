@@ -24,9 +24,7 @@ export class Cart {
   @ManyToOne(() => User, (user) => user.userCarts, { cascade: true })
   user!: User;
 
-  @OneToMany(() => CartProducts, (cartProduct) => cartProduct.cart, {
-    cascade: true
-  })
+  @OneToMany(() => CartProducts, (cartProduct) => cartProduct.cart)
   cartProducts!: CartProducts[];
 
   @Column("float", { default: 0 })
