@@ -1,6 +1,6 @@
 import fs from "fs";
 import "dotenv/config";
-import { CategoryService, UsersService } from "./../../services";
+import { CategoryService, CityService, UsersService } from "./../../services";
 import { initializeDB } from "../../models";
 import { AppDataSource } from "../../models";
 import { ProductsService } from "../../services";
@@ -128,7 +128,7 @@ const seedUsers = async () => {
     console.log("Users have been seeded successfully ✅");
     return; // Exit the function instead of using process.exit()
   } catch (error) {
-    console.error("Error seeding products:", error);
+    console.error("Error seeding users:", error);
     throw error; // Throw the error instead of using process.exit()
   }
 };
@@ -159,6 +159,32 @@ const seedProducts = async () => {
   }
 };
 
+const seedCities = async () => {
+  try {
+    const cities = JSON.parse(
+      fs.readFileSync(__dirname + "/cities.json", "utf-8")
+    );
+
+    // const productRepository = AppDataSource.getRepository(Product);
+    const cityService = new CityService();
+    for (const city of cities) {
+      try {
+        await cityService.createCity(city);
+      } catch (error) {
+        console.log("city", city);
+        console.log(error);
+        throw new Error((error as Error).message);
+      }
+    }
+
+    console.log("Cities have been seeded successfully ✅");
+    return; // Exit the function instead of using process.exit()
+  } catch (error) {
+    console.error("Error seeding citites:", error);
+    throw error; // Throw the error instead of using process.exit()
+  }
+};
+
 const seedData = async () => {
   await seedBrands();
   await seedCategories();
@@ -166,6 +192,7 @@ const seedData = async () => {
   await seedColors();
   await seedUsers();
   await seedProducts();
+  await seedCities();
   process.exit();
 };
 
@@ -193,6 +220,8 @@ const deleteData = async () => {
     console.log("Products have been deleted successfully!");
     await queryRunner.query(`DROP TABLE IF EXISTS users CASCADE`);
     console.log("Users table has been deleted successfully!");
+    await queryRunner.query(`DROP TABLE IF EXISTS cities CASCADE`);
+    console.log("Cities table has been deleted successfully!");
     process.exit();
   } catch (e) {
     console.log(e);
