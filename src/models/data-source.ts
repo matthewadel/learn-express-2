@@ -4,8 +4,8 @@ import { DataSource } from "typeorm";
 import { entities } from "./entities";
 import { getEnv } from "../utils/validateEnv";
 import {
-  CategoryGenericSubscriber,
-  BrandGenericSubscriber,
+  CategorySubscriber,
+  BrandSubscriber,
   ProductSubscriber,
   UserGenericSubscriber,
   ReviewSubscriber
@@ -23,8 +23,8 @@ export const AppDataSource = new DataSource({
   entities,
   migrations: [],
   subscribers: [
-    CategoryGenericSubscriber,
-    BrandGenericSubscriber,
+    CategorySubscriber,
+    BrandSubscriber,
     ProductSubscriber,
     UserGenericSubscriber,
     ReviewSubscriber

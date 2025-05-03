@@ -7,9 +7,10 @@ import { returnImageUrlInResoinse } from "../../middlewares/uploadSingleImage";
 import { Brand } from "../entities/brand.entity";
 
 @EventSubscriber()
-export class BrandGenericSubscriber
-  implements EntitySubscriberInterface<Brand>
-{
+export class BrandSubscriber implements EntitySubscriberInterface<Brand> {
+  listenTo() {
+    return Brand;
+  }
   async afterLoad(entity: Brand) {
     returnImageUrlInResoinse<Brand>({
       entity,

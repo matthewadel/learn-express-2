@@ -8,9 +8,10 @@ import { Category } from "../entities/category.entity";
 
 //it is somethinng like mongoose middle schema.post('init',()=>{}) in get and schema.post('init',()=>{}) in create
 @EventSubscriber()
-export class CategoryGenericSubscriber
-  implements EntitySubscriberInterface<Category>
-{
+export class CategorySubscriber implements EntitySubscriberInterface<Category> {
+  listenTo() {
+    return Category;
+  }
   // works in get and update
   async afterLoad(entity: Category) {
     returnImageUrlInResoinse<Category>({
