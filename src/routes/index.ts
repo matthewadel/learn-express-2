@@ -11,6 +11,7 @@ import WishlistRouter from "./wishlist.route";
 import AddresstRouter from "./address.route";
 import CityRouter from "./city.route";
 import CouponRouter from "./coupon.route";
+import CartRouter from "./cart.route";
 
 const router = Router();
 
@@ -26,5 +27,6 @@ router.use("/wishlist", WishlistRouter);
 router.use("/address", AddresstRouter);
 router.use("/city", CityRouter);
 router.use("/coupon", CouponRouter);
+router.use("/cart", CartRouter);
 
 export default router;

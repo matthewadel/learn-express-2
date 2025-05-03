@@ -35,6 +35,10 @@ export class CouponsService {
     return await findOneBy<Coupon>(Coupon, { name, checkExistence: true });
   }
 
+  async getCouponByNamewithourCheckExistence(name: string): Promise<Coupon> {
+    return await findOneBy<Coupon>(Coupon, { name });
+  }
+
   async updateCoupon(
     id: number,
     body: UpdateCouponBody["body"]

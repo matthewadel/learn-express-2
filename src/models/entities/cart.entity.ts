@@ -1,9 +1,5 @@
 // handle delete cascade
 
-// - the user can have multiple carts (user - cart one to many)
-// - (product - cart) many to many, the table has total price and price after discount
-// - cartProduct is the joint table and has quantity, price, color (one to one with color table)
-
 // - if the user added a new product to his cart for the first time, a new row in cart table will be created
 // - if the product with the same color already exist in the cart, we will just increase the quantity
 // - if the product has different color or different price, we will add a new product to the cart
@@ -14,7 +10,8 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
-  OneToMany
+  OneToMany,
+  Column
 } from "typeorm";
 import { User } from "./user.entity";
 import { CartProducts } from "./cartProducts.entity";
@@ -31,6 +28,9 @@ export class Cart {
     cascade: true
   })
   cartProducts!: CartProducts[];
+
+  @Column("float", { default: 0 })
+  totalPrice!: number;
 
   @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   created_at!: Date;

@@ -24,7 +24,7 @@ export class CartProducts {
   @JoinColumn({ name: "product_id" })
   product!: Product;
 
-  @Column("int")
+  @Column("int", { default: 1 })
   quantity!: number;
 
   @Column("float")
