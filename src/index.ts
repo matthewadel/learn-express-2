@@ -1,5 +1,5 @@
 import "dotenv/config";
-import express, { NextFunction, Request, Response } from "express";
+import express from "express";
 import morgan from "morgan";
 import { initializeDB } from "./models";
 import rootRouter from "./routes";
@@ -11,8 +11,8 @@ import cors from "cors";
 import compression from "compression";
 import rateLimit from "express-rate-limit";
 import hpp from "hpp";
-// @ts-expect-error this library has not definition file
-import { xss } from "express-xss-sanitizer";
+
+// import { xss } from "express-xss-sanitizer";
 
 // this block must be in the same order
 const app = express();
@@ -20,7 +20,7 @@ const app = express();
 app.use(express.json());
 app.use(hpp());
 app.use(cors());
-app.use(xss());
+// app.use(xss());
 app.use(compression());
 app.use(express.static(path.join(__dirname, "uploads")));
 
@@ -39,7 +39,7 @@ if (getEnv().NODE_ENV === "development") {
 
 initializeDB().then(() => {
   app.use("/api", limiter, rootRouter);
-  app.all("/*splat", (req: Request, res: Response, next: NextFunction) => {
+  app.all("/*splat", () => {
     throw new NotFoundError("Route not found");
     // next({ success: false, message: "Route not found" });
   });

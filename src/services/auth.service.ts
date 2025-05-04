@@ -1,14 +1,14 @@
 import { z } from "zod";
-import { UsersService } from "./users.service";
+import { UsersService } from "@/services";
 import jwt from "jsonwebtoken";
-import { authSchema } from "../schemas";
+import { authSchema } from "@/schemas";
 import { User, UserRoles } from "../models";
-import { NotAuthenticatedError, ServerError } from "../utils";
+import { NotAuthenticatedError, ServerError } from "@/utils";
 import bcrypt from "bcryptjs";
-import { AppDataSource } from "../models";
-import { getEnv } from "../utils";
-import { hashString } from "../utils";
-import { EmailService } from "./email.service";
+import { AppDataSource } from "@/models";
+import { getEnv } from "@/utils";
+import { hashString } from "@/utils";
+import { EmailService } from "@/services";
 
 type registerBody = z.infer<typeof authSchema.register>;
 type loginBody = z.infer<typeof authSchema.login>;
@@ -109,7 +109,8 @@ export class AuthService {
       { userId: user.id, role: user.role },
       getEnv().JWT_SECRET as string,
       {
-        expiresIn: getEnv().JWT_EXPIRES_IN
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        expiresIn: getEnv().JWT_EXPIRES_IN as any
       }
     );
   }
