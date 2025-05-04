@@ -9,6 +9,7 @@ import { getEnv } from "./utils";
 import { NotFoundError } from "./utils";
 import cors from "cors";
 import compression from "compression";
+import rateLimit from "express-rate-limit";
 
 // this block must be in the same order
 const app = express();
@@ -18,12 +19,21 @@ app.use(cors());
 app.use(compression());
 app.use(express.static(path.join(__dirname, "uploads")));
 
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  limit: 50, // Limit each IP to 50 requests per `window` (here, per 15 minutes).
+  standardHeaders: "draft-8", // draft-6: `RateLimit-*` headers; draft-7 & draft-8: combined `RateLimit` header
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
+  message: "Too many requests, please try again after 15 minutes"
+  // store: ... , // Redis, Memcached, etc. See below.
+});
+
 if (getEnv().NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
 initializeDB().then(() => {
-  app.use("/api", rootRouter);
+  app.use("/api", limiter, rootRouter);
   app.all("/*splat", (req: Request, res: Response, next: NextFunction) => {
     throw new NotFoundError("Route not found");
     // next({ success: false, message: "Route not found" });
