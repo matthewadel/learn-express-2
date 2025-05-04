@@ -1,9 +1,9 @@
 import { z } from "zod";
 import { getALlItemsValidationWithPagination } from "../utils";
 
-const createCoupon = z
-  .object({
-    body: z.object({
+const createCoupon = z.object({
+  body: z
+    .object({
       name: z
         .string({ required_error: "Name is required" })
         .min(3, { message: "Name must be at least 3 characters long" })
@@ -20,14 +20,12 @@ const createCoupon = z
         required_error: "Discount type is required"
       })
     })
-  })
-  .strict();
+    .strict()
+});
 
-const updateCoupon = z
-  .object({
-    body: createCoupon.shape.body.deepPartial()
-  })
-  .strict();
+const updateCoupon = z.object({
+  body: createCoupon.shape.body.deepPartial().strict()
+});
 
 const getAllCoupons = getALlItemsValidationWithPagination(
   createCoupon.shape.body.shape

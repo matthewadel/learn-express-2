@@ -1,9 +1,9 @@
 import { z } from "zod";
 import { getALlItemsValidationWithPagination } from "../utils";
 
-const createProductSchema = z
-  .object({
-    body: z.object({
+const createProductSchema = z.object({
+  body: z
+    .object({
       title: z
         .string({ required_error: "title is required" })
         .min(3, { message: "title must be at least 3 characters long" })
@@ -157,19 +157,18 @@ const createProductSchema = z
         })
         .optional()
     })
-  })
-  .strict();
+    .strict()
+});
 
-const updateProductSchema = z
-  .object({
-    body: z
-      .object({
-        ...createProductSchema.shape.body.shape,
-        deletedImagesIds: z.array(z.number()).optional()
-      })
-      .partial()
-  })
-  .strict();
+const updateProductSchema = z.object({
+  body: z
+    .object({
+      ...createProductSchema.shape.body.shape,
+      deletedImagesIds: z.array(z.number()).optional()
+    })
+    .partial()
+    .strict()
+});
 
 const getAllProducts = getALlItemsValidationWithPagination(
   createProductSchema.shape.body.shape

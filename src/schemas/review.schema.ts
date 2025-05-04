@@ -1,9 +1,9 @@
 import { z } from "zod";
 import { getALlItemsValidationWithPagination } from "../utils";
 
-const createReview = z
-  .object({
-    body: z.object({
+const createReview = z.object({
+  body: z
+    .object({
       title: z
         .string({ required_error: "Title is required" })
         .min(3, { message: "Title must be at least 3 characters long" })
@@ -16,14 +16,12 @@ const createReview = z
         .number({ required_error: "Product ID is required" })
         .positive({ message: "Product ID must be a positive number" })
     })
-  })
-  .strict();
+    .strict()
+});
 
-const updateReview = z
-  .object({
-    body: createReview.shape.body.deepPartial()
-  })
-  .strict();
+const updateReview = z.object({
+  body: createReview.shape.body.deepPartial().strict()
+});
 
 const getAllReviews = getALlItemsValidationWithPagination(
   createReview.shape.body.shape

@@ -1,21 +1,19 @@
 import { z } from "zod";
 import { getALlItemsValidationWithPagination } from "../utils";
 
-const createCity = z
-  .object({
-    body: z.object({
+const createCity = z.object({
+  body: z
+    .object({
       name: z
         .string({ required_error: "Name is required" })
         .min(1, { message: "Name must be at least 1 character long" })
     })
-  })
-  .strict();
+    .strict()
+});
 
-const updateCity = z
-  .object({
-    body: createCity.shape.body.deepPartial()
-  })
-  .strict();
+const updateCity = z.object({
+  body: createCity.shape.body.deepPartial().strict()
+});
 
 const getAllCities = getALlItemsValidationWithPagination(
   createCity.shape.body.shape

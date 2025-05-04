@@ -1,9 +1,9 @@
 import { z } from "zod";
 import { getALlItemsValidationWithPagination } from "../utils";
 
-const createSubCategory = z
-  .object({
-    body: z.object({
+const createSubCategory = z.object({
+  body: z
+    .object({
       name: z
         .string({ required_error: "Name is required" })
         .min(3, { message: "Name must be at least 3 characters long" })
@@ -15,14 +15,12 @@ const createSubCategory = z
         })
         .positive({ message: "Parent Category ID must be a positive number" })
     })
-  })
-  .strict();
+    .strict()
+});
 
-const updateSubCategory = z
-  .object({
-    body: createSubCategory.shape.body.deepPartial()
-  })
-  .strict();
+const updateSubCategory = z.object({
+  body: createSubCategory.shape.body.deepPartial().strict()
+});
 
 const getAllSubCategories = getALlItemsValidationWithPagination(
   createSubCategory.shape.body.shape

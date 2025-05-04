@@ -1,9 +1,9 @@
 import { z } from "zod";
 import { PaymentMethodTypes } from "../models/entities/order.entity";
 
-const createOrder = z
-  .object({
-    body: z.object({
+const createOrder = z.object({
+  body: z
+    .object({
       cartId: z.number({ required_error: "Cart ID is required" }),
       paymentMethod: z
         .enum(Object.values(PaymentMethodTypes) as [string, ...string[]])
@@ -11,8 +11,8 @@ const createOrder = z
       copoun: z.string().optional(),
       address_id: z.number()
     })
-  })
-  .strict();
+    .strict()
+});
 
 export const orderSchema = {
   createOrder
