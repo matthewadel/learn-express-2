@@ -11,12 +11,16 @@ import cors from "cors";
 import compression from "compression";
 import rateLimit from "express-rate-limit";
 import hpp from "hpp";
+// @ts-expect-error this library has not definition file
+import { xss } from "express-xss-sanitizer";
+
 // this block must be in the same order
 const app = express();
 
 app.use(express.json());
 app.use(hpp());
 app.use(cors());
+app.use(xss());
 app.use(compression());
 app.use(express.static(path.join(__dirname, "uploads")));
 
